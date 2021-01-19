@@ -9,6 +9,8 @@ package frc.robot;
 
 import java.math.BigDecimal;
 
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -213,4 +215,21 @@ public final class Constants
     public static final double SHOOTER_ERROR_TOLERANCE = 0.5;
 
     public static final double ENC_TOLERANCE = 0.5;
+
+
+
+
+
+    /************************* MOTION PROFILING **********************/
+    public static final double startX = 0;
+    public static final double startY = 0;
+    public static final Rotation2d startRotation = new Rotation2d(0);
+
+    public static final Translation2d testWaypoint = new Translation2d(0, 0);
+
+    public static final double endX = 0;
+    public static final double endY = 0;
+    public static final Rotation2d endRotation = new Rotation2d(0);
+
+
 }

@@ -127,12 +127,16 @@ public class RobotContainer
 
   private static Ultrasonic ultra;
 
+  private static Pose2d start;
+  private static Pose2d end;
+  private static ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
+  private static MotionProfile motionProfile;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() 
   {
-
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
@@ -177,21 +181,17 @@ public class RobotContainer
 
     //creating a profile
     //COUNTER CLOCKWISE is POSITIVE, CLOCKWISE is NEGATIVE
-    // motion = new MotionProfile(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(0, 2, new Rotation2d(45)), new ArrayList<Translation2d>());
+    start = new Pose2d(Constants.startX, Constants.startY, Constants.startRotation);
+    end = new Pose2d(Constants.endX, Constants.endY, Constants.endRotation);
+    waypoints.add(Constants.testWaypoint);
+    motionProfile = new MotionProfile(start, end, waypoints);
 
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
-
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
-
     shooter = new Shooter(shooterMotorTop, shooterMotorBottom);
 
     ultra = new Ultrasonic(22, 23);
     ultra.setAutomaticMode(true);
-
-    
-    
-    // cs = new ColorSensorV3(i2cport);
-    // colorSensor = new ColorSensor(colorMotor, cs);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -218,9 +218,6 @@ public class RobotContainer
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
 
-    // rotationControl = new JoystickButton(joy, Constants.ROTATION_CONTROL);
-    // positionControl = new JoystickButton(joy, Constants.POSITION_CONTROL);
-
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
@@ -231,9 +228,6 @@ public class RobotContainer
     aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    
-    // rotationControl.whenPressed(new RotationControl());
-    // positionControl.whenPressed(new TurnToColor());
   }
 
 
@@ -243,7 +237,11 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {return new ShooterAuton();}
+  public Command getAutonomousCommand() 
+  {
+    return motionProfile;
+  }
+
   public static DriveTrain getDriveTrain(){return driveTrain;}
   public static SpeedControllerGroup getLeftSCG(){return leftDrive;}
   public static SpeedControllerGroup getRightSCG(){return rightDrive;}
