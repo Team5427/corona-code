@@ -225,10 +225,10 @@ public final class Constants
     public static final double startY = 0;
     public static final Rotation2d startRotation = new Rotation2d(0);
 
-    public static final Translation2d testWaypoint = new Translation2d(0, 0);
+    public static final Translation2d testWaypoint = new Translation2d(0, 1);
 
     public static final double endX = 0;
-    public static final double endY = 0;
+    public static final double endY = 2;
     public static final Rotation2d endRotation = new Rotation2d(0);
 
 

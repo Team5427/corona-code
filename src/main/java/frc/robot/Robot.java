@@ -74,8 +74,8 @@ public class Robot extends TimedRobot
     // SmartDashboard.putNumber("AHRS X Speed", RobotContainer.getAHRS().getVelocityX());
     // SmartDashboard.putNumber("AHRS Y Speed", RobotContainer.getAHRS().getVelocityY());
     // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getAngle());
-    // SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
-    // SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
+    SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
+    SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
     // SmartDashboard.putNumber("Average Distance", RobotContainer.getDriveTrain().getAvgDistance());
     // SmartDashboard.putNumber("Velocity", RobotContainer.getDriveTrain().getAvgRate());
     SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
@@ -83,6 +83,9 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
     SmartDashboard.putNumber("Balls In", RobotContainer.ballsIn);
     SmartDashboard.putNumber("Balls Out", RobotContainer.ballsOut);
+
+    SmartDashboard.putNumber("Shooter top enc", RobotContainer.getShooter().getTopEnc().getDistance());
+    SmartDashboard.putNumber("Shooter bot enc", RobotContainer.getShooter().getBottomEnc().getDistance());
     //System.out.println(pdp.getCurrent(2) + ": current :" + pdp.getCurrent(13));
 
     SmartDashboard.putNumber("Ultrasonic", RobotContainer.getUltrasonic().getRangeInches());

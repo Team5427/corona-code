@@ -91,6 +91,8 @@ public class RobotContainer
   private static Button stopAimbot;
   private static Button tiltAuto;
 
+  private static Button moveStraightButton;
+
   private final SpeedController frontLeft, rearLeft;
   private final SpeedController frontRight,rearRight;
   
@@ -120,6 +122,9 @@ public class RobotContainer
   private static SpeedController shooterMotorBottom;
 
   private static Shooter shooter;
+
+  private static Encoder shooterTopEnc;
+  private static Encoder shooterBottomEnc;
 
   private static SpeedController tiltMotor;
   private static DigitalInput tiltSwitch;
@@ -170,7 +175,7 @@ public class RobotContainer
     ahrs = new AHRS(SPI.Port.kMXP);
 
     //encoders have 1440 as PPR and 360 CPR
-    encRight = new Encoder(4, 5);
+    encRight = new Encoder(5, 4);
     encRight.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
     //encRight.setReverseDirection(true);
     encLeft = new Encoder(6, 7);
@@ -186,9 +191,13 @@ public class RobotContainer
     waypoints.add(Constants.testWaypoint);
     motionProfile = new MotionProfile(start, end, waypoints);
 
+    shooterTopEnc = new Encoder(10, 11);
+    shooterBottomEnc = new Encoder(12, 13);
+
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
-    shooter = new Shooter(shooterMotorTop, shooterMotorBottom);
+    shooter = new Shooter(shooterMotorTop, shooterMotorBottom, shooterTopEnc, shooterBottomEnc);
+
 
     ultra = new Ultrasonic(22, 23);
     ultra.setAutomaticMode(true);
@@ -218,6 +227,8 @@ public class RobotContainer
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
 
+    moveStraightButton = new JoystickButton(joy, 7);
+
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
@@ -228,6 +239,8 @@ public class RobotContainer
     aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
+
+    moveStraightButton.whenPressed(new MoveStraight(2));
   }
 
 
@@ -239,7 +252,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand() 
   {
-    return new MoveStraight(3.0);
+    return new MoveStraight(2.0);
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

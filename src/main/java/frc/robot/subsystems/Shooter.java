@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,11 +17,15 @@ public class Shooter extends SubsystemBase
 {
     private SpeedController shooterMotorTop;
     private SpeedController shooterMotorBottom;
+    private Encoder shooterTopEnc;
+    private Encoder shooterBottomEnc;
     
-    public Shooter(SpeedController shooterMotorTop, SpeedController shooterMotorBottom)
+    public Shooter(SpeedController shooterMotorTop, SpeedController shooterMotorBottom, Encoder top, Encoder bottom)
     {
         this.shooterMotorTop = shooterMotorTop;
         this.shooterMotorBottom = shooterMotorBottom;
+        shooterTopEnc = top;
+        shooterBottomEnc = bottom;
     }
 
     public SpeedController getShooterMotorTop()
@@ -31,6 +36,16 @@ public class Shooter extends SubsystemBase
     public SpeedController getShooterMotorBottom()
     {
         return shooterMotorBottom;
+    }
+
+    public Encoder getTopEnc()
+    {
+        return shooterTopEnc;
+    }
+
+    public Encoder getBottomEnc()
+    {
+        return shooterBottomEnc;
     }
 
     public void moveShooter(double speed)
