@@ -77,13 +77,7 @@ public class VisionMove extends CommandBase {
   @Override
   public void end(boolean interrupted)
   {
-    double seconds = 1;
     driveTrain.stop();
-    double start = Timer.getFPGATimestamp();
-    while(Timer.getFPGATimestamp()-start<seconds)
-    {
-
-    }
   }
 
   // Returns true when the command should end.
@@ -93,7 +87,7 @@ public class VisionMove extends CommandBase {
     double size = table.getEntry("size").getDouble(999999);
     boolean targetExists = table.getEntry("targetExists").getBoolean(false);
 
-    if(RobotContainer.getJoy().getRawButtonPressed(9))
+    if(RobotContainer.getJoy().getRawButtonPressed(9))//??
       return true;
       
     if(!targetExists)

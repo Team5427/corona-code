@@ -270,4 +270,5 @@ public class RobotContainer
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
   public Command getTurn(){ return new PointTurn(90);}
+  public static Encoder getTop(){ return shooterTopEnc;}
 }

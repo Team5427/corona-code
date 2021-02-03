@@ -28,16 +28,14 @@ public class VisionTurn extends CommandBase {
   NetworkTableInstance inst;
   NetworkTable table;
   private int attempt =0;
-  double dist;
-  double bsd;
+  double distanceFromCenter; // distance of center of target to center of camera
+  double biggestSideHeight; //records size (in height) of larger side of target (left or right)
   boolean angledCentered = false;
   double newDistFromCenter;
   double newCenter;
   double bias = 0;
   double constant = 4;
 
-  private double startTime;
-  private double currTime;
   /**
    * Creates a new MoveStraight.
    */
@@ -47,7 +45,6 @@ public class VisionTurn extends CommandBase {
   {
     addRequirements(RobotContainer.getDriveTrain());
     this.bias = bias;
-    startTime = currTime = 0;
 
   }
 
@@ -59,43 +56,35 @@ public class VisionTurn extends CommandBase {
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("vision");
 
-    double seconds = 0.2;
-    double start = Timer.getFPGATimestamp();
-    while(Timer.getFPGATimestamp()-start < seconds)
-    {
-    }
-    startTime = currTime = Timer.getFPGATimestamp();
   }
 
   @Override
   public void execute() 
   {
-    currTime = Timer.getFPGATimestamp();
-    dist = table.getEntry("targetDistanceFromCenter").getDouble(0);
-    dist -=bias;
-    bsd = table.getEntry("biggestSideDifference").getDouble(0);
-    System.out.println(dist);
+    distanceFromCenter = table.getEntry("targetDistanceFromCenter").getDouble(0);
+    distanceFromCenter -=bias;
+    biggestSideHeight = table.getEntry("biggestSideDifference").getDouble(0);
     boolean targetExists = table.getEntry("targetExists").getBoolean(false);
-    dist -=4;
+    distanceFromCenter -= 4;
 
     
     if(!targetExists)
     driveTrain.stop();
  
-    else if(bsd<25)
+    else if(biggestSideHeight < 25)
     {
 
-      if(dist>0)
+      if(distanceFromCenter > 0)
       {
-        if(dist>55)
+        if(distanceFromCenter > 55)
           driveTrain.tankDrive(-.15, .15);
         else
           driveTrain.tankDrive(-.13, .13);
       }
 
-      else if(dist<0)
+      else if(distanceFromCenter < 0)
       {
-        if(dist<-55)
+        if(distanceFromCenter < -55)
           driveTrain.tankDrive(.15, -.15);
         else
           driveTrain.tankDrive(.13, -.13);
@@ -103,21 +92,21 @@ public class VisionTurn extends CommandBase {
 
     }
 
-    else if(dist>0)
+    else if(distanceFromCenter > 0)
     {
-      if(dist<25)
+      if(distanceFromCenter < 25)
         driveTrain.tankDrive(-.14, .14);
-      if(dist>60)
+      if(distanceFromCenter > 60)
         driveTrain.tankDrive(-.16, .16);
       else
         driveTrain.tankDrive(-.15, .15);
     }
 
-    else if(dist<0)
+    else if(distanceFromCenter < 0)
     {
-      if(dist>-25)
+      if(distanceFromCenter > -25)
         driveTrain.tankDrive(.14,- .14);
-      if(dist<-60)
+      if(distanceFromCenter < -60)
         driveTrain.tankDrive(.16, -.16);
       else
         driveTrain.tankDrive(.15, -.15);
@@ -137,27 +126,17 @@ public class VisionTurn extends CommandBase {
   public boolean isFinished()
   {
     SmartDashboard.putNumber("attempt", attempt);
-    boolean centered = table.getEntry("isTargetCentered").getBoolean(false);
     double proportion = table.getEntry("proportion").getDouble(1);
-    dist = table.getEntry("targetDistanceFromCenter").getDouble(0);
-    dist-=4;
-    //System.out.println("BEFORE BIAS:" +dist);
-    dist -=bias;
-    dist= Math.abs(dist);
+    distanceFromCenter = table.getEntry("targetDistanceFromCenter").getDouble(0);
+    distanceFromCenter -= 4;
+    distanceFromCenter -=bias;
+    distanceFromCenter = Math.abs(distanceFromCenter);
    
 
-    // if(RobotContainer.getJoy().getY() != 0 || RobotContainer.getJoy().getZ() != 0)
-    //   {return true;}
-
-    // System.out.println("dist:"+dist);
-    
-    // if( currTime - startTime >= 8.0)
-    //   {return true;}
-
-    if(proportion>.9 && dist<3+ (constant*proportion))
+    if(proportion>.9 && distanceFromCenter < 3 + (constant*proportion))
        {return true;}
 
-    if(dist<3)
+    if(distanceFromCenter < 3)
       {return true;}
 
     return false;

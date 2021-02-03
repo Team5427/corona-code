@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Transport extends SubsystemBase
 {
-    public static double proximityVoltage;
-    private AnalogInput proximitySensor;
-    public static double proximityVoltageTwo;
-    private AnalogInput proximitySensorTwo;
+    public static double sensorOneVoltage;
+    private AnalogInput sensorOne;
+    public static double sensorTwoVoltage;
+    private AnalogInput sensorTwo;
     private SpeedController transportMotor;  
     public static boolean firstSensor = false;
     public static boolean secondSensor = false;
@@ -22,12 +22,12 @@ public class Transport extends SubsystemBase
     private double firstCount = 0;
    
     
-    public Transport (SpeedController transportMotor, AnalogInput proximitySensor, AnalogInput proximitySensorTwo) 
+    public Transport (SpeedController transportMotor, AnalogInput sensorOne, AnalogInput sensorTwo) 
     {
-        this.proximitySensor =  proximitySensor;
-        this.proximitySensorTwo = proximitySensorTwo;
-        proximityVoltage = getDistance();
-        proximityVoltageTwo = getDistanceTwo();
+        this.sensorOne =  sensorOne;
+        this.sensorTwo = sensorTwo;
+        sensorOneVoltage = sensorOneDistance();
+        sensorTwoVoltage = sensorTwoDistance();
         this.transportMotor = transportMotor;
 
     }
@@ -42,51 +42,56 @@ public class Transport extends SubsystemBase
         transportMotor.set(speed);
     }
 
-    public double getDistance(){
+    public double sensorOneDistance(){
         
-        double distance = (1/proximitySensor.getVoltage())*6.1111126 * 1/2.54;
+        double distance = (1/sensorOne.getVoltage())*6.1111126 * 1/2.54;
         return distance;
     }
 
-    public double getDistanceTwo()
+    public double sensorTwoDistance()
     {
-        double distance = (1/proximitySensorTwo.getVoltage())*6.1111126 * 1/2.54;
+        double distance = (1/sensorTwo.getVoltage())*6.1111126 * 1/2.54;
         return distance;
     }
+
+    // public boolean intakeCovered()
+    // {
+    //     return 
+    // }
     
     @Override
     public void periodic()
     {
-        proximityVoltage = getDistance();
-        // proximityVoltageTwo = getDistanceTwo();
+        // proximityVoltage = getDistance();
+        // // proximityVoltageTwo = getDistanceTwo();
 
-        //something enters the first sensor
-        if(proximityVoltage <= Constants.PROXIMITY_COVERED)
-        {
-            firstCount++;
+        // //something enters the first sensor
+        // if(proximityVoltage <= Constants.PROXIMITY_COVERED)
+        // {
+        //     firstCount++;
 
-            if(firstCount >= 3)
-            {
-                System.out.println("ENTERED");
-                firstSensor = true;
-                RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_INTEGRATED_SPEED);
-            }
-        }
-        else
-        {
-            firstCount = 0;
-        }
+        //     if(firstCount >= 3)
+        //     {
+        //         System.out.println("ENTERED");
+        //         firstSensor = true;
+        //         RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_INTEGRATED_SPEED);
+        //     }
+        // }
+        // else
+        // {
+        //     firstCount = 0;
+        // }
 
-        //something leaves the first sensor
-        if(firstSensor && proximityVoltage >= Constants.PROXIMITY_UNCOVERED)
-        {
-            RobotContainer.ballsIn++;
-            firstSensor = false;
-        }
-        if(!shooterPressed && proximityVoltage >= Constants.PROXIMITY_UNCOVERED)
-        {
-            RobotContainer.getTransport().stop();
-        }
+        // //something leaves the first sensor
+        // if(firstSensor && proximityVoltage >= Constants.PROXIMITY_UNCOVERED)
+        // {
+        //     RobotContainer.ballsIn++;
+        //     firstSensor = false;
+        // }
+        // if(!shooterPressed && proximityVoltage >= Constants.PROXIMITY_UNCOVERED)
+        // {
+        //     RobotContainer.getTransport().stop();
+        // }
 
         // //something enters the second sensor
         // if(proximityVoltageTwo <= Constants.PROXIMITY_COVERED)
