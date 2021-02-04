@@ -193,6 +193,7 @@ public class RobotContainer
 
     shooterTopEnc = new Encoder(10, 11);
     shooterBottomEnc = new Encoder(12, 13);
+    System.out.println("I just lost the game");
 
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
