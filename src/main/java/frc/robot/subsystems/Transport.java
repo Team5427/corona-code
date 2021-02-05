@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.MoveTransportIntake;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Transport extends SubsystemBase
@@ -68,6 +69,12 @@ public class Transport extends SubsystemBase
     {
         intakeVoltage = getDistance();
         transportVoltage = getDistanceTwo();
+
+        if(getIntakeCovered())
+        {
+            new MoveTransportIntake();            
+        }
+
     }
 
 }
