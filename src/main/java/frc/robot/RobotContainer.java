@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.FindProximity;
 import frc.robot.commands.MotionProfile;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
@@ -137,6 +138,8 @@ public class RobotContainer
   private static ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
   private static MotionProfile motionProfile;
 
+  private static Button proximityDistance;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -147,7 +150,7 @@ public class RobotContainer
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
     
     frontRight = new WPI_VictorSPX(Constants.RIGHT_BOTTOM_MOTOR);
-    rearRight = new WPI_VictorSPX(Constants.RIGHT_BOTTOM_MOTOR);
+    rearRight = new WPI_VictorSPX(Constants.RIGHT_TOP_MOTOR);
     rightDrive = new SpeedControllerGroup(frontRight, rearRight);
 
     drive = new DifferentialDrive(leftDrive, rightDrive);
@@ -227,8 +230,7 @@ public class RobotContainer
     aimbot = new JoystickButton(joy, 11);
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
-
-    moveStraightButton = new JoystickButton(joy, 7);
+    proximityDistance = new JoystickButton(joy, 12);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -241,7 +243,7 @@ public class RobotContainer
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
 
-    moveStraightButton.whenPressed(new MoveStraight(2));
+    proximityDistance.whenPressed(new FindProximity());
   }
 
 

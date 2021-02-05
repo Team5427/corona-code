@@ -52,11 +52,22 @@ public class Transport extends SubsystemBase
         double distance = (1/transportProximity.getVoltage())*6.1111126 * 1/2.54;
         return distance;
     }
+
+    public boolean getIntakeCovered()
+    {
+        return intakeVoltage < 1.7;
+    }
+
+    public boolean getTransportCovered()
+    {
+        return transportVoltage < 1.5;
+    }
     
     @Override
     public void periodic()
     {
-        
+        intakeVoltage = getDistance();
+        transportVoltage = getDistanceTwo();
     }
 
 }

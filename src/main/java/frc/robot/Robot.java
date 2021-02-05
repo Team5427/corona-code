@@ -40,7 +40,8 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
   private static double proximityVoltage;
   PowerDistributionPanel pdp = new PowerDistributionPanel(16);
-
+  public static double lowest;
+  public static double highest;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -89,6 +90,13 @@ public class Robot extends TimedRobot
     //System.out.println(pdp.getCurrent(2) + ": current :" + pdp.getCurrent(13));
 
     SmartDashboard.putNumber("Ultrasonic", RobotContainer.getUltrasonic().getRangeInches());
+
+    SmartDashboard.putNumber("Prox3 Low", lowest);
+    SmartDashboard.putNumber("Prox3 High", highest);
+
+    SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
+    SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
+    SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
   }
 
   /**
@@ -96,6 +104,8 @@ public class Robot extends TimedRobot
    */
   @Override
   public void disabledInit() {
+    lowest = 0;
+    highest = 0;
   }
 
   @Override
@@ -135,6 +145,8 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    lowest = 0;
+    highest = 0;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

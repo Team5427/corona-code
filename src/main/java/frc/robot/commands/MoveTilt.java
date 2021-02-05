@@ -28,7 +28,7 @@ public class MoveTilt extends CommandBase
         {
             RobotContainer.getTilt().moveTilt(speed);
         }
-        System.out.println("initalized");
+        //System.out.println("initalized");
     }
 
     @Override
