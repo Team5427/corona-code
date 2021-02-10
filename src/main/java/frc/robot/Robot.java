@@ -87,7 +87,6 @@ public class Robot extends TimedRobot
 
     SmartDashboard.putNumber("Shooter top enc", RobotContainer.getShooter().getTopEnc().getDistance());
     SmartDashboard.putNumber("Shooter bot enc", RobotContainer.getShooter().getBottomEnc().getDistance());
-    //System.out.println(pdp.getCurrent(2) + ": current :" + pdp.getCurrent(13));
 
     SmartDashboard.putNumber("Ultrasonic", RobotContainer.getUltrasonic().getRangeInches());
 

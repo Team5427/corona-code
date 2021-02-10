@@ -2,7 +2,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -56,7 +59,7 @@ public class Transport extends SubsystemBase
 
     public boolean getIntakeCovered()
     {
-        return intakeVoltage < 1.7;
+        return intakeVoltage < 3.75;
     }
 
     public boolean getTransportCovered()
@@ -72,7 +75,7 @@ public class Transport extends SubsystemBase
 
         if(getIntakeCovered())
         {
-            new MoveTransportIntake();            
+            CommandScheduler.getInstance().schedule(new MoveTransportIntake());    
         }
 
     }

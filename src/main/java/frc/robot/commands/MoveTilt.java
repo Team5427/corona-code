@@ -39,7 +39,6 @@ public class MoveTilt extends CommandBase
     @Override
     public void execute() 
     {
-        System.out.println(RobotContainer.getTilt().getLimit());
         if(speed > 0)
         {
             if(RobotContainer.getTilt().getLimit())

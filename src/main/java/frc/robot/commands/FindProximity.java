@@ -41,10 +41,6 @@ public class FindProximity extends CommandBase
     }
     public void end(boolean interrupted)
     {
-        // SmartDashboard.putNumber("Prox3 Low", lowest);
-        // SmartDashboard.putNumber("Prox3 High", highest);
-        // System.out.println("Lowest Value : " + lowest);
-        // System.out.println("Higherst Value: " + highest);
         Robot.lowest = this.lowest;
         Robot.highest = this.highest;
     }

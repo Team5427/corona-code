@@ -36,7 +36,6 @@ public class MoveStraight extends CommandBase {
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset();
     startTime = Timer.getFPGATimestamp();
-    //System.out.println("SAD;LFKJAS;LDFKJ");
     //execute();
   }
 
@@ -51,8 +50,8 @@ public class MoveStraight extends CommandBase {
       maxVelocity = velocity;
       maxTime = timediff;
     }
-    System.out.println(RobotContainer.getDriveTrain().getAvgRate()+ ": "+ timediff);
-    driveTrain.tankDrive(1.0, 1.0);
+    System.out.println(RobotContainer.getDriveTrain().getAvgRate()+ "....."+ timediff);
+    driveTrain.tankDrive(-1.0, -1.0);
   }
 
   // Called once the command ends or is interrupted.

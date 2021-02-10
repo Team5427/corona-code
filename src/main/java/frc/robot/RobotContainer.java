@@ -139,6 +139,7 @@ public class RobotContainer
   private static MotionProfile motionProfile;
 
   private static Button proximityDistance;
+  private static Button moveStraight;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -196,7 +197,6 @@ public class RobotContainer
 
     shooterTopEnc = new Encoder(10, 11);
     shooterBottomEnc = new Encoder(12, 13);
-    System.out.println("I just lost the game");
 
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
@@ -227,10 +227,11 @@ public class RobotContainer
     tiltButtonUp = new JoystickButton(joy, Constants.TILT_BUTTON_UP);
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
     tiltDownButton = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
-    aimbot = new JoystickButton(joy, 11);
+    //aimbot = new JoystickButton(joy, 11);
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
     proximityDistance = new JoystickButton(joy, 12);
+    moveStraightButton = new JoystickButton(joy, 11);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -239,9 +240,10 @@ public class RobotContainer
     tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); //change this timeout number
     shooterTeleop.whileHeld(new MoveShooterTeleop(1.0));
     tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
-    aimbot.whenPressed(new VisionTurn(0));
+    //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
+    moveStraightButton.whenPressed(new MoveStraight(2.0));
 
     proximityDistance.whenPressed(new FindProximity());
   }

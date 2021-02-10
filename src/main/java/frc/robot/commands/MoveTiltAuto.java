@@ -46,7 +46,6 @@ public class MoveTiltAuto extends CommandBase
     @Override
     public void execute() 
     {
-        System.out.println(RobotContainer.getTilt().getLimit());
         if(!isDown)
         {
             if(RobotContainer.getTilt().getLimit())
