@@ -38,6 +38,7 @@ import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveShooterTransport;
 import frc.robot.commands.MoveStraight;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.MoveTransportShooting;
 import frc.robot.commands.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
@@ -73,9 +74,7 @@ public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
 
-  //we will increment this in our commands. 
-  public static int ballsIn = 0;
-  public static int ballsOut = 0;
+  //we will increment this in our commands.
   public static int loop = 0;
   public static boolean canShoot = false;
 
@@ -140,6 +139,7 @@ public class RobotContainer
 
   private static Button proximityDistance;
   private static Button moveStraight;
+  private static Button shooting;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -231,7 +231,7 @@ public class RobotContainer
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
     proximityDistance = new JoystickButton(joy, 12);
-    moveStraightButton = new JoystickButton(joy, 11);
+    shooting = new JoystickButton(joy, 11);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -243,7 +243,7 @@ public class RobotContainer
     //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    moveStraightButton.whenPressed(new MoveStraight(2.0));
+    shooting.whenPressed(new MoveTransportShooting());
 
     proximityDistance.whenPressed(new FindProximity());
   }

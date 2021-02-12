@@ -15,10 +15,8 @@ public class Pulley extends SubsystemBase
     private SpeedController pulleyMotor;
     private AnalogInput pulleyProximity;
     public static boolean sensorThree = false;
-    private boolean timerStarted = false;
-    private double startTime = 0;
-    private double currTime = 0;
-    private double thirdCount = 0;
+    public static double startTime = 0;
+    public static double currTime = 0;
 
     public Pulley(SpeedController pulleyMotor, AnalogInput pulleyProximity)
     {

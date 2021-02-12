@@ -10,20 +10,18 @@ public class MoveTransportIntake extends CommandBase
     public MoveTransportIntake()
     {
         addRequirements(RobotContainer.getTransport());
-        System.out.println("constructor");
     }
 
     @Override
     public void initialize()
     {
-        System.out.println("initialized");
-        RobotContainer.getTransport().moveTransport(-Constants.TRANSPORT_INTEGRATED_SPEED);
+        RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_INTEGRATED_SPEED);
     }
 
     @Override
     public void execute()
     {
-        RobotContainer.getTransport().moveTransport(-Constants.TRANSPORT_INTEGRATED_SPEED);
+        RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_INTEGRATED_SPEED);
     }
 
     @Override

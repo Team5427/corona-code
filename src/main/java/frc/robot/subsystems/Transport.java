@@ -21,8 +21,8 @@ public class Transport extends SubsystemBase
 
     private SpeedController transportMotor;  
     public static boolean firstSensor = false;
-    public static boolean secondSensor = false;
-    public static boolean shooterPressed = false;
+
+    public static int ballCount = 0;
    
     
     public Transport (SpeedController transportMotor, AnalogInput intakeProximity, AnalogInput transportProximity) 
@@ -66,6 +66,11 @@ public class Transport extends SubsystemBase
     {
         return transportVoltage < 1.5;
     }
+
+    public void changeBallCount(int change)
+    {
+        ballCount += change;
+    }
     
     @Override
     public void periodic()
@@ -75,7 +80,7 @@ public class Transport extends SubsystemBase
 
         if(getIntakeCovered())
         {
-            CommandScheduler.getInstance().schedule(new MoveTransportIntake());    
+            CommandScheduler.getInstance().schedule(new MoveTransportIntake());  
         }
 
     }

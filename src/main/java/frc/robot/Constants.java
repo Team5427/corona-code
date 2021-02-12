@@ -81,10 +81,10 @@ public final class Constants
     public static final double TRANSPORT_TELEOP_SPEED = -1.0;
     public static final double PULLEY_TELEOP_SPEED = 1.0;
     public static final double INTAKE_INTEGRATED_SPEED = 0.9;
-    public static final double TRANSPORT_INTEGRATED_SPEED = 0.9;
+    public static final double TRANSPORT_INTEGRATED_SPEED = -0.9;
     public static final double TILT_SPEED = 1.0;
-    public static final double SHOOTER_DOWN_SPEED = 0.9;
-    public static final double SHOOTER_UP_SPEED = 0.9;
+    public static final double SHOOTER_DOWN_SPEED = 0.2;
+    public static final double SHOOTER_UP_SPEED = 0.2;
     public static final double TRANSPORT_SHOOTING_SPEED = 0.7;
     public static final double PULLEY_SHOOTING_SPEED = 0.7;
 

@@ -82,8 +82,6 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
     SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
     SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
-    SmartDashboard.putNumber("Balls In", RobotContainer.ballsIn);
-    SmartDashboard.putNumber("Balls Out", RobotContainer.ballsOut);
 
     SmartDashboard.putNumber("Shooter top enc", RobotContainer.getShooter().getTopEnc().getDistance());
     SmartDashboard.putNumber("Shooter bot enc", RobotContainer.getShooter().getBottomEnc().getDistance());
