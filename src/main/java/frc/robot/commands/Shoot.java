@@ -14,10 +14,12 @@ public class Shoot extends CommandBase
 {
 
   private double startTime, elapsed;
+  private boolean sensorCovered;
 
   /** Creates a new Shoot. */
   public Shoot() 
   {
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.getShooter(), RobotContainer.getPulley(), RobotContainer.getTransport());
   }
@@ -30,6 +32,7 @@ public class Shoot extends CommandBase
     RobotContainer.getPulley().movePulley(Constants.PULLEY_TELEOP_SPEED);
     startTime = Timer.getFPGATimestamp();
     elapsed = 0;
+    sensorCovered = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +42,14 @@ public class Shoot extends CommandBase
     RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_INTEGRATED_SPEED);
     RobotContainer.getPulley().movePulley(Constants.PULLEY_TELEOP_SPEED);
     elapsed = Timer.getFPGATimestamp() - startTime;
+    if(sensorCovered && !RobotContainer.getPulley().getPulleyCovered())
+    {
+      startTime = Timer.getFPGATimestamp();
+      
+    }
+    sensorCovered = RobotContainer.getPulley().getPulleyCovered();
+   
+
   }
 
   // Called once the command ends or is interrupted.
