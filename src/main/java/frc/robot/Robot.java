@@ -94,6 +94,10 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
     SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
     SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
+
+    SmartDashboard.putNumber("Distance", RobotContainer.getDriveTrain().getAvgDistance());
+
+    SmartDashboard.putNumber("Angle", RobotContainer.getAHRS().getYaw());
   }
 
   /**

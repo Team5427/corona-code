@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -186,13 +190,11 @@ public class RobotContainer
     encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
    
     ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
-    waypoints.add(new Translation2d(0, 1));
 
     //creating a profile
     //COUNTER CLOCKWISE is POSITIVE, CLOCKWISE is NEGATIVE
     start = new Pose2d(Constants.startX, Constants.startY, Constants.startRotation);
     end = new Pose2d(Constants.endX, Constants.endY, Constants.endRotation);
-    waypoints.add(Constants.testWaypoint);
     motionProfile = new MotionProfile(start, end, waypoints);
 
     shooterTopEnc = new Encoder(10, 11);
@@ -243,7 +245,7 @@ public class RobotContainer
     //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    shooting.whenPressed(new MoveTransportShooting());
+    shooting.whenPressed(new MoveStraight(4));
 
     proximityDistance.whenPressed(new FindProximity());
   }

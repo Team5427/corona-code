@@ -8,10 +8,13 @@
 package frc.robot;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -27,8 +30,11 @@ public final class Constants
 {
     //****** MOTION PROFILING / DRIVE TRAIN *******/
     //We need to measure these too
-    public static final double MAX_VELOCITY = 1.6333;
-    public static final double MAX_ACCELERATION = 1.0611;
+    public static final double MAX_VELOCITY = 1.60780997667;
+    public static final double MAX_TIME = 1.70935933333;
+    public static final double MAX_ACCELERATION = MAX_VELOCITY / MAX_TIME; // a = v/t
+
+    //i just lost the game
 
     // (% Voltage [-1,1])/(Speed in meters per second) [basically we have to measure this]
     public static final double KV = 1/MAX_VELOCITY;
@@ -50,8 +56,8 @@ public final class Constants
     public static final double Z_ROT_DAMPENING = 0.75;
     public static final double TURN_TOLERANCE =  2;
     public static final double DRIVE_TOLERANCE = 0.5;
-    public static final double DRIVETRAIN_WHEEL_DIAMETER = .1524;
-    public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/1440)/3.68;
+    public static final double DRIVETRAIN_WHEEL_DIAMETER = 6; //in inches
+    public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/256)/12.63;
 
     public static final double INTAKE_PROXIMITY_DIFFERENCE = 2.0;
 
@@ -93,6 +99,8 @@ public final class Constants
 
 
     /*****************Motor ports*****************/
+
+    //i just lost the game
 
     public static final int LEFT_TOP_MOTOR = 14; 
 	public static final int LEFT_BOTTOM_MOTOR = 15;
@@ -225,11 +233,16 @@ public final class Constants
     public static final double startY = 0;
     public static final Rotation2d startRotation = new Rotation2d(0);
 
+    // public static final ArrayList<Translation2d> waypoints = new ArrayList<>();
+    // waypoints.add(new Translation2d(0, 60));
+    // waypoints.add(new Translation2d(30, 60));
+    // waypoints.add(new Translation2d(-90, 30));
+
     public static final Translation2d testWaypoint = new Translation2d(0, 1);
 
     public static final double endX = 0;
-    public static final double endY = 2;
-    public static final Rotation2d endRotation = new Rotation2d(0);
+    public static final double endY = 60;
+    public static final Rotation2d endRotation = new Rotation2d(Units.degreesToRadians(0));
 
 
 }
