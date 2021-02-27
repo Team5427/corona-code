@@ -30,17 +30,11 @@ public final class Constants
 {
     //****** MOTION PROFILING / DRIVE TRAIN *******/
     //We need to measure these too
-    public static final double MAX_VELOCITY = 1.60780997667;
-    public static final double MAX_TIME = 1.70935933333;
-    public static final double MAX_ACCELERATION = MAX_VELOCITY / MAX_TIME; // a = v/t
+     // a = v/t
 
     //i just lost the game
 
-    // (% Voltage [-1,1])/(Speed in meters per second) [basically we have to measure this]
-    public static final double KV = 1/MAX_VELOCITY;
-
-    //influence of acceleration on velocity, just a bias which can be further tested.
-    public static final double KA = 0;
+    
 
     public static final double KP_left = 0.081;
     public static final double KI_left = 0.001352;
@@ -229,6 +223,15 @@ public final class Constants
 
 
     /************************* MOTION PROFILING **********************/
+    public static final double MAX_VELOCITY = 63.29960538071;
+    public static final double MAX_TIME = 1.70935933333;
+    public static final double MAX_ACCELERATION = MAX_VELOCITY / MAX_TIME;
+    // (% Voltage [-1,1])/(Speed in meters per second) [basically we have to measure this]
+    public static final double KV = 1/MAX_VELOCITY;
+
+    //influence of acceleration on velocity, just a bias which can be further tested.
+    public static final double KA = 0;
+
     public static final double startX = 0;
     public static final double startY = 0;
     public static final Rotation2d startRotation = new Rotation2d(0);
