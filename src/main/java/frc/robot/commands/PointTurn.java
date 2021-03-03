@@ -36,7 +36,7 @@ public class PointTurn extends PIDCommand {
         {
           // Use the output here
           RobotContainer.getDriveTrain().tankDrive(output, output);
-          System.out.println(output);
+          // System.out.println(output);
         });
         this.angle = setAngle;
         
@@ -55,7 +55,7 @@ public class PointTurn extends PIDCommand {
   @Override
   public void end (boolean interrupted){
     //System.out.println(RobotContainer.getEncLeft().getDistance());
-    System.out.println(RobotContainer.getAHRS().getAngle());
+    // System.out.println(RobotContainer.getAHRS().getAngle());
     RobotContainer.getAHRS().reset();
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset(); 
@@ -67,7 +67,7 @@ public class PointTurn extends PIDCommand {
   @Override
   public boolean isFinished() {
     double trackError = angle - RobotContainer.getAHRS().getAngle();
-    System.out.println(Math.abs(trackError) < angleTolerance);
+    // System.out.println(Math.abs(trackError) < angleTolerance);
     return Math.abs(trackError) < angleTolerance;
   }
 

@@ -74,7 +74,7 @@ public class VisionTurn extends CommandBase {
     dist = table.getEntry("targetDistanceFromCenter").getDouble(0);
     dist -=bias;
     bsd = table.getEntry("biggestSideDifference").getDouble(0);
-    System.out.println(dist);
+    // System.out.println(dist);
     boolean targetExists = table.getEntry("targetExists").getBoolean(false);
     dist -=4;
 

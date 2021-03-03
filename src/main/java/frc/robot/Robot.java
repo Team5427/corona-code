@@ -7,24 +7,31 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.MoveStraightPID;
 import frc.robot.commands.PointTurn;
 import frc.robot.commands.StraightAndTurn;
+import frc.robot.commands.MotionProfile;
 import frc.robot.commands.MoveStraight;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -123,8 +130,14 @@ public class Robot extends TimedRobot
     // RobotContainer.getAHRS().reset();
     // RobotContainer.getEncLeft().reset();
     // RobotContainer.getEncRight().reset();
+    Pose2d start;
+    Pose2d end;
+    ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
+    start = new Pose2d(Units.inchesToMeters(Constants.startX), Units.inchesToMeters(Constants.startY), Constants.startRotation);
+    end = new Pose2d(Units.inchesToMeters(Constants.endX), Units.inchesToMeters(Constants.endY), Constants.endRotation);
+    MotionProfile motionProfile = new MotionProfile(start, end, waypoints);
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = motionProfile;
 
     if(m_autonomousCommand != null)
     {

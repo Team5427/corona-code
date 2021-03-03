@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.Trajectory.State;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -54,6 +55,7 @@ public class MotionProfile extends CommandBase
         encLeft = RobotContainer.getEncLeft();
         encRight = RobotContainer.getEncRight();
         TrajectoryConfig config = new TrajectoryConfig(Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
+        // System.out.println(waypoints);
         trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config);
     }
 
@@ -93,7 +95,7 @@ public class MotionProfile extends CommandBase
         currentDistance = (encLeft.getDistance() + encRight.getDistance())/2;
 
         //System.out.println("D: "+ currentDistance+" "+ cummulativeDistance);
-        System.out.println("V: "+ encLeft.getRate()+" "+ currentState.velocityMetersPerSecond);
+        // System.out.println("V: "+ encLeft.getRate()+" "+ currentState.velocityMetersPerSecond);
 
         //finds error in robot distance for PD controller
         positionError = cummulativeDistance - currentDistance;

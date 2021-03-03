@@ -51,7 +51,7 @@ public class MoveStraightPID extends PIDCommand {
 
   @Override
   public void end (boolean interrupted){
-    System.out.println(RobotContainer.getDriveTrain().getAvgDistance());
+    // System.out.println(RobotContainer.getDriveTrain().getAvgDistance());
     //RobotContainer.getAHRS().reset();
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset(); 

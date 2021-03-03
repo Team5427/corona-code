@@ -34,23 +34,10 @@ public final class Constants
 
     //i just lost the game
 
-    
-
-    public static final double KP_left = 0.081;
-    public static final double KI_left = 0.001352;
-    public static final double KD_left = 0.28;
-
-    public static final double KP_right = 0.081;
-    public static final double KI_right = 0.001352;
-    public static final double KD_right = 0.28;
-
-    public static final double K_THETA_P = 0.002336;
-    public static final double K_THETA_D = 0;
-
     public static final double Z_ROT_DAMPENING = 0.75;
     public static final double TURN_TOLERANCE =  2;
     public static final double DRIVE_TOLERANCE = 0.5;
-    public static final double DRIVETRAIN_WHEEL_DIAMETER = 6; //in inches
+    public static final double DRIVETRAIN_WHEEL_DIAMETER = 0.1524; //in meters
     public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/256)/12.63;
 
     public static final double INTAKE_PROXIMITY_DIFFERENCE = 2.0;
@@ -223,14 +210,27 @@ public final class Constants
 
 
     /************************* MOTION PROFILING **********************/
-    public static final double MAX_VELOCITY = 63.29960538071;
-    public static final double MAX_TIME = 1.70935933333;
+    public static final double MAX_VELOCITY = Units.inchesToMeters(101.831243);
+    public static final double MAX_TIME = 2.31509296;
     public static final double MAX_ACCELERATION = MAX_VELOCITY / MAX_TIME;
     // (% Voltage [-1,1])/(Speed in meters per second) [basically we have to measure this]
     public static final double KV = 1/MAX_VELOCITY;
 
     //influence of acceleration on velocity, just a bias which can be further tested.
     public static final double KA = 0;
+
+    public static final double KP_left = 0.5;
+    public static final double KI_left = 0;
+    public static final double KD_left = 0;
+
+    public static final double KP_right = 0.5;
+    public static final double KI_right = 0;
+    public static final double KD_right = 0;
+
+    public static final double K_THETA_P = 0;
+    public static final double K_THETA_D = 0;
+
+    //in inches
 
     public static final double startX = 0;
     public static final double startY = 0;
@@ -241,10 +241,10 @@ public final class Constants
     // waypoints.add(new Translation2d(30, 60));
     // waypoints.add(new Translation2d(-90, 30));
 
-    public static final Translation2d testWaypoint = new Translation2d(0, 1);
+    // public static final Translation2d testWaypoint = new Translation2d(0, 1);
 
     public static final double endX = 0;
-    public static final double endY = 60;
+    public static final double endY = -6;
     public static final Rotation2d endRotation = new Rotation2d(Units.degreesToRadians(0));
 
 

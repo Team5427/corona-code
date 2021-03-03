@@ -27,7 +27,7 @@ public class MoveTransportIntake extends CommandBase
     @Override
     public boolean isFinished()
     {
-        System.out.println(!RobotContainer.getTransport().getIntakeCovered());
+        // System.out.println(!RobotContainer.getTransport().getIntakeCovered());
         return !RobotContainer.getTransport().getIntakeCovered();
     }
 

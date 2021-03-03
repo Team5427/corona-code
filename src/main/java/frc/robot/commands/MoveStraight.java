@@ -50,7 +50,7 @@ public class MoveStraight extends CommandBase {
       maxVelocity = velocity;
       maxTime = timediff;
     }
-    System.out.println(RobotContainer.getDriveTrain().getAvgRate()+ "....."+ timediff);
+    // System.out.println(RobotContainer.getDriveTrain().getAvgRate()+ "....."+ timediff);
     driveTrain.tankDrive(-1.0, -1.0);
   }
 
@@ -59,7 +59,13 @@ public class MoveStraight extends CommandBase {
   public void end(boolean interrupted)
   {
     driveTrain.stop();
-    System.out.println(maxVelocity+ ": "+ maxTime);
+    // System.out.println(maxVelocity+ ": "+ maxTime);
+    //101.2511257187744: 1.8536430000000053
+    //102.30077177204211: 2.5554659999999956
+    //101.94183232946264: 2.5361699999999985
+    //101.831243: 2.31509296
+    //43.9858117
+
   }
 
   // Returns true when the command should end.

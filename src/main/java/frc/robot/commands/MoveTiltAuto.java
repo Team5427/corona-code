@@ -69,7 +69,7 @@ public class MoveTiltAuto extends CommandBase
         }
         else
         {
-            System.out.println(currTime - startTime);
+            // System.out.println(currTime - startTime);
             return (currTime - startTime) >= 3.25;
         }
     }

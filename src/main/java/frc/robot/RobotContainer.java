@@ -136,9 +136,9 @@ public class RobotContainer
 
   private static Ultrasonic ultra;
 
-  private static Pose2d start;
-  private static Pose2d end;
-  private static ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
+  public static Pose2d start;
+  public static Pose2d end;
+  public static ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
   private static MotionProfile motionProfile;
 
   private static Button proximityDistance;
@@ -193,9 +193,6 @@ public class RobotContainer
 
     //creating a profile
     //COUNTER CLOCKWISE is POSITIVE, CLOCKWISE is NEGATIVE
-    start = new Pose2d(Constants.startX, Constants.startY, Constants.startRotation);
-    end = new Pose2d(Constants.endX, Constants.endY, Constants.endRotation);
-    motionProfile = new MotionProfile(start, end, waypoints);
 
     shooterTopEnc = new Encoder(10, 11);
     shooterBottomEnc = new Encoder(12, 13);
@@ -245,7 +242,7 @@ public class RobotContainer
     //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    shooting.whenPressed(new MoveStraight(4));
+    shooting.whenPressed(new MoveStraight(3));
 
     proximityDistance.whenPressed(new FindProximity());
   }
@@ -259,7 +256,8 @@ public class RobotContainer
    */
   public Command getAutonomousCommand() 
   {
-    return new MoveStraight(2.0);
+    motionProfile = new MotionProfile(start, end, waypoints);
+    return motion;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
