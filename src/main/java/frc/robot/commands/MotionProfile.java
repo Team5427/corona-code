@@ -55,7 +55,6 @@ public class MotionProfile extends CommandBase
         encLeft = RobotContainer.getEncLeft();
         encRight = RobotContainer.getEncRight();
         TrajectoryConfig config = new TrajectoryConfig(Constants.MAX_VELOCITY, Constants.MAX_ACCELERATION);
-        // System.out.println(waypoints);
         trajectory = TrajectoryGenerator.generateTrajectory(start, waypoints, end, config);
     }
 
