@@ -102,7 +102,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
     SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
-    SmartDashboard.putNumber("Distance", RobotContainer.getDriveTrain().getAvgDistance());
+    SmartDashboard.putNumber("Distance", Units.metersToInches(RobotContainer.getDriveTrain().getAvgDistance()));
 
     SmartDashboard.putNumber("Angle", RobotContainer.getAHRS().getYaw());
   }
@@ -142,6 +142,7 @@ public class Robot extends TimedRobot
     if(m_autonomousCommand != null)
     {
       m_autonomousCommand.schedule();
+      //RobotContainer.getIntake().moveIntake(Constants.INTAKE_INTEGRATED_SPEED);
     }
   }
 
