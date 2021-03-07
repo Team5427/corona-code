@@ -41,12 +41,9 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
  */
 public class Robot extends TimedRobot 
 {
-  
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private static double proximityVoltage;
-  PowerDistributionPanel pdp = new PowerDistributionPanel(16);
   public static double lowest;
   public static double highest;
   
@@ -54,9 +51,6 @@ public class Robot extends TimedRobot
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  private String gameData;
-  //competition code
-
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
@@ -76,24 +70,11 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // SmartDashboard.putNumber("Average velocity", RobotContainer.getDriveTrain().getAvgRate());
-    // SmartDashboard.putNumber("Average LEFT VELOCITY", RobotContainer.getEncLeft().getRate());
-    // SmartDashboard.putNumber("Average RIGHT VELOCITY", RobotContainer.getEncRight().getRate());
-    // SmartDashboard.putNumber("AHRS X Speed", RobotContainer.getAHRS().getVelocityX());
-    // SmartDashboard.putNumber("AHRS Y Speed", RobotContainer.getAHRS().getVelocityY());
-    // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getAngle());
     SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
     SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
-    // SmartDashboard.putNumber("Average Distance", RobotContainer.getDriveTrain().getAvgDistance());
-    // SmartDashboard.putNumber("Velocity", RobotContainer.getDriveTrain().getAvgRate());
     SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
     SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
     SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
-
-    SmartDashboard.putNumber("Shooter top enc", RobotContainer.getShooter().getTopEnc().getDistance());
-    SmartDashboard.putNumber("Shooter bot enc", RobotContainer.getShooter().getBottomEnc().getDistance());
-
-    SmartDashboard.putNumber("Ultrasonic", RobotContainer.getUltrasonic().getRangeInches());
 
     SmartDashboard.putNumber("Prox3 Low", lowest);
     SmartDashboard.putNumber("Prox3 High", highest);
@@ -127,22 +108,12 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    // RobotContainer.getAHRS().reset();
-    // RobotContainer.getEncLeft().reset();
-    // RobotContainer.getEncRight().reset();
-    Pose2d start;
-    Pose2d end;
-    ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
-    start = new Pose2d(Units.inchesToMeters(Constants.startX), Units.inchesToMeters(Constants.startY), Constants.startRotation);
-    end = new Pose2d(Units.inchesToMeters(Constants.endX), Units.inchesToMeters(Constants.endY), Constants.endRotation);
-    MotionProfile motionProfile = new MotionProfile(start, end, waypoints);
-
-    m_autonomousCommand = motionProfile;
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
     {
       m_autonomousCommand.schedule();
-      //RobotContainer.getIntake().moveIntake(Constants.INTAKE_INTEGRATED_SPEED);
+      // RobotContainer.getIntake().moveIntake(Constants.INTAKE_INTEGRATED_SPEED);
     }
   }
 

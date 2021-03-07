@@ -232,9 +232,9 @@ public final class Constants
 
     //in inches
 
-    public static final double startX = 0;
-    public static final double startY = 0;
-    public static final Rotation2d startRotation = new Rotation2d(0);
+    public static final double PATH_A_RED_START_X = 0;
+    public static final double PATH_A_RED_START_Y = 0;
+    public static final Rotation2d PATH_A_RED_START_ROTATION = new Rotation2d(0);
 
     // public static final ArrayList<Translation2d> waypoints = new ArrayList<>();
     // waypoints.add(new Translation2d(0, 60));
@@ -243,9 +243,9 @@ public final class Constants
 
     // public static final Translation2d testWaypoint = new Translation2d(0, 1);
 
-    public static final double endX = 0;
-    public static final double endY = -240;
-    public static final Rotation2d endRotation = new Rotation2d(Units.degreesToRadians(0));
+    public static final double PATH_A_RED_END_X = 0;
+    public static final double PATH_A_RED_END_Y = -240;
+    public static final Rotation2d PATH_A_RED_END_ROTATION = new Rotation2d(Units.degreesToRadians(0));
 
 
 }

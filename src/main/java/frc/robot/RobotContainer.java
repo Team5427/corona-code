@@ -47,6 +47,7 @@ import frc.robot.commands.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.PointTurn;
+import frc.robot.commands.ResetSensors;
 import frc.robot.commands.StopVision;
 import frc.robot.commands.VisionMotion;
 import frc.robot.commands.VisionTurn;
@@ -230,6 +231,7 @@ public class RobotContainer
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
     proximityDistance = new JoystickButton(joy, 12);
+
     shooting = new JoystickButton(joy, 11);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
@@ -242,7 +244,7 @@ public class RobotContainer
     //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    shooting.whenPressed(new MoveStraight(3));
+    shooting.whenPressed(new ResetSensors());
 
     proximityDistance.whenPressed(new FindProximity());
   }
@@ -254,10 +256,17 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() 
+  public static Command getAutonomousCommand() 
   {
-    motionProfile = new MotionProfile(start, end, waypoints);
-    return motion;
+    /********* Galactic Search Path A Red ***********/
+    Pose2d start;
+    Pose2d end;
+    ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
+    start = new Pose2d(Units.inchesToMeters(Constants.PATH_A_RED_START_X), Units.inchesToMeters(Constants.PATH_A_RED_START_Y), Constants.PATH_A_RED_START_ROTATION);
+    end = new Pose2d(Units.inchesToMeters(Constants.PATH_A_RED_END_X), Units.inchesToMeters(Constants.PATH_A_RED_END_Y), Constants.PATH_A_RED_END_ROTATION);
+    MotionProfile motionProfile = new MotionProfile(start, end, waypoints);
+
+    return motionProfile;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
