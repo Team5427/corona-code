@@ -11,6 +11,9 @@ public class DriveTrain extends SubsystemBase
 {
     private SpeedControllerGroup left, right;
 
+    public static double rightSpeed, leftSpeed = 0;
+    public static double rightSpeedHigh, leftSpeedHigh = Constants.AUTONOMOUS_SPEED;
+
     private DifferentialDrive driveBase;
 
     public DriveTrain(SpeedControllerGroup left, SpeedControllerGroup right, DifferentialDrive driveBase)
@@ -20,11 +23,79 @@ public class DriveTrain extends SubsystemBase
         this.driveBase = driveBase;
     }
 
+    public SpeedControllerGroup getLeft()
+    {
+        return left;
+    }
+
+    public SpeedControllerGroup getRight()
+    {
+        return right;
+    }
+
     public void tankDrive(double leftSpeed, double rightSpeed)
     {
-        //System.out.println(leftSpeed);
-        left.set(leftSpeed);
-        right.set(-rightSpeed);
+        driveBase.tankDrive(leftSpeed, rightSpeed);
+    }
+
+    public void rampLeft(double speed)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        left.set((leftSpeed) * multiplier);
+
+        if(leftSpeed >= Math.abs(speed))
+        {
+            
+        }
+        else
+        {
+            leftSpeed += 0.0035;
+        }
+    }
+
+    public void rampRight(double speed)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        left.set((rightSpeed) * multiplier);
+
+        if(rightSpeed >= Math.abs(speed))
+        {
+            
+        }
+        else
+        {
+            rightSpeed += 0.0035;
+        }
+    }
+
+    public void rampDownLeft(double speed)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        left.set((leftSpeedHigh) * multiplier);
+
+        if(leftSpeedHigh == 0)
+        {
+            
+        }
+        else
+        {
+            leftSpeedHigh -= 0.05;
+        }
+    }
+
+    public void rampDownRight(double speed)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        right.set((rightSpeedHigh) * multiplier);
+
+        if(rightSpeedHigh == 0)
+        {
+            
+        }
+        else
+        {
+            rightSpeedHigh -= 0.05;
+        }
     }
 
     public void stop()
@@ -35,7 +106,7 @@ public class DriveTrain extends SubsystemBase
 
     public void takeJoystickInputs(Joystick joy)
     {
-        driveBase.arcadeDrive(joy.getY(), -joy.getZ() * Constants.Z_ROT_DAMPENING);
+        driveBase.arcadeDrive(joy.getY(), -joy.getZ() * 0.75);
     }
 
     public double getAvgDistance()

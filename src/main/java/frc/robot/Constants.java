@@ -75,6 +75,8 @@ public final class Constants
     public static final double TRANSPORT_SHOOTING_SPEED = 0.7;
     public static final double PULLEY_SHOOTING_SPEED = 0.7;
 
+    public static final double AUTONOMOUS_SPEED = 0.4;
+
     public static final double TILT_UP_TIMEOUT = 0.5;
     //1106.0 :: 1037.25
 
@@ -205,9 +207,17 @@ public final class Constants
 
     public static final double ENC_TOLERANCE = 0.5;
 
+    public static final double WAIT_TIME = 1.0;
 
+    /**************** GALACTIC SEARCH ******************/
+    public static final double PATH_A_RED_TIME1 = 2;
+    public static final double PATH_A_RED_TIME2 = 2;
+    public static final double PATH_A_RED_TIME3 = 2;
+    public static final double PATH_A_RED_TIME4 = 2;
 
-
+    public static final double PATH_A_RED_TURN1 = 80;
+    public static final double PATH_A_RED_TURN2 = 80;
+    public static final double PATH_A_RED_TURN3 = 80;
 
     /************************* MOTION PROFILING **********************/
     public static final double MAX_VELOCITY = Units.inchesToMeters(101.831243);

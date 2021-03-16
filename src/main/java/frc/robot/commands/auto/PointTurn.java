@@ -5,37 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class MoveStraightPID extends PIDCommand {
+public class PointTurn extends PIDCommand {
   /**
-   * Creates a new MoveStraightPID.
+   * Creates a new PointTurn.
    */
-  private double displacement;
-  private double driveTolerance = Constants.DRIVE_TOLERANCE;
-  public MoveStraightPID(double setDisp) {
+  private double angle;
+  private double angleTolerance = Constants.TURN_TOLERANCE;
+  public PointTurn(double setAngle) {
+    
     super(
         // The controller that the command will use
-        new PIDController(0.2, 0, 0),
+        //0.0080111---> original P value
+        new PIDController(0.008,0,0),
         // This should return the measurement
-        () -> (RobotContainer.getEncLeft().getDistance() + RobotContainer.getEncRight().getDistance()) / 2,
+        () -> RobotContainer.getAHRS().getAngle(),
         // This should return the setpoint (can also be a constant)
-        () -> setDisp,
+        () -> setAngle,
         // This uses the output
-        output -> {
+        output -> 
+        {
           // Use the output here
-          //System.out.println(output);
           RobotContainer.getDriveTrain().tankDrive(output, output);
+          // System.out.println(output);
         });
-        this.displacement = setDisp;
+        this.angle = setAngle;
         
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
@@ -43,30 +46,32 @@ public class MoveStraightPID extends PIDCommand {
 
   @Override
   public void initialize(){
-    //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     RobotContainer.getAHRS().reset();
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset(); 
   }
 
+  
   @Override
   public void end (boolean interrupted){
-    // System.out.println(RobotContainer.getDriveTrain().getAvgDistance());
-    //RobotContainer.getAHRS().reset();
+    //System.out.println(RobotContainer.getEncLeft().getDistance());
+    // System.out.println(RobotContainer.getAHRS().getAngle());
+    RobotContainer.getAHRS().reset();
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset(); 
-    RobotContainer.getDiffDrive().stopMotor();
+    RobotContainer.getDriveTrain().stop();
   }
 
+  
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() 
-  {
-    double encoderAverage = (RobotContainer.getEncLeft().getDistance() + RobotContainer.getEncRight().getDistance()) / 2;
-    double error = displacement - encoderAverage;
-    //System.out.println(Math.abs(error) < driveTolerance);
-    return Math.abs(error) < driveTolerance;
+  public boolean isFinished() {
+    double trackError = angle - RobotContainer.getAHRS().getAngle();
+    // System.out.println(Math.abs(trackError) < angleTolerance);
+    return Math.abs(trackError) < angleTolerance;
   }
 
+   
+ 
 }

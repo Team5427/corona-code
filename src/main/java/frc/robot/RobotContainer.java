@@ -7,15 +7,9 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -23,51 +17,31 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.FindProximity;
-import frc.robot.commands.MotionProfile;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
-import frc.robot.commands.MoveShooter;
 import frc.robot.commands.MoveShooterTeleop;
-import frc.robot.commands.MoveShooterTransport;
-import frc.robot.commands.MoveStraight;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.MoveTransportShooting;
-import frc.robot.commands.MoveStraightPID;
+import frc.robot.commands.auto.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
-import frc.robot.commands.PointTurn;
+import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ResetSensors;
 import frc.robot.commands.StopVision;
-import frc.robot.commands.VisionMotion;
-import frc.robot.commands.VisionTurn;
-import frc.robot.commands.auto.ShooterAuton;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Tilt;
-import edu.wpi.first.wpilibj2.command.Command;
-import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.motorcontrol.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -87,16 +61,12 @@ public class RobotContainer
   private static Button intakeButton;
   private static Button transportButton;
   private static Button pulleyButton;
-  private static Button shooterButton;
   private static Button shooterTeleop;
 
   private static Button tiltButtonUp;
   private static Button tiltDownButton;
-  private static Button aimbot;
   private static Button stopAimbot;
   private static Button tiltAuto;
-
-  private static Button moveStraightButton;
 
   private final SpeedController frontLeft, rearLeft;
   private final SpeedController frontRight,rearRight;
@@ -119,7 +89,6 @@ public class RobotContainer
   private static Encoder encLeft;
   private static Encoder encRight;
     
-  private static Command motion;
   private static AnalogInput transportProximity;
   private static AnalogInput transportProximityTwo;
 
@@ -137,13 +106,7 @@ public class RobotContainer
 
   private static Ultrasonic ultra;
 
-  public static Pose2d start;
-  public static Pose2d end;
-  public static ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
-  private static MotionProfile motionProfile;
-
   private static Button proximityDistance;
-  private static Button moveStraight;
   private static Button shooting;
 
   /**
@@ -189,11 +152,6 @@ public class RobotContainer
     //encRight.setReverseDirection(true);
     encLeft = new Encoder(6, 7);
     encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
-   
-    ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
-
-    //creating a profile
-    //COUNTER CLOCKWISE is POSITIVE, CLOCKWISE is NEGATIVE
 
     shooterTopEnc = new Encoder(10, 11);
     shooterBottomEnc = new Encoder(12, 13);
@@ -223,11 +181,9 @@ public class RobotContainer
     intakeButton = new JoystickButton(joy, Constants.INTAKE_BUTTON);
     transportButton = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
     pulleyButton = new JoystickButton(joy, Constants.PULLEY_BUTTON);
-    // shooterButton = new JoystickButton(joy, Constants.SHOOTER_BUTTON);
     tiltButtonUp = new JoystickButton(joy, Constants.TILT_BUTTON_UP);
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
     tiltDownButton = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
-    //aimbot = new JoystickButton(joy, 11);
     stopAimbot = new JoystickButton(joy, 9);
     tiltAuto = new JoystickButton(joy, 10);
     proximityDistance = new JoystickButton(joy, 12);
@@ -237,11 +193,9 @@ public class RobotContainer
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
-    // shooterButton.whileHeld(new MoveShooter());
     tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); //change this timeout number
     shooterTeleop.whileHeld(new MoveShooterTeleop(1.0));
     tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
-    //aimbot.whenPressed(new VisionTurn(0));
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     shooting.whenPressed(new ResetSensors());
@@ -258,15 +212,8 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    /********* Galactic Search Path A Red ***********/
-    Pose2d start;
-    Pose2d end;
-    ArrayList<Translation2d> waypoints = new ArrayList<Translation2d>();
-    start = new Pose2d(Units.inchesToMeters(Constants.PATH_A_RED_START_X), Units.inchesToMeters(Constants.PATH_A_RED_START_Y), Constants.PATH_A_RED_START_ROTATION);
-    end = new Pose2d(Units.inchesToMeters(Constants.PATH_A_RED_END_X), Units.inchesToMeters(Constants.PATH_A_RED_END_Y), Constants.PATH_A_RED_END_ROTATION);
-    MotionProfile motionProfile = new MotionProfile(start, end, waypoints);
-
-    return motionProfile;
+    return new MoveStraightPID(5);
+    // return new PointTurn(80);
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

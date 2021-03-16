@@ -7,30 +7,12 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.MoveStraightPID;
-import frc.robot.commands.PointTurn;
-import frc.robot.commands.StraightAndTurn;
-import frc.robot.commands.MotionProfile;
-import frc.robot.commands.MoveStraight;
-import frc.robot.subsystems.Pulley;
-import frc.robot.subsystems.Transport;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
+import frc.robot.subsystems.DriveTrain;
 
 
 /**
@@ -54,6 +36,13 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+
+    RobotContainer.getAHRS().reset();
+    RobotContainer.getEncLeft().reset();
+    RobotContainer.getEncRight().reset();
+
+    DriveTrain.leftSpeed = 0;
+    DriveTrain.rightSpeed = 0;
   }
 
   /**
@@ -70,22 +59,23 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
-    SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
-    SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
-    SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
-    SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
+    // SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
+    // SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
+    // SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
+    // SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
+    // SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
 
-    SmartDashboard.putNumber("Prox3 Low", lowest);
-    SmartDashboard.putNumber("Prox3 High", highest);
+    // SmartDashboard.putNumber("Prox3 Low", lowest);
+    // SmartDashboard.putNumber("Prox3 High", highest);
 
-    SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
-    SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
-    SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
+    // SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
+    // SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
+    // SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
     SmartDashboard.putNumber("Distance", Units.metersToInches(RobotContainer.getDriveTrain().getAvgDistance()));
 
     SmartDashboard.putNumber("Angle", RobotContainer.getAHRS().getYaw());
+    SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
   }
 
   /**
@@ -108,12 +98,18 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    RobotContainer.getAHRS().reset();
+    RobotContainer.getEncLeft().reset();
+    RobotContainer.getEncRight().reset();
+
+    DriveTrain.leftSpeed = 0;
+    DriveTrain.rightSpeed = 0;
+    
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
     {
       m_autonomousCommand.schedule();
-      // RobotContainer.getIntake().moveIntake(Constants.INTAKE_INTEGRATED_SPEED);
     }
   }
 
