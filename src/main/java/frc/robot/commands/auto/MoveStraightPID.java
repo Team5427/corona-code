@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -24,7 +24,7 @@ public class MoveStraightPID extends PIDCommand {
   public MoveStraightPID(double time) {
     super(
         // The controller that the command will use
-        new PIDController(0.11, 0, 0),
+        new PIDController(0.11, 0.05, 0),
         // This should return the measurement
         () -> RobotContainer.getAHRS().getYaw(),
         // This should return the setpoint (can also be a constant)

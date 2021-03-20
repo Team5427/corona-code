@@ -11,7 +11,10 @@ public class DriveTrain extends SubsystemBase
 {
     private SpeedControllerGroup left, right;
 
+    //ramping up 
     public static double rightSpeed, leftSpeed = 0;
+
+    //ramping down
     public static double rightSpeedHigh, leftSpeedHigh = Constants.AUTONOMOUS_SPEED;
 
     private DifferentialDrive driveBase;
@@ -106,7 +109,7 @@ public class DriveTrain extends SubsystemBase
 
     public void takeJoystickInputs(Joystick joy)
     {
-        driveBase.arcadeDrive(joy.getY(), -joy.getZ() * 0.75);
+        driveBase.arcadeDrive(joy.getY(), -joy.getZ() * 0.65);
     }
 
     public double getAvgDistance()
