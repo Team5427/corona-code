@@ -126,7 +126,7 @@ public class RobotContainer
     drive.setSafetyEnabled(false);
 
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
-    driveTrain.setDefaultCommand(new DriveWithJoystick());
+    // driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
