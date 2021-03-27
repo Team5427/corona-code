@@ -74,7 +74,6 @@ public class Robot extends TimedRobot
 
     SmartDashboard.putNumber("Distance", Units.metersToInches(RobotContainer.getDriveTrain().getAvgDistance()));
 
-    SmartDashboard.putNumber("Angle", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
   }
 
@@ -105,12 +104,12 @@ public class Robot extends TimedRobot
     DriveTrain.leftSpeed = 0;
     DriveTrain.rightSpeed = 0;
     
-    // m_autonomousCommand = RobotContainer.getAutonomousCommand();
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
-    // if(m_autonomousCommand != null)
-    // {
-    //   m_autonomousCommand.schedule();
-    // }
+    if(m_autonomousCommand != null)
+    {
+      m_autonomousCommand.schedule();
+    }
 
     // RobotContainer.getDriveTrain().getLeft().set(-0.3);
   }

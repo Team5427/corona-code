@@ -5,14 +5,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Arc extends CommandBase
+public class RampArc extends CommandBase
 {
 
     private double speed, angle;
     private double startTime;
     private double time;
 
-    public Arc(double speed, double angle, double time)
+    public RampArc(double speed, double angle, double time)
     {
         addRequirements(RobotContainer.getDriveTrain());
         this.speed = speed;
@@ -23,7 +23,7 @@ public class Arc extends CommandBase
     @Override
     public void initialize()
     {
-        RobotContainer.getDriveTrain().getDriveBase().arcadeDrive(speed, angle);
+        RobotContainer.getDriveTrain().rampArcade(speed, angle);
         startTime = Timer.getFPGATimestamp();
     }
 

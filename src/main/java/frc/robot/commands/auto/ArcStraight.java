@@ -3,28 +3,26 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class Arc extends CommandBase
+public class ArcStraight extends CommandBase
 {
 
-    private double speed, angle;
-    private double startTime;
-    private double time;
+    private double speed, angle, endAngle;
 
-    public Arc(double speed, double angle, double time)
+    public ArcStraight(double speed, double angle, double endAngle)
     {
         addRequirements(RobotContainer.getDriveTrain());
         this.speed = speed;
         this.angle = angle;
-        this.time = time;
+        this.endAngle = endAngle;
     }
 
     @Override
     public void initialize()
     {
         RobotContainer.getDriveTrain().getDriveBase().arcadeDrive(speed, angle);
-        startTime = Timer.getFPGATimestamp();
     }
 
     @Override
@@ -36,12 +34,13 @@ public class Arc extends CommandBase
     @Override
     public boolean isFinished()
     {
-        return Timer.getFPGATimestamp() - startTime >= time;
+        return Math.abs(RobotContainer.getAHRS().getYaw() - endAngle) <= 0.55;
     }
 
     @Override
     public void end(boolean interrupted)
     {
+        SmartDashboard.putNumber("Angle b4 straight", RobotContainer.getAHRS().getYaw());
         RobotContainer.getDriveTrain().stop();
     }
 

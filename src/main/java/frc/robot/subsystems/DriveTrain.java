@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -10,6 +11,10 @@ import frc.robot.RobotContainer;
 public class DriveTrain extends SubsystemBase
 {
     private SpeedControllerGroup left, right;
+
+    public static double arcadeSpeed = 0;
+
+    public static double arcadeSpeedHigh = Constants.SLALOM_SPEED;
 
     //ramping up 
     public static double rightSpeed, leftSpeed = 0;
@@ -101,6 +106,38 @@ public class DriveTrain extends SubsystemBase
         }
     }
 
+    public void rampArcade(double speed, double rotation)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        driveBase.arcadeDrive(arcadeSpeed * multiplier, rotation);
+
+        if(arcadeSpeed >= Math.abs(speed))
+        {
+            
+        }
+        else
+        {
+            arcadeSpeed += 0.0035;
+        }
+    }
+
+    public void rampDownArcade(double speed, double rotation)
+    {
+        int multiplier = (speed < 0)? -1: 1;
+        driveBase.arcadeDrive(arcadeSpeedHigh * multiplier, rotation);
+
+        if(arcadeSpeedHigh <= 0)
+        {
+            
+        }
+        else
+        {
+            arcadeSpeedHigh -= 0.004;
+        }
+        SmartDashboard.putNumber("speed", arcadeSpeedHigh * multiplier);
+
+    }
+
     public void stop()
     {
         left.stopMotor();
@@ -120,6 +157,11 @@ public class DriveTrain extends SubsystemBase
     public double getAvgRate()
     {
         return (RobotContainer.getEncLeft().getRate() + RobotContainer.getEncRight().getRate()) / 2;
+    }
+
+    public DifferentialDrive getDriveBase()
+    {
+        return driveBase;
     }
 
     @Override

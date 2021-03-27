@@ -258,4 +258,7 @@ public final class Constants
     public static final Rotation2d PATH_A_RED_END_ROTATION = new Rotation2d(Units.degreesToRadians(0));
 
 
+    public static final double SLALOM_SPEED = 0.7;
+
+
 }

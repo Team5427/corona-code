@@ -30,6 +30,7 @@ import frc.robot.commands.auto.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.PointTurn;
+import frc.robot.commands.auto.Slalom;
 import frc.robot.commands.ResetSensors;
 import frc.robot.commands.StopVision;
 import frc.robot.subsystems.DriveTrain;
@@ -212,7 +213,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new MoveStraightPID(5);
+    return new Slalom();
     // return new PointTurn(80);
   }
 

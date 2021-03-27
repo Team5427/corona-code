@@ -6,6 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -24,7 +25,7 @@ public class MoveStraightPID extends PIDCommand {
   public MoveStraightPID(double time) {
     super(
         // The controller that the command will use
-        new PIDController(0.11, 0.05, 0),
+        new PIDController(0.09, 0.07, 0),
         // This should return the measurement
         () -> RobotContainer.getAHRS().getYaw(),
         // This should return the setpoint (can also be a constant)
@@ -58,6 +59,8 @@ public class MoveStraightPID extends PIDCommand {
   @Override
   public void end(boolean interrupted)
   {
+    SmartDashboard.putNumber("Angle", RobotContainer.getAHRS().getYaw());
+
     while(DriveTrain.rightSpeedHigh > 0 || DriveTrain.leftSpeedHigh > 0)
     {
       RobotContainer.getDriveTrain().rampDownRight(Constants.AUTONOMOUS_SPEED);
