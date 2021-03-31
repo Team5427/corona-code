@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
   public static double lowest;
   public static double highest;
+  // public static double lastTime;
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,6 +56,7 @@ public class Robot extends TimedRobot
    */
   @Override
   public void robotPeriodic() {
+
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -97,6 +100,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
+    // lastTime = Timer.getFPGATimestamp();
     RobotContainer.getAHRS().reset();
     RobotContainer.getEncLeft().reset();
     RobotContainer.getEncRight().reset();
@@ -119,6 +123,9 @@ public class Robot extends TimedRobot
    */
   @Override
   public void autonomousPeriodic() {
+
+    // System.out.printf("%.4f\n", (Timer.getFPGATimestamp() - lastTime));
+    // lastTime = Timer.getFPGATimestamp();
     CommandScheduler.getInstance().run();
   }
 

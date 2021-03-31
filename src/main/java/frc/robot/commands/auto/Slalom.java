@@ -15,7 +15,7 @@ public class Slalom extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     // addCommands(new RampArc(-0.4, 0, 0.5), new Arc(-0.7, 0.52, 2.5), new RampDownArc(-0.7, -0.47, 2.47), new Wait(0.3), new MoveStraightPID(4), new Arc(-0.7,-0.47, 2.47), new Arc(-0.7, 0.55, 7.7), new Arc(-0.7, -0.435, 2), new Arc(-0.7, 0, 3));
-    addCommands(new RampArc(0.4, 0, 0.5), new Arc(0.7, 0.52, 1.5), new ArcStraight(0.7, -0.52, 0), new Arc(0.4, 0, 0.5), new Wait(0.5), new MoveStraightPID(1));//1.64
-    //, new Arc(-0.7, -0.47, 2.47), new Arc(-0.7, 0.55, 7.0), new ArcStraight(-0.7, -0.5, 180)
+    addCommands(new RampArc(0.4, 0, 0.5), new Arc(0.7, 0.52, 1.5), new ArcStraight(0.7, -0.50, 0), new Arc(0.7, 0, 2.0), new Arc(0.7,-0.53, 1.8), new Arc(0.7, 0.55, 5.9), new ArcStraight(0.7, -0.52, 180), new Arc(0.7, 0, 2.3), new Arc(0.7, -0.52, 1.5), new Arc(0.7, 0.60, 1.0));//1.64
+    
   }
 }

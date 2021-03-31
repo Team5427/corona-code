@@ -34,7 +34,7 @@ public class ArcStraight extends CommandBase
     @Override
     public boolean isFinished()
     {
-        return Math.abs(RobotContainer.getAHRS().getYaw() - endAngle) <= 0.55;
+        return Math.abs(RobotContainer.getAHRS().getYaw() - endAngle) <= 7.4;
     }
 
     @Override
