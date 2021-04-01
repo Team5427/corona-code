@@ -27,6 +27,7 @@ import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.auto.BarrelRacing;
+import frc.robot.commands.auto.BouncePath;
 import frc.robot.commands.auto.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
@@ -214,7 +215,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new BarrelRacing();
+    return new BouncePath();
     // return new PointTurn(80);
   }
 
