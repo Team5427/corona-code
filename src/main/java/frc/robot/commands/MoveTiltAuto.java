@@ -26,7 +26,7 @@ public class MoveTiltAuto extends CommandBase
     {
         if(RobotContainer.getTilt().getLimit())
         {
-            RobotContainer.getTilt().moveTilt(-speed);
+            RobotContainer.getTilt().moveTilt(speed);
             //System.out.println("**************************");
             isDown = true;
             startTime = currTime = Timer.getFPGATimestamp();
