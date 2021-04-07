@@ -15,6 +15,6 @@ public class GalacticSearch extends SequentialCommandGroup {
   public GalacticSearch() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RampArc(0.7, 0, 0.8), new DeterminePathA());
+    addCommands(new RampArc(0.7, 0, 0.8), new DeterminePathB());
   }
 }

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.DeterminePathA;
+import frc.robot.commands.auto.DeterminePathB;
 import frc.robot.commands.auto.MoveTiltDownAuto;
 import frc.robot.subsystems.DriveTrain;
 
@@ -110,6 +111,7 @@ public class Robot extends TimedRobot
     DriveTrain.leftSpeed = 0;
     DriveTrain.rightSpeed = 0;
     DeterminePathA.covered = false;
+    DeterminePathB.covered = false;
     
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
