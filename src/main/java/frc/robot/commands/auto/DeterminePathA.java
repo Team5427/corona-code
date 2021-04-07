@@ -1,12 +1,13 @@
 package frc.robot.commands.auto;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveTrain;
 
 public class DeterminePathA extends CommandBase
 {
@@ -16,42 +17,36 @@ public class DeterminePathA extends CommandBase
 
     public DeterminePathA()
     {
-        addRequirements(RobotContainer.getDriveTrain(), RobotContainer.getIntake());
+        addRequirements(RobotContainer.getIntake());
     }
 
     @Override
     public void initialize()
     {
         RobotContainer.getIntake().moveIntake(Constants.INTAKE_TELEOP_SPEED);
-        RobotContainer.getDriveTrain().rampLeft(0.5);
-        RobotContainer.getDriveTrain().rampRight(-0.5);
         startTime = Timer.getFPGATimestamp();
-    }
-
-    @Override
-    public void execute()
-    {
-        RobotContainer.getDriveTrain().rampLeft(0.5);
-        RobotContainer.getDriveTrain().rampRight(-0.5);
     }
 
     @Override
     public boolean isFinished()
     {
         covered = RobotContainer.getTransport().getIntakeCovered();
+        SmartDashboard.putBoolean("Covered", covered);
         return Timer.getFPGATimestamp() - startTime >= timeDiff || covered;
     }
 
     @Override
     public void end(boolean interrupted)
     {
-        RobotContainer.getDriveTrain().stop();
+        SmartDashboard.putBoolean("Covered", covered);
+        
         if(covered)
         {
             CommandScheduler.getInstance().schedule(new PathARed());
         }
         else
         {
+            System.out.println("Wrong path!!!!(*@!()");
             CommandScheduler.getInstance().schedule(new PathABlue());
         }
     }

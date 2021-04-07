@@ -26,9 +26,10 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.auto.BallPickUp;
 import frc.robot.commands.auto.BarrelRacing;
 import frc.robot.commands.auto.BouncePath;
+import frc.robot.commands.auto.DeterminePathA;
+import frc.robot.commands.auto.GalacticSearch;
 import frc.robot.commands.auto.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
@@ -216,8 +217,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new BallPickUp();
-    // return new PointTurn(80);
+    return new GalacticSearch();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

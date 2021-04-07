@@ -6,7 +6,7 @@ public class PathABlue extends SequentialCommandGroup
 {
     public PathABlue()
     {
-        addCommands(new ArcStraight(0, -0.7, 29), new RampArc(-0.5, 0, 2), new Wait(1), new ArcStraight(0, 0.7, -72), new RampArc(-0.5, 0, 3), new Wait(1), new ArcStraight(0, -0.7, 47), new RampArc(-0.7, 0, 1));
+        addCommands(new ArcStraight(0.4, -0.62, 16), new Arc(0.7, 0, 2.8), new ArcStraight(0.4, 0.66, -55), new Arc(0.7, 0, 2.5), new ArcStraight(0.4, -0.64, 15), new Arc(0.7, 0, 2.6));
     }
     
 }

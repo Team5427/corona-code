@@ -12,20 +12,9 @@ import frc.robot.Constants;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GalacticSearch extends SequentialCommandGroup {
   /** Creates a new GalacticSearch. */
-  public GalacticSearch(double time1, double time2, double time3, double time4, double turn1, double turn2, double turn3) {
+  public GalacticSearch() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-                new MoveStraightPID(time1), 
-                new Wait(Constants.WAIT_TIME), 
-                new PointTurn(turn1), 
-                new MoveStraightPID(time2), 
-                new Wait(Constants.WAIT_TIME), 
-                new PointTurn(turn2), 
-                new MoveStraightPID(time3), 
-                new Wait(Constants.WAIT_TIME), 
-                new PointTurn(turn3), 
-                new MoveStraightPID(time4)
-          );
+    addCommands(new RampArc(0.7, 0, 0.8), new DeterminePathA());
   }
 }
