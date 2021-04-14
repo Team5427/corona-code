@@ -47,7 +47,7 @@ public class DeterminePathB extends CommandBase
         else
         {
             System.out.println("Wrong path!!!!(*@!()");
-            // CommandScheduler.getInstance().schedule(new PathBBlue());
+            CommandScheduler.getInstance().schedule(new PathBBlue());
         }
     }
 }
