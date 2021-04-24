@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.FindProximity;
+import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
@@ -38,6 +39,7 @@ import frc.robot.commands.auto.Slalom;
 import frc.robot.commands.ResetSensors;
 import frc.robot.commands.StopVision;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
@@ -46,6 +48,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Throttle;
 import frc.robot.subsystems.Tilt;
 
 /**
@@ -114,6 +117,19 @@ public class RobotContainer
   private static Button proximityDistance;
   private static Button shooting;
 
+  private static SpeedController elevatorLeft, elevatorRight;
+  private static Encoder elevatorLeftEnc, elevatorRightEnc;
+  private static DigitalInput limitSwitchLeft;
+  private static DigitalInput limitSwitchRight;
+  private static Elevator elevator;
+
+  private static SpeedController throttleMotor;
+  private static Throttle throttle;
+
+  private static Button moveElevatorUp;
+  private static Button moveElevatorDown;
+
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -142,7 +158,7 @@ public class RobotContainer
     transport = new Transport(transportMotor, transportProximity, transportProximityTwo);
 
     tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
-    tiltSwitch = new DigitalInput(Constants.LIMIT_SWITCH_TILT);
+    tiltSwitch = new DigitalInput(12);
     tilt = new Tilt(tiltMotor, tiltSwitch);
 
     pulleyMotor = new WPI_VictorSPX(Constants.PULLEY_MOTOR);
@@ -152,22 +168,35 @@ public class RobotContainer
     ahrs = new AHRS(SPI.Port.kMXP);
 
     //encoders have 1440 as PPR and 360 CPR
-    encRight = new Encoder(5, 4);
-    encRight.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
+    //encRight = new Encoder(5, 4);
+    // encRight.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
     //encRight.setReverseDirection(true);
     encLeft = new Encoder(6, 7);
     encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
 
-    shooterTopEnc = new Encoder(10, 11);
-    shooterBottomEnc = new Encoder(12, 13);
+    shooterTopEnc = new Encoder(4, 5);
+    // shooterBottomEnc = new Encoder(6, 7);
 
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
     shooter = new Shooter(shooterMotorTop, shooterMotorBottom, shooterTopEnc, shooterBottomEnc);
 
+    elevatorLeft = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
+    elevatorRight = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
 
-    ultra = new Ultrasonic(22, 23);
-    ultra.setAutomaticMode(true);
+    elevatorLeftEnc = new Encoder(0, 1);
+    elevatorRightEnc = new Encoder(Constants.ELEVATOR_RIGHT_PORT_1, Constants.ELEVATOR_RIGHT_PORT_2);
+
+    limitSwitchLeft = new DigitalInput(Constants.ELEVATOR_LIMIT_LEFT);
+    limitSwitchRight = new DigitalInput(Constants.ELEVATOR_LIMIT_RIGHT);
+
+    elevator = new Elevator(elevatorLeft, elevatorRight, limitSwitchLeft, limitSwitchRight, elevatorLeftEnc, elevatorRightEnc);
+
+    throttleMotor = new WPI_VictorSPX(Constants.CLIMB_MANIPULATOR);
+    throttle = new Throttle(throttleMotor);
+
+    // ultra = new Ultrasonic(22, 23);
+    // ultra.setAutomaticMode(true);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -194,6 +223,8 @@ public class RobotContainer
     proximityDistance = new JoystickButton(joy, 12);
 
     shooting = new JoystickButton(joy, 11);
+    moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
+    moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -204,6 +235,8 @@ public class RobotContainer
     stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     shooting.whenPressed(new ResetSensors());
+    moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
     proximityDistance.whenPressed(new FindProximity());
   }
@@ -234,5 +267,6 @@ public class RobotContainer
   public static Tilt getTilt(){return tilt;}
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
+  public static Elevator getElevator(){return elevator;}
   public Command getTurn(){ return new PointTurn(90);}
 }

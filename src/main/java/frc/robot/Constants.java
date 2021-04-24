@@ -60,6 +60,8 @@ public final class Constants
     public static final int TILT_BUTTON_DOWN = 4;
 
     public static final int SHOOTER_TELEOP = 1;
+    public static final int ELEVATOR_UP_BUTTON = 5;
+    public static final int ELEVATOR_DOWN_BUTTON = 3;
 
 
 
@@ -108,7 +110,7 @@ public final class Constants
 	public static final int ENCODER_RIGHT_PORT_1 = 4; 
     public static final int ENCODER_RIGHT_PORT_2 = 5;
 
-    public static final int LIMIT_SWITCH_TILT = 21;
+    public static final int LIMIT_SWITCH_TILT = 10;
     
     public static final int TRANSPORT_PROXIMITY_ONE_SENSOR_PORT = 0;
     public static final int TRANSPORT_PROXIMITY_TWO_SENSOR_PORT = 2;
@@ -259,6 +261,23 @@ public final class Constants
 
 
     public static final double SLALOM_SPEED = 0.7;
+
+
+
+    public static final double ELEVATOR_UPPER_LIMIT = 15;
+    public static final int ELEVATOR_LEFT_MOTOR = 13;
+    public static final int ELEVATOR_RIGHT_MOTOR = 2;
+    public static final int CLIMB_MANIPULATOR = 4;
+
+    public static final int ELEVATOR_LEFT_PORT_1 = 0;
+    public static final int ELEVATOR_LEFT_PORT_2 = 1;
+    public static final int ELEVATOR_RIGHT_PORT_1 = 2;
+    public static final int ELEVATOR_RIGHT_PORT_2 = 3;
+
+    public static final int ELEVATOR_LIMIT_RIGHT = 9;
+    public static final int ELEVATOR_LIMIT_LEFT = 8;
+
+    public static final double ELEVATOR_SPEED = 0.6;
 
 
 }

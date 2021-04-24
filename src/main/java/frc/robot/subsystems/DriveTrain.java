@@ -149,16 +149,6 @@ public class DriveTrain extends SubsystemBase
         driveBase.arcadeDrive(joy.getY(), -joy.getZ() * 0.65);
     }
 
-    public double getAvgDistance()
-    {
-        return (RobotContainer.getEncLeft().getDistance() + RobotContainer.getEncRight().getDistance()) / 2;
-    }
-
-    public double getAvgRate()
-    {
-        return (RobotContainer.getEncLeft().getRate() + RobotContainer.getEncRight().getRate()) / 2;
-    }
-
     public DifferentialDrive getDriveBase()
     {
         return driveBase;

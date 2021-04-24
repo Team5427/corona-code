@@ -1,15 +1,20 @@
 package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
+/**
+ * Command that uses arcadeDrive() for a given arc and speed until it reaches a specified angle. 
+ */
 public class ArcStraight extends CommandBase
 {
-
-    private double speed, angle, endAngle;
+    /**
+     * The linear speed at which the arc will run for. 
+     */
+    private double speed; 
+    private double angle;
+    private double endAngle;
 
     public ArcStraight(double speed, double angle, double endAngle)
     {

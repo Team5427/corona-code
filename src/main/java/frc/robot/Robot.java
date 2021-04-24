@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.auto.DeterminePathA;
 import frc.robot.commands.auto.DeterminePathB;
-import frc.robot.commands.auto.MoveTiltDownAuto;
 import frc.robot.subsystems.DriveTrain;
 
 
@@ -43,8 +42,6 @@ public class Robot extends TimedRobot
     m_robotContainer = new RobotContainer();
 
     RobotContainer.getAHRS().reset();
-    RobotContainer.getEncLeft().reset();
-    RobotContainer.getEncRight().reset();
 
     DriveTrain.leftSpeed = 0;
     DriveTrain.rightSpeed = 0;
@@ -78,9 +75,13 @@ public class Robot extends TimedRobot
     // SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
     // SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
-    SmartDashboard.putNumber("Distance", Units.metersToInches(RobotContainer.getDriveTrain().getAvgDistance()));
-
     SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
+    SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
+    SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
+    SmartDashboard.putNumber("Shooter Top Enc", RobotContainer.getShooter().getTopEnc().getDistance());
+    // SmartDashboard.putNumber("Shooter Bottom Enc", RobotContainer.getShooter().getBottomEnc().getDistance());
+    // SmartDashboard.putNumber("Tilt switch", RobotContainer.getTilt().getLimit());
+
   }
 
   /**
