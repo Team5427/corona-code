@@ -84,24 +84,24 @@ public class Elevator extends SubsystemBase
         // SmartDashboard.putBoolean("Limit Right", !limitRight.get());
         // System.out.println(leftEnc.getDistance() + "::" + rightEnc.getDistance());
 
-        if(getLimitLeft())
-            {
-                leftCount++;
-                if(leftCount >= 2)
-                {
-                    getLeftEnc().reset();
-                    leftCount = 0;
-                }
-            }
-            if(getLimitRight())
-            {
-                rightCount++;
-                if(rightCount >= 2)
-                {
-                    getRightEnc().reset();
-                    rightCount = 0;
-                }
-            }
+        // if(getLimitLeft())
+        //     {
+        //         leftCount++;
+        //         if(leftCount >= 2)
+        //         {
+        //             getLeftEnc().reset();
+        //             leftCount = 0;
+        //         }
+        //     }
+        //     if(getLimitRight())
+        //     {
+        //         rightCount++;
+        //         if(rightCount >= 2)
+        //         {
+        //             getRightEnc().reset();
+        //             rightCount = 0;
+        //         }
+        //     }
     }
     
 }

@@ -37,8 +37,9 @@ public final class Constants
     public static final double Z_ROT_DAMPENING = 0.75;
     public static final double TURN_TOLERANCE =  2;
     public static final double DRIVE_TOLERANCE = 0.5;
-    public static final double DRIVETRAIN_WHEEL_DIAMETER = 0.1524; //in meters
+    public static final double DRIVETRAIN_WHEEL_DIAMETER = 4; //in inches
     public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/256)/12.63;
+    public static final double SHOOTER_DIST_PER_PULSE = 1/256;
 
     public static final double INTAKE_PROXIMITY_DIFFERENCE = 2.0;
 
@@ -62,6 +63,8 @@ public final class Constants
     public static final int SHOOTER_TELEOP = 1;
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
+    public static final int TILT_AUTO_BUTTON = 10;
+    public static final int SHOOT_ALL_BUTTON = 12;
 
 
 
@@ -76,6 +79,7 @@ public final class Constants
     public static final double SHOOTER_UP_SPEED = 0.2;
     public static final double TRANSPORT_SHOOTING_SPEED = 0.7;
     public static final double PULLEY_SHOOTING_SPEED = 0.7;
+    public static final double SHOOTER_TELEOP_SPEED = 1.0;
 
     public static final double AUTONOMOUS_SPEED = 0.4;
 

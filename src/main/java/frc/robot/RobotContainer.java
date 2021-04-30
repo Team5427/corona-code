@@ -128,6 +128,8 @@ public class RobotContainer
 
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
+  public static Button shootAll;
+
 
 
   /**
@@ -171,11 +173,14 @@ public class RobotContainer
     //encRight = new Encoder(5, 4);
     // encRight.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
     //encRight.setReverseDirection(true);
-    encLeft = new Encoder(6, 7);
-    encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
+    // encLeft = new Encoder(6, 7);
+    // encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
 
     shooterTopEnc = new Encoder(4, 5);
-    // shooterBottomEnc = new Encoder(6, 7);
+    shooterBottomEnc = new Encoder(2, 3);
+
+    shooterBottomEnc.setDistancePerPulse(1);
+    shooterTopEnc.setDistancePerPulse(-1);
 
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
@@ -185,7 +190,7 @@ public class RobotContainer
     elevatorRight = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
 
     elevatorLeftEnc = new Encoder(0, 1);
-    elevatorRightEnc = new Encoder(Constants.ELEVATOR_RIGHT_PORT_1, Constants.ELEVATOR_RIGHT_PORT_2);
+    // elevatorRightEnc = new Encoder(Constants.ELEVATOR_RIGHT_PORT_1, Constants.ELEVATOR_RIGHT_PORT_2);
 
     limitSwitchLeft = new DigitalInput(Constants.ELEVATOR_LIMIT_LEFT);
     limitSwitchRight = new DigitalInput(Constants.ELEVATOR_LIMIT_RIGHT);
@@ -218,11 +223,8 @@ public class RobotContainer
     tiltButtonUp = new JoystickButton(joy, Constants.TILT_BUTTON_UP);
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
     tiltDownButton = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
-    stopAimbot = new JoystickButton(joy, 9);
-    tiltAuto = new JoystickButton(joy, 10);
-    proximityDistance = new JoystickButton(joy, 12);
-
-    shooting = new JoystickButton(joy, 11);
+    tiltAuto = new JoystickButton(joy, Constants.TILT_AUTO_BUTTON);
+    shootAll = new JoystickButton(joy, Constants.SHOOT_ALL_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
 
@@ -230,15 +232,12 @@ public class RobotContainer
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
     tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); //change this timeout number
-    shooterTeleop.whileHeld(new MoveShooterTeleop(1.0));
+    shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
     tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
-    stopAimbot.whenPressed(new StopVision(),true);
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    shooting.whenPressed(new ResetSensors());
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
 
-    proximityDistance.whenPressed(new FindProximity());
   }
 
 

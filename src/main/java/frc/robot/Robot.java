@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -71,15 +72,15 @@ public class Robot extends TimedRobot
     // SmartDashboard.putNumber("Prox3 Low", lowest);
     // SmartDashboard.putNumber("Prox3 High", highest);
 
-    // SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
-    // SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
-    // SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
+    SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
+    SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
+    SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
     SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
-    SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
-    SmartDashboard.putNumber("Shooter Top Enc", RobotContainer.getShooter().getTopEnc().getDistance());
-    // SmartDashboard.putNumber("Shooter Bottom Enc", RobotContainer.getShooter().getBottomEnc().getDistance());
+    // SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
+    SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
+    SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
     // SmartDashboard.putNumber("Tilt switch", RobotContainer.getTilt().getLimit());
 
   }
