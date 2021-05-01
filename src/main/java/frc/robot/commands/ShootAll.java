@@ -10,17 +10,13 @@ public class ShootAll extends CommandBase
 {
     private double timeBetweenCells, endTime;
     private double startTime;
-    private boolean timerStarted, timerComplete, exitTimerStarted, exitTimerComplete;
+    private boolean timerStarted, timerComplete, exitTimerStarted, exitTimerComplete, shooting;
+    private int pulleyStopCount;
 
     public ShootAll(double timeBetweenCells, double endTime)
     {
         this.timeBetweenCells = timeBetweenCells;
         this.endTime = endTime;
-        startTime = 0;
-        timerStarted = false;
-        timerComplete = false;
-        exitTimerComplete = false;
-        exitTimerStarted = false;
         addRequirements(RobotContainer.getTransport(), RobotContainer.getShooter());
     }
 
@@ -29,32 +25,50 @@ public class ShootAll extends CommandBase
     {
         RobotContainer.getShooter().moveShooter(Constants.SHOOTER_TELEOP_SPEED);
         RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_TELEOP_SPEED);
+        startTime = 0;
+        timerStarted = false;
+        timerComplete = false;
+        exitTimerComplete = false;
+        exitTimerStarted = false;
+        pulleyStopCount = 0;
     }
 
     @Override
     public void execute()
     {
-        if(!timerStarted && RobotContainer.getTransport().getTransportCovered())
+        if(!timerStarted && (RobotContainer.getTransport().getTransportCovered() || RobotContainer.getPulley().getPulleyCovered()))
         {
             startTime = Timer.getFPGATimestamp();
             timerStarted = true;
+            exitTimerStarted = false;
+        }
+        else
+        {
+            RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_TELEOP_SPEED);
         }
 
         if(timerStarted)
         {
             timerComplete = Timer.getFPGATimestamp() - startTime >= timeBetweenCells;
-            if(!timerComplete && RobotContainer.getPulley().getPulleyCovered())
+            // if(!shooting && !timerComplete && RobotContainer.getPulley().getPulleyCovered())
+            // {
+            //     RobotContainer.getTransport().stop();
+            //     System.out.println("Waiting");
+            // }
+            if(timerComplete && RobotContainer.getPulley().getPulleyCovered())
             {
+                System.out.println("Timer Complete");
+                RobotContainer.getPulley().movePulley(Constants.PULLEY_TELEOP_SPEED);
                 RobotContainer.getTransport().stop();
             }
-            else if(timerComplete && RobotContainer.getPulley().getPulleyCovered())
-            {
-                RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_TELEOP_SPEED);
-                RobotContainer.getPulley().movePulley(Constants.PULLEY_TELEOP_SPEED);
-                timerComplete = false;
+            else if(timerComplete && !RobotContainer.getPulley().getPulleyCovered()){
+                System.out.println("Shooting");
                 timerStarted = false;
+                timerComplete = false;
+                exitTimerComplete = false;
                 exitTimerStarted = true;
                 startTime = Timer.getFPGATimestamp();
+                RobotContainer.getPulley().stop();
             }
         }
     }
@@ -62,8 +76,11 @@ public class ShootAll extends CommandBase
     @Override
     public boolean isFinished()
     {
-        if(exitTimerStarted)
+        // System.out.println("Exit Timer started: " + exitTimerStarted);
+        // System.out.println("Timer started: " + timerStarted);
+        if(exitTimerStarted && !timerStarted)
         {
+            System.out.println("Stopping systems");
             exitTimerComplete = Timer.getFPGATimestamp() - startTime >= endTime;
             return exitTimerComplete;
         }
@@ -76,5 +93,6 @@ public class ShootAll extends CommandBase
         RobotContainer.getTransport().stop();
         RobotContainer.getShooter().stop();
         RobotContainer.getPulley().stop();
+        System.out.println("done:)");
     }
 }

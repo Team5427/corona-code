@@ -37,6 +37,7 @@ import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.auto.Slalom;
 import frc.robot.commands.ResetSensors;
+import frc.robot.commands.ShootAll;
 import frc.robot.commands.StopVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -227,6 +228,7 @@ public class RobotContainer
     shootAll = new JoystickButton(joy, Constants.SHOOT_ALL_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
+  
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -237,6 +239,7 @@ public class RobotContainer
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
+    shootAll.whenPressed(new ShootAll(1, 3));
 
   }
 
