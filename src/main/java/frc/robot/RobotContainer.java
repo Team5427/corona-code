@@ -239,7 +239,7 @@ public class RobotContainer
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    shootAll.whenPressed(new ShootAll(1, 3));
+    shootAll.whenPressed(new ShootAll(1, 2));
 
   }
 
