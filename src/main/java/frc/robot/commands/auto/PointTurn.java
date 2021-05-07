@@ -27,16 +27,17 @@ public class PointTurn extends PIDCommand {
     super(
         // The controller that the command will use
         //0.0080111---> original P value
-        new PIDController(0.052,0.0000105,0.0053),
+        new PIDController(0.01,0,0),
         // This should return the measurement
-        () -> RobotContainer.getAHRS().getAngle(),
+        () -> RobotContainer.getAHRS().getYaw(),
         // This should return the setpoint (can also be a constant)
         () -> setAngle,
         // This uses the output
         output -> 
         {
           // Use the output here
-          RobotContainer.getDriveTrain().tankDrive(output, -output);
+          RobotContainer.getDriveTrain().rampRight(output * 0.5);
+          RobotContainer.getDriveTrain().rampLeft(output * 0.5);
           System.out.println(output);
         });
         this.angle = setAngle;
@@ -49,16 +50,6 @@ public class PointTurn extends PIDCommand {
   @Override
   public void initialize(){
     RobotContainer.getAHRS().reset();
-
-  }
-
-  
-  @Override
-  public void end (boolean interrupted){
-    RobotContainer.getDriveTrain().stop();
-    //System.out.println(RobotContainer.getEncLeft().getDistance());
-    System.out.println(RobotContainer.getAHRS().getAngle());
-
   }
 
   
@@ -66,9 +57,17 @@ public class PointTurn extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double trackError = angle - RobotContainer.getAHRS().getAngle();
-    System.out.println(Math.abs(trackError) < angleTolerance);
-    return getController().atSetpoint();
+    double trackError = angle - RobotContainer.getAHRS().getYaw();
+    boolean isFinished = Math.abs(trackError) < angleTolerance;
+    return isFinished;
+  }
+
+  @Override
+  public void end (boolean interrupted){
+    RobotContainer.getDriveTrain().stop();
+    //System.out.println(RobotContainer.getEncLeft().getDistance());
+    System.out.println(RobotContainer.getAHRS().getYaw());
+
   }
 
    

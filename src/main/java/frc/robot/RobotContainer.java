@@ -252,7 +252,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new PointTurn(0);
+    return new PointTurn(-90);
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
