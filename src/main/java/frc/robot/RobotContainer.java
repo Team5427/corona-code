@@ -150,7 +150,7 @@ public class RobotContainer
     drive.setSafetyEnabled(false);
 
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
-    driveTrain.setDefaultCommand(new DriveWithJoystick());
+    // driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
@@ -252,7 +252,8 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new PointTurn(-90);
+    // return new PointTurn(-90);
+    return null;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
