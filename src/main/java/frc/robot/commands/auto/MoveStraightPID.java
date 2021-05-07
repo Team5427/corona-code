@@ -33,7 +33,7 @@ public class MoveStraightPID extends PIDCommand {
         // This uses the output
         output -> {
           // Use the output here
-          RobotContainer.getDriveTrain().rampLeft(0.4);
+          RobotContainer.getDriveTrain().rampLeft(0.8);
           RobotContainer.getDriveTrain().getRight().set(-output);
         });
     // Use addRequirements() here to declare subsystem dependencies.

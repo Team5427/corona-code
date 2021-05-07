@@ -252,7 +252,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new GalacticSearch();
+    return new PointTurn(0);
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

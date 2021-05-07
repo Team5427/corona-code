@@ -107,14 +107,8 @@ public class Robot extends TimedRobot
   {
     // lastTime = Timer.getFPGATimestamp();
     RobotContainer.getAHRS().reset();
-    RobotContainer.getEncLeft().reset();
-    RobotContainer.getEncRight().reset();
 
-    DriveTrain.leftSpeed = 0;
-    DriveTrain.rightSpeed = 0;
-    DeterminePathA.covered = false;
-    DeterminePathB.covered = false;
-    
+
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
