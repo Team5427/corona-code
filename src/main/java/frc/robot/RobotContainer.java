@@ -10,6 +10,8 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -130,6 +132,9 @@ public class RobotContainer
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button shootAll;
+  public static CameraServer server;
+  public static UsbCamera cam;
+
 
 
 
@@ -138,6 +143,8 @@ public class RobotContainer
    */
   public RobotContainer() 
   {
+    server = CameraServer.getInstance();
+    cam = server.startAutomaticCapture(0);
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
