@@ -168,7 +168,7 @@ public class RobotContainer
     transport = new Transport(transportMotor, transportProximity, transportProximityTwo);
 
     tiltMotor = new WPI_VictorSPX(Constants.TILT_MOTOR);
-    tiltSwitch = new DigitalInput(12);
+    tiltSwitch = new DigitalInput(Constants.TILT_SWITCH_PORT);
     tilt = new Tilt(tiltMotor, tiltSwitch);
 
     pulleyMotor = new WPI_VictorSPX(Constants.PULLEY_MOTOR);
@@ -184,7 +184,7 @@ public class RobotContainer
     // encLeft = new Encoder(6, 7);
     // encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
 
-    shooterTopEnc = new Encoder(4, 5);
+    shooterTopEnc = new Encoder(Constants.SHOOTER_TOP_ENC_PORT_1, Constants.SHOOTER_TOP_ENC_PORT_2);
     shooterBottomEnc = new Encoder(2, 3);
 
     shooterBottomEnc.setDistancePerPulse(1);

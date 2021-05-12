@@ -278,6 +278,12 @@ public final class Constants
     public static final int ELEVATOR_RIGHT_PORT_1 = 2;
     public static final int ELEVATOR_RIGHT_PORT_2 = 3;
 
+    public static final int TILT_SWITCH_PORT = 12;
+
+    public static final int SHOOTER_TOP_ENC_PORT_1 = 4;
+    public static final int SHOOTER_TOP_ENC_PORT_2 = 5;
+    
+
     public static final int ELEVATOR_LIMIT_RIGHT = 9;
     public static final int ELEVATOR_LIMIT_LEFT = 8;
 
