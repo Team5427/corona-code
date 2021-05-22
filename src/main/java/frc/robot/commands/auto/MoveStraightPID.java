@@ -46,6 +46,9 @@ public class MoveStraightPID extends PIDCommand {
   public void initialize()
   {
     startTime = Timer.getFPGATimestamp();
+    DriveTrain.leftSpeed = 0;
+    DriveTrain.rightSpeed = 0;
+    RobotContainer.getAHRS().reset();
     super.initialize();
   }
 

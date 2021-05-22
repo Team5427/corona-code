@@ -38,6 +38,7 @@ import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.auto.Slalom;
+import frc.robot.commands.auto.CompetitionPaths.RightSixCells;
 import frc.robot.commands.ResetSensors;
 import frc.robot.commands.ShootAll;
 import frc.robot.commands.StopVision;
@@ -260,7 +261,8 @@ public class RobotContainer
   public static Command getAutonomousCommand() 
   {
     // return new PointTurn(-90);
-    return null;
+    // return null;
+    return new RightSixCells();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

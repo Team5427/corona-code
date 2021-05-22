@@ -111,13 +111,13 @@ public class Robot extends TimedRobot
     DriveTrain.rightSpeed = 0;
 
 
-    RobotContainer.getDriveTrain().tankDrive(0.5, 0.5);
-    // m_autonomousCommand = RobotContainer.getAutonomousCommand();
+    // RobotContainer.getDriveTrain().tankDrive(0.5, 0.5);
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
-    // if(m_autonomousCommand != null)
-    // {
-    //   m_autonomousCommand.schedule();
-    // }
+    if(m_autonomousCommand != null)
+    {
+      m_autonomousCommand.schedule();
+    }
 
     // RobotContainer.getDriveTrain().getLeft().set(-0.3);
   }
