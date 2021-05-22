@@ -157,7 +157,7 @@ public class RobotContainer
     drive.setSafetyEnabled(false);
 
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
-    // driveTrain.setDefaultCommand(new DriveWithJoystick());
+    driveTrain.setDefaultCommand(new DriveWithJoystick());
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
@@ -246,7 +246,7 @@ public class RobotContainer
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    shootAll.whenPressed(new ShootAll(1, 2));
+    shootAll.whenPressed(new ShootAll(0.5, 2));
 
   }
 
