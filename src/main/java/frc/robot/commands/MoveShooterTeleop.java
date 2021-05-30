@@ -7,6 +7,7 @@ import frc.robot.RobotContainer;
 public class MoveShooterTeleop extends CommandBase
 {
     private double speed;
+    
     public MoveShooterTeleop(double speed)
     {
         addRequirements(RobotContainer.getShooter());
@@ -16,15 +17,10 @@ public class MoveShooterTeleop extends CommandBase
     @Override
     public void initialize() {
         RobotContainer.getShooter().moveShooter(speed);
-        // RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_SHOOTING_SPEED);
-        // RobotContainer.getPulley().movePulley(Constants.PULLEY_SHOOTING_SPEED);
     }
 
     @Override
     public void execute() {
-        // RobotContainer.getShooter().moveShooter(speed);
-        // RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_SHOOTING_SPEED);
-        // RobotContainer.getPulley().movePulley(Constants.PULLEY_SHOOTING_SPEED);
     }
 
     @Override
@@ -35,7 +31,5 @@ public class MoveShooterTeleop extends CommandBase
     @Override
     public void end(boolean interrupted) {
         RobotContainer.getShooter().stop();
-        // RobotContainer.getTransport().stop();
-        // RobotContainer.getPulley().stop();
     }
 }

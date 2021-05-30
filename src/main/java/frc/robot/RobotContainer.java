@@ -31,7 +31,6 @@ import frc.robot.commands.MoveTransport;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.PointTurn;
-import frc.robot.commands.auto.CompetitionPaths.RightSixCells;
 import frc.robot.commands.ShootAll;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -217,7 +216,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new RightSixCells();
+    return null;
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

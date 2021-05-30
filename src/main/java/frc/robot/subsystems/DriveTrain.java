@@ -6,14 +6,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class DriveTrain extends SubsystemBase
 {
     private SpeedControllerGroup left, right;
 
     public static double arcadeSpeed = 0;
-
     public static double arcadeSpeedHigh = Constants.SLALOM_SPEED;
 
     //ramping up 

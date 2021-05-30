@@ -8,7 +8,6 @@ import frc.robot.RobotContainer;
 public class MoveElevator extends CommandBase
 {
     private double speed;
-    private int leftCount, rightCount;
     public static double leftLimit = 6259.75;
     public static double rightLimit = -6264.0;
 

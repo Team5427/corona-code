@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Encoder;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,8 +14,6 @@ public class Elevator extends SubsystemBase
     private Encoder leftEnc, rightEnc;
     private DigitalInput limitLeft;
     private DigitalInput limitRight;
-    private int leftCount = 0;
-    private int rightCount = 0;
 
     public Elevator(SpeedController left, SpeedController right, DigitalInput limitLeft, DigitalInput limitRight, Encoder encoderLeft, Encoder encoderRight)
     {
@@ -79,29 +76,6 @@ public class Elevator extends SubsystemBase
     @Override
     public void periodic() {
         //6379.0::-6361.25
-        // SmartDashboard.putBoolean("Limit Left", !limitLeft.get());
-        // System.out.println(!limitLeft.get() + "::" + !limitRight.get());
-        // SmartDashboard.putBoolean("Limit Right", !limitRight.get());
-        // System.out.println(leftEnc.getDistance() + "::" + rightEnc.getDistance());
-
-        // if(getLimitLeft())
-        //     {
-        //         leftCount++;
-        //         if(leftCount >= 2)
-        //         {
-        //             getLeftEnc().reset();
-        //             leftCount = 0;
-        //         }
-        //     }
-        //     if(getLimitRight())
-        //     {
-        //         rightCount++;
-        //         if(rightCount >= 2)
-        //         {
-        //             getRightEnc().reset();
-        //             rightCount = 0;
-        //         }
-        //     }
     }
     
 }
