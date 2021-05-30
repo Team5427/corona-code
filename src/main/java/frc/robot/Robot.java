@@ -6,16 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.DeterminePathA;
-import frc.robot.commands.auto.DeterminePathB;
 import frc.robot.subsystems.DriveTrain;
 
 
@@ -30,20 +24,16 @@ public class Robot extends TimedRobot
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  public static double lowest;
-  public static double highest;
-  // public static double lastTime;
   
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     m_robotContainer = new RobotContainer();
-
     RobotContainer.getAHRS().reset();
-
     DriveTrain.leftSpeed = 0;
     DriveTrain.rightSpeed = 0;
   }
@@ -56,21 +46,13 @@ public class Robot extends TimedRobot
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
-
+  public void robotPeriodic() 
+  {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
-    // SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
-    // SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
-    // SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
-    // SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
-
-    // SmartDashboard.putNumber("Prox3 Low", lowest);
-    // SmartDashboard.putNumber("Prox3 High", highest);
 
     SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
     SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
@@ -78,20 +60,17 @@ public class Robot extends TimedRobot
 
     SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
-    // SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
+    SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
     SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
     SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
-    // SmartDashboard.putNumber("Tilt switch", RobotContainer.getTilt().getLimit());
-
   }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
   @Override
-  public void disabledInit() {
-    lowest = 0;
-    highest = 0;
+  public void disabledInit() 
+  {
   }
 
   @Override
@@ -105,21 +84,16 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    // lastTime = Timer.getFPGATimestamp();
     RobotContainer.getAHRS().reset();
     DriveTrain.rightSpeed = 0;
     DriveTrain.rightSpeed = 0;
 
-
-    // RobotContainer.getDriveTrain().tankDrive(0.5, 0.5);
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
     {
       m_autonomousCommand.schedule();
     }
-
-    // RobotContainer.getDriveTrain().getLeft().set(-0.3);
   }
 
   /**
@@ -127,9 +101,6 @@ public class Robot extends TimedRobot
    */
   @Override
   public void autonomousPeriodic() {
-
-    // System.out.printf("%.4f\n", (Timer.getFPGATimestamp() - lastTime));
-    // lastTime = Timer.getFPGATimestamp();
     CommandScheduler.getInstance().run();
   }
 
@@ -139,13 +110,10 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    lowest = 0;
-    highest = 0;
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    System.out.println("potato");
-    // RobotContainer.getShooter().getShooterMotorTop().set(0.4);
   }
 
   /**

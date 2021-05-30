@@ -7,15 +7,6 @@
 
 package frc.robot;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
-import edu.wpi.first.wpilibj.Ultrasonic.Unit;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Units;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -28,45 +19,36 @@ import edu.wpi.first.wpilibj.util.Units;
  */
 public final class Constants 
 {
-    //****** MOTION PROFILING / DRIVE TRAIN *******/
-    //We need to measure these too
-     // a = v/t
-
-    //i just lost the game
-
+    //****** NUMBERS *******/
     public static final double Z_ROT_DAMPENING = 0.75;
     public static final double TURN_TOLERANCE =  2;
     public static final double DRIVE_TOLERANCE = 0.5;
     public static final double DRIVETRAIN_WHEEL_DIAMETER = 4; //in inches
     public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/256)/12.63;
-    public static final double SHOOTER_DIST_PER_PULSE = 1/256;
-
+    public static final double SHOOTER_DIST_PER_PULSE = 1;
     public static final double INTAKE_PROXIMITY_DIFFERENCE = 2.0;
-
     public static final double PROXIMITY_COVERED = 2.7;
     public static final double PROXIMITY_UNCOVERED = 3.7;
-
     public static final int FIRST_PROXIMITY_UNCOVERED = 0;
-
     public static final int PROXIMITY_TOLERANCE = 0;
+    public static final double TILT_UP_TIMEOUT = 0.5;
+    public static final double SLALOM_SPEED = 0.7;
+    public static final double ELEVATOR_UPPER_LIMIT = 15;
+    public static final double TIME_BETWEEN_CELLS = 0.5;
+    public static final double TIME_AFTER_CELLS = 2;
 
     //Joystick buttons
-
     public static final int INTAKE_BUTTON = 2;
     public static final int TRANSPORT_BUTTON = 7;
     public static final int PULLEY_BUTTON = 8;
     public static final int SHOOTER_BUTTON = 11;
-
     public static final int TILT_BUTTON_UP = 6;
     public static final int TILT_BUTTON_DOWN = 4;
-
     public static final int SHOOTER_TELEOP = 1;
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
     public static final int TILT_AUTO_BUTTON = 10;
     public static final int SHOOT_ALL_BUTTON = 12;
-
-
 
     //Speeds
     public static final double INTAKE_TELEOP_SPEED = 0.7;
@@ -80,214 +62,40 @@ public final class Constants
     public static final double TRANSPORT_SHOOTING_SPEED = 0.7;
     public static final double PULLEY_SHOOTING_SPEED = 0.7;
     public static final double SHOOTER_TELEOP_SPEED = 1.0;
-
     public static final double AUTONOMOUS_SPEED = 0.4;
-
-    public static final double TILT_UP_TIMEOUT = 0.5;
-    //1106.0 :: 1037.25
-
+    public static final double ELEVATOR_SPEED = 0.6;
 
     /*****************Motor ports*****************/
-
-    //i just lost the game
-
     public static final int LEFT_TOP_MOTOR = 14; 
 	public static final int LEFT_BOTTOM_MOTOR = 15;
 	public static final int RIGHT_TOP_MOTOR = 0;
     public static final int RIGHT_BOTTOM_MOTOR = 1;
-    
     public static final int INTAKE_MOTOR = 10; 
     public static final int TRANSPORT_MOTOR = 12;
     public static final int PULLEY_MOTOR = 11;
-
-    public static final int COLOR_WHEEL_MOTOR = 0;
-
     public static final int TILT_MOTOR = 3;
-
     public static final int SHOOTER_MOTOR_TOP = 9;
     public static final int SHOOTER_MOTOR_BOTTOM = 6;
-
-    /*******************Sensors*******************/
-
-    public static final int ENCODER_LEFT_PORT_1 = 6;
-	public static final int ENCODER_LEFT_PORT_2 = 7;
-	public static final int ENCODER_RIGHT_PORT_1 = 4; 
-    public static final int ENCODER_RIGHT_PORT_2 = 5;
-
-    public static final int LIMIT_SWITCH_TILT = 10;
-    
-    public static final int TRANSPORT_PROXIMITY_ONE_SENSOR_PORT = 0;
-    public static final int TRANSPORT_PROXIMITY_TWO_SENSOR_PORT = 2;
-    public static final int PULLEY_PROXIMITY_SENSOR_PORT = 1;
-
-    /**
-     * Distance per pulse of encoder on shooter motor.
-     */
-    public static final double SHOOTER_ENC_DIST_PER_PULSE = 0;
-
-    /**
-     * Channel 1 value of the shooter motor encoder. 
-     */
-    public static final int SHOOTER_ENC_CHANNEL_A = 1;
-
-    /**
-     * Channel 2 value of the shooter motor encoder.
-     */
-    public static final int SHOOTER_ENC_CHANNEL_B = 2;
-
-    /**
-     * Pulses per revolution of the shooter motor encoder.
-     */
-    public static final int SHOOTER_ENC_PPR = 1440;
-
-    /******************Dimensions*****************/
-
-    /**
-     * Wheel diameter of the shooter (in inches).
-     */
-    public static final double SHOOTER_WHEEL_DIAMETER = .1524; //test data
-
-
-    /******************* PID *********************/
-
-    /**
-     * Proportional gain value for shooter PID controller.
-     */
-    public static final double kP_SHOOTER = 1.2;
-
-    /**
-     * Integral gain value for shooter PID controller.
-     */
-    public static final double kI_SHOOTER = 0;
-
-    /**
-     * Derivative gain value for shooter PID controller.
-     */
-    public static final double kD_SHOOTER = 0;
-
-    /**
-     * Feedforward constant for the shooter PID controller with TalonSRX.
-     */
-    public static final double kF_SHOOTER = 2.407;
-
-    public static final double kP_SHOOTER_BOTTOM = 1.2;
-
-    public static final double kI_SHOOTER_BOTTOM = 0;
-
-    public static final double kD_SHOOTER_BOTTOM = 0;
-
-    public static final double kF_SHOOTER_BOTTOM = 2.407;
-
-    /**
-     * The period between shooter controller updates in seconds.
-     */
-    public static final double SHOOTER_PERIOD = 0.5;
-
-    /**
-     * Maximum rotations per second of the shooter.
-     */
-    public static final double SHOOTER_TOLERANCE = 4.0;
-
-    /**
-     * Desired rotations per second of the shooter.
-     */
-    public static final double TARGET_SHOOTER_RPM = 4.0;
-
-    /**
-     * Static gain value for feedforward control with the shooter motor.
-     */
-    public static final double kS_SHOOTER = 0;
-
-    /**
-     * Velocity gain value for feedforward control with the shooter motor.
-     */
-    public static final double kV_SHOOTER = 0;
-
-    public static final double SHOOTER_SETPOINT = 0;
-
-    public static final int K_TIMEOUT_MS = 0;
-
-    public static final int SHOOTER_PID_ID = 0;
-
-    public static final double SHOOTER_ERROR_TOLERANCE = 0.5;
-
-    public static final double ENC_TOLERANCE = 0.5;
-
-    public static final double WAIT_TIME = 1.0;
-
-    /**************** GALACTIC SEARCH ******************/
-    public static final double PATH_A_RED_TIME1 = 2;
-    public static final double PATH_A_RED_TIME2 = 2;
-    public static final double PATH_A_RED_TIME3 = 2;
-    public static final double PATH_A_RED_TIME4 = 2;
-
-    public static final double PATH_A_RED_TURN1 = 80;
-    public static final double PATH_A_RED_TURN2 = 80;
-    public static final double PATH_A_RED_TURN3 = 80;
-
-    /************************* MOTION PROFILING **********************/
-    public static final double MAX_VELOCITY = Units.inchesToMeters(101.831243);
-    public static final double MAX_TIME = 2.31509296;
-    public static final double MAX_ACCELERATION = MAX_VELOCITY / MAX_TIME;
-    // (% Voltage [-1,1])/(Speed in meters per second) [basically we have to measure this]
-    public static final double KV = 1/MAX_VELOCITY;
-
-    //influence of acceleration on velocity, just a bias which can be further tested.
-    public static final double KA = 0;
-
-    public static final double KP_left = 0.0037;
-    public static final double KI_left = 0;
-    public static final double KD_left = 0;
-
-    public static final double KP_right = 0.0037;
-    public static final double KI_right = 0;
-    public static final double KD_right = 0;
-
-    public static final double K_THETA_P = 0;
-    public static final double K_THETA_D = 0;
-
-    //in inches
-
-    public static final double PATH_A_RED_START_X = 0;
-    public static final double PATH_A_RED_START_Y = 0;
-    public static final Rotation2d PATH_A_RED_START_ROTATION = new Rotation2d(0);
-
-    // public static final ArrayList<Translation2d> waypoints = new ArrayList<>();
-    // waypoints.add(new Translation2d(0, 60));
-    // waypoints.add(new Translation2d(30, 60));
-    // waypoints.add(new Translation2d(-90, 30));
-
-    // public static final Translation2d testWaypoint = new Translation2d(0, 1);
-
-    public static final double PATH_A_RED_END_X = 0;
-    public static final double PATH_A_RED_END_Y = -240;
-    public static final Rotation2d PATH_A_RED_END_ROTATION = new Rotation2d(Units.degreesToRadians(0));
-
-
-    public static final double SLALOM_SPEED = 0.7;
-
-
-
-    public static final double ELEVATOR_UPPER_LIMIT = 15;
     public static final int ELEVATOR_LEFT_MOTOR = 13;
     public static final int ELEVATOR_RIGHT_MOTOR = 2;
     public static final int CLIMB_MANIPULATOR = 4;
 
+    /*******************Sensors*******************/
+    public static final int TRANSPORT_PROXIMITY_ONE_SENSOR_PORT = 0;
+    public static final int TRANSPORT_PROXIMITY_TWO_SENSOR_PORT = 2;
+    public static final int PULLEY_PROXIMITY_SENSOR_PORT = 1;
+    public static final int ULTRASONIC_PING = 22;
+    public static final int ULTRASONIC_ECHO = 23;
+
     public static final int ELEVATOR_LEFT_PORT_1 = 0;
     public static final int ELEVATOR_LEFT_PORT_2 = 1;
-    public static final int ELEVATOR_RIGHT_PORT_1 = 2;
-    public static final int ELEVATOR_RIGHT_PORT_2 = 3;
-
-    public static final int TILT_SWITCH_PORT = 12;
-
-    public static final int SHOOTER_TOP_ENC_PORT_1 = 4;
-    public static final int SHOOTER_TOP_ENC_PORT_2 = 5;
-    
-
+    public static final int ELEVATOR_RIGHT_PORT_1 = 6;
+    public static final int ELEVATOR_RIGHT_PORT_2 = 7;
     public static final int ELEVATOR_LIMIT_RIGHT = 9;
     public static final int ELEVATOR_LIMIT_LEFT = 8;
-
-    public static final double ELEVATOR_SPEED = 0.6;
-
-
+    public static final int TILT_SWITCH_PORT = 12;
+    public static final int SHOOTER_TOP_ENC_PORT_1 = 4;
+    public static final int SHOOTER_TOP_ENC_PORT_2 = 5;
+    public static final int SHOOTER_BOTTOM_ENC_PORT_1 = 2;
+    public static final int SHOOTER_BOTTOM_ENC_PORT_2 = 3;
 }

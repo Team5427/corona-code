@@ -23,25 +23,16 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.FindProximity;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.auto.BarrelRacing;
-import frc.robot.commands.auto.BouncePath;
-import frc.robot.commands.auto.DeterminePathA;
-import frc.robot.commands.auto.GalacticSearch;
-import frc.robot.commands.auto.MoveStraightPID;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.PointTurn;
-import frc.robot.commands.auto.Slalom;
 import frc.robot.commands.auto.CompetitionPaths.RightSixCells;
-import frc.robot.commands.ResetSensors;
 import frc.robot.commands.ShootAll;
-import frc.robot.commands.StopVision;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -65,79 +56,62 @@ public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
 
-  //we will increment this in our commands.
-  public static int loop = 0;
-  public static boolean canShoot = false;
+  //numbers
 
+  //joystick
   private static Joystick joy;
   private static Button intakeButton;
   private static Button transportButton;
   private static Button pulleyButton;
   private static Button shooterTeleop;
-
   private static Button tiltButtonUp;
   private static Button tiltDownButton;
-  private static Button stopAimbot;
   private static Button tiltAuto;
-
-  private final SpeedController frontLeft, rearLeft;
-  private final SpeedController frontRight,rearRight;
-  
-  private static SpeedControllerGroup leftDrive;
-  private static SpeedControllerGroup rightDrive;
-  private static DifferentialDrive drive;
-  private static DriveTrain driveTrain;
-  private static Transport transport;
-  private static SpeedController transportMotor;
-
-  private static SpeedController intakeMotor;
-  private static Intake intake;
-
-  private static SpeedController pulleyMotor;
-  private static AnalogInput pulleyProximity;
-  private static Pulley pulley;
-
-  private static AHRS ahrs;
-  private static Encoder encLeft;
-  private static Encoder encRight;
-    
-  private static AnalogInput transportProximity;
-  private static AnalogInput transportProximityTwo;
-
-  private static SpeedController shooterMotorTop;
-  private static SpeedController shooterMotorBottom;
-
-  private static Shooter shooter;
-
-  private static Encoder shooterTopEnc;
-  private static Encoder shooterBottomEnc;
-
-  private static SpeedController tiltMotor;
-  private static DigitalInput tiltSwitch;
-  private static Tilt tilt;
-
-  private static Ultrasonic ultra;
-
-  private static Button proximityDistance;
-  private static Button shooting;
-
-  private static SpeedController elevatorLeft, elevatorRight;
-  private static Encoder elevatorLeftEnc, elevatorRightEnc;
-  private static DigitalInput limitSwitchLeft;
-  private static DigitalInput limitSwitchRight;
-  private static Elevator elevator;
-
-  private static SpeedController throttleMotor;
-  private static Throttle throttle;
-
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button shootAll;
+
+  //motors 
+  private final SpeedController frontLeft, rearLeft;
+  private final SpeedController frontRight,rearRight;
+  private static SpeedControllerGroup leftDrive;
+  private static SpeedControllerGroup rightDrive;
+  private static SpeedController transportMotor;
+  private static SpeedController intakeMotor;
+  private static SpeedController shooterMotorTop;
+  private static SpeedController shooterMotorBottom;
+  private static SpeedController pulleyMotor;
+  private static SpeedController tiltMotor;
+  private static SpeedController elevatorLeft, elevatorRight;
+  private static SpeedController throttleMotor;
+
+  //sensors
+  private static AnalogInput pulleyProximity;
+  private static AnalogInput transportProximity;
+  private static AnalogInput transportProximityTwo;
+  private static Encoder shooterTopEnc;
+  private static Encoder shooterBottomEnc;
+  private static Encoder elevatorLeftEnc, elevatorRightEnc;
+  private static DigitalInput tiltSwitch;
+  private static DigitalInput limitSwitchLeft;
+  private static DigitalInput limitSwitchRight;
+  private static Ultrasonic ultra;
+  private static AHRS ahrs;
+
+  //subsystems
+  private static DifferentialDrive drive;
+  private static DriveTrain driveTrain;
+  private static Transport transport;
+  private static Intake intake;
+  private static Pulley pulley;
+  private static Shooter shooter;
+  private static Tilt tilt;
+  private static Elevator elevator;
+  private static Throttle throttle;
+
+  //camera
   public static CameraServer server;
   public static UsbCamera cam;
-
-
-
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -146,17 +120,15 @@ public class RobotContainer
   {
     server = CameraServer.getInstance();
     cam = server.startAutomaticCapture(0);
+
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
-    
     frontRight = new WPI_VictorSPX(Constants.RIGHT_BOTTOM_MOTOR);
     rearRight = new WPI_VictorSPX(Constants.RIGHT_TOP_MOTOR);
     rightDrive = new SpeedControllerGroup(frontRight, rearRight);
-
     drive = new DifferentialDrive(leftDrive, rightDrive);
     drive.setSafetyEnabled(false);
-
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
@@ -176,41 +148,29 @@ public class RobotContainer
     pulleyProximity = new AnalogInput(Constants.PULLEY_PROXIMITY_SENSOR_PORT);
     pulley = new Pulley(pulleyMotor, pulleyProximity);
 
-    ahrs = new AHRS(SPI.Port.kMXP);
-
-    //encoders have 1440 as PPR and 360 CPR
-    //encRight = new Encoder(5, 4);
-    // encRight.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
-    //encRight.setReverseDirection(true);
-    // encLeft = new Encoder(6, 7);
-    // encLeft.setDistancePerPulse(Constants.DISTANCE_PER_PULSE); // cicrumference divided by 1440 (feet)
-
     shooterTopEnc = new Encoder(Constants.SHOOTER_TOP_ENC_PORT_1, Constants.SHOOTER_TOP_ENC_PORT_2);
-    shooterBottomEnc = new Encoder(2, 3);
-
-    shooterBottomEnc.setDistancePerPulse(1);
-    shooterTopEnc.setDistancePerPulse(-1);
-
+    shooterBottomEnc = new Encoder(Constants.SHOOTER_BOTTOM_ENC_PORT_1, Constants.SHOOTER_BOTTOM_ENC_PORT_2);
+    shooterBottomEnc.setDistancePerPulse(Constants.SHOOTER_DIST_PER_PULSE);
+    shooterTopEnc.setDistancePerPulse(-Constants.SHOOTER_DIST_PER_PULSE);
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
     shooter = new Shooter(shooterMotorTop, shooterMotorBottom, shooterTopEnc, shooterBottomEnc);
 
     elevatorLeft = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     elevatorRight = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
-
-    elevatorLeftEnc = new Encoder(0, 1);
-    // elevatorRightEnc = new Encoder(Constants.ELEVATOR_RIGHT_PORT_1, Constants.ELEVATOR_RIGHT_PORT_2);
-
+    elevatorLeftEnc = new Encoder(Constants.ELEVATOR_LEFT_PORT_1, Constants.ELEVATOR_LEFT_PORT_2);
+    elevatorRightEnc = new Encoder(Constants.ELEVATOR_RIGHT_PORT_1, Constants.ELEVATOR_RIGHT_PORT_2);
     limitSwitchLeft = new DigitalInput(Constants.ELEVATOR_LIMIT_LEFT);
     limitSwitchRight = new DigitalInput(Constants.ELEVATOR_LIMIT_RIGHT);
-
     elevator = new Elevator(elevatorLeft, elevatorRight, limitSwitchLeft, limitSwitchRight, elevatorLeftEnc, elevatorRightEnc);
 
     throttleMotor = new WPI_VictorSPX(Constants.CLIMB_MANIPULATOR);
     throttle = new Throttle(throttleMotor);
 
-    // ultra = new Ultrasonic(22, 23);
-    // ultra.setAutomaticMode(true);
+    ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
+    Ultrasonic.setAutomaticMode(true);
+
+    ahrs = new AHRS(SPI.Port.kMXP);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -241,18 +201,15 @@ public class RobotContainer
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
-    tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); //change this timeout number
+    tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); 
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
     tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    shootAll.whenPressed(new ShootAll(0.5, 2));
-
+    shootAll.whenPressed(new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS));
   }
 
-
-  //accessors that take up space
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -260,8 +217,6 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    // return new PointTurn(-90);
-    // return null;
     return new RightSixCells();
   }
 
@@ -270,8 +225,6 @@ public class RobotContainer
   public static SpeedControllerGroup getRightSCG(){return rightDrive;}
   public static DifferentialDrive getDiffDrive(){return drive;}
   public static AHRS getAHRS(){return ahrs;}
-  public static Encoder getEncLeft(){return encLeft;}
-  public static Encoder getEncRight(){return encRight;}
   public static Joystick getJoy(){return joy;}
   public static Intake getIntake(){return intake;}
   public static Transport getTransport(){return transport;}
