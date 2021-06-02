@@ -112,6 +112,7 @@ public class RobotContainer
   //camera
   public static CameraServer server;
   public static UsbCamera cam;
+  
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

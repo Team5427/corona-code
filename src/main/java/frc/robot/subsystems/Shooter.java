@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase
 {
@@ -49,5 +50,11 @@ public class Shooter extends SubsystemBase
     {
         shooterMotorBottom.set(0);
         shooterMotorTop.set(0);
+    }
+
+    public double calculateShooterSpeed()
+    {
+        double shooterSpeed = (RobotContainer.getUltrasonic().getRangeInches() / 12) / 5;
+        return shooterSpeed;  
     }
 }

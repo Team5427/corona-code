@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class ShootAll extends CommandBase
@@ -23,7 +24,8 @@ public class ShootAll extends CommandBase
     @Override
     public void initialize()
     {
-        RobotContainer.getShooter().moveShooter(Constants.SHOOTER_TELEOP_SPEED);
+        
+        RobotContainer.getShooter().moveShooter(RobotContainer.getShooter().calculateShooterSpeed());
         RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_TELEOP_SPEED);
         startTime = 0;
         timerStarted = false;
