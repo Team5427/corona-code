@@ -18,25 +18,25 @@ import frc.robot.subsystems.DriveTrain;
 public class VisionTurn extends CommandBase 
 {
 
-  private DriveTrain driveTrain;
-  NetworkTableInstance inst;
-  NetworkTable table;
+  //network tables variables to allow us to communicate with rapsberry pi
+  private static NetworkTableInstance inst;
+  private static NetworkTable table;
+
+  private static DriveTrain driveTrain;
+
   private int attempt =0;
-  double dist;
-  double bsd;
-  boolean angledCentered = false;
-  double newDistFromCenter;
-  double newCenter;
-  double bias = 0;
-  double constant = 4;
+  private double dist, bsd;
+  private boolean angledCentered = false;
+  private boolean targetExists;
+  private double newDistFromCenter, newCenter;
+  private double bias = 0;
+  private double constant = 4;
 
   private double startTime;
   private double currTime;
   /**
-   * Creates a new MoveStraight.
+   * Creates a new VisionTurn.
    */
-
-  //bias based on distance model in case it is needed
   public VisionTurn(double bias) 
   {
     addRequirements(RobotContainer.getDriveTrain());
@@ -53,10 +53,13 @@ public class VisionTurn extends CommandBase
     inst = NetworkTableInstance.getDefault();
     table = inst.getTable("vision");
 
+    System.out.println(table.getEntry("targetExists"));
+
     double seconds = 0.2;
     double start = Timer.getFPGATimestamp();
     while(Timer.getFPGATimestamp()-start < seconds)
     {
+      //allows for a delay in starting the command.
     }
     startTime = currTime = Timer.getFPGATimestamp();
   }
@@ -64,12 +67,18 @@ public class VisionTurn extends CommandBase
   @Override
   public void execute() 
   {
+    //updates the timer. 
     currTime = Timer.getFPGATimestamp();
+
+    //the distance that we are offset from the center, modified with a bias based on camera placement
     dist = table.getEntry("targetDistanceFromCenter").getDouble(0);
     dist -=bias;
+
+    //the side that is the largest (left or right) in terms of height
     bsd = table.getEntry("biggestSideDifference").getDouble(0);
     System.out.println(dist);
-    boolean targetExists = table.getEntry("targetExists").getBoolean(false);
+
+    targetExists = table.getEntry("targetExists").getBoolean(false);
     dist -=4;
 
     
@@ -78,7 +87,6 @@ public class VisionTurn extends CommandBase
  
     else if(bsd<25)
     {
-
       if(dist>0)
       {
         if(dist>55)
@@ -96,7 +104,6 @@ public class VisionTurn extends CommandBase
       }
 
     }
-
     else if(dist>0)
     {
       if(dist<25)
@@ -106,7 +113,6 @@ public class VisionTurn extends CommandBase
       else
         driveTrain.tankDrive(-.15, .15);
     }
-
     else if(dist<0)
     {
       if(dist>-25)
@@ -116,7 +122,6 @@ public class VisionTurn extends CommandBase
       else
         driveTrain.tankDrive(.15, -.15);
     }
-     
   }
 
   // Called once the command ends or is interrupted.
