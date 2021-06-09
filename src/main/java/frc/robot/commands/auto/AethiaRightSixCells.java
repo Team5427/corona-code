@@ -8,7 +8,7 @@ public class AethiaRightSixCells extends SequentialCommandGroup
 {
     public AethiaRightSixCells()
     {
-        addCommands(new MoveStraightPID(1), new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS));
+        addCommands(new MoveStraightPID(1), new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS,1));
     }
     
 }

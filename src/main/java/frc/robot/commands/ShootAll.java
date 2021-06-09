@@ -13,9 +13,11 @@ public class ShootAll extends CommandBase
     private double startTime;
     private boolean timerStarted, timerComplete, exitTimerStarted, exitTimerComplete, shooting;
     private int pulleyStopCount;
+    private double shooterSpeed;
 
-    public ShootAll(double timeBetweenCells, double endTime)
+    public ShootAll(double timeBetweenCells, double endTime, double shooterSpeed)
     {
+        this.shooterSpeed = shooterSpeed;
         this.timeBetweenCells = timeBetweenCells;
         this.endTime = endTime;
         addRequirements(RobotContainer.getTransport(), RobotContainer.getShooter());
@@ -25,7 +27,7 @@ public class ShootAll extends CommandBase
     public void initialize()
     {
         
-        RobotContainer.getShooter().moveShooter(RobotContainer.getShooter().calculateShooterSpeed());
+        RobotContainer.getShooter().moveShooter(shooterSpeed);
         RobotContainer.getTransport().moveTransport(Constants.TRANSPORT_TELEOP_SPEED);
         startTime = 0;
         timerStarted = false;
@@ -81,6 +83,10 @@ public class ShootAll extends CommandBase
     {
         // System.out.println("Exit Timer started: " + exitTimerStarted);
         // System.out.println("Timer started: " + timerStarted);
+        if(RobotContainer.getTransport().getTransportCovered() || RobotContainer.getPulley().getPulleyCovered())
+        {
+            return false;
+        }
         if(exitTimerStarted && !timerStarted)
         {
             System.out.println("Stopping systems");

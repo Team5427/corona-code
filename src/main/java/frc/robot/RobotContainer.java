@@ -30,7 +30,10 @@ import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
+import frc.robot.commands.auto.AethiaCenterThreeCells;
+import frc.robot.commands.auto.AethiaLeftThreeCells;
 import frc.robot.commands.auto.AethiaRightSixCells;
+import frc.robot.commands.auto.AethiaRightThreeCells;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ShootAll;
 import frc.robot.subsystems.DriveTrain;
@@ -119,8 +122,8 @@ public class RobotContainer
    */
   public RobotContainer() 
   {
-    server = CameraServer.getInstance();
-    cam = server.startAutomaticCapture(0);
+    // server = CameraServer.getInstance();
+    // cam = server.startAutomaticCapture(0);
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
@@ -208,7 +211,7 @@ public class RobotContainer
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    shootAll.whenPressed(new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS));
+    shootAll.whenPressed(new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS,1));
   }
 
   /**
@@ -218,7 +221,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaRightSixCells();
+    return new AethiaLeftThreeCells();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
