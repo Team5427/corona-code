@@ -35,7 +35,7 @@ public final class Constants
     public static final double SLALOM_SPEED = 0.7;
     public static final double ELEVATOR_UPPER_LIMIT = 15;
     public static final double TIME_BETWEEN_CELLS = 1;
-    public static final double TIME_AFTER_CELLS = 4;
+    public static final double TIME_AFTER_CELLS = 5;
 
     //Joystick buttons
     public static final int INTAKE_BUTTON = 2;

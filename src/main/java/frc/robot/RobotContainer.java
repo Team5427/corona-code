@@ -221,7 +221,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaRightThreeCells();
+    return new AethiaCenterThreeCells();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
