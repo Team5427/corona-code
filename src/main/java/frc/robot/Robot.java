@@ -89,7 +89,7 @@ public class Robot extends TimedRobot
     DriveTrain.rightSpeed = 0;
     DriveTrain.rightSpeed = 0;
 
-    m_autonomousCommand = new AethiaLeftThreeCells();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
     {
