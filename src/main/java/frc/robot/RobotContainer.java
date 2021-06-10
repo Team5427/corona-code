@@ -122,8 +122,8 @@ public class RobotContainer
    */
   public RobotContainer() 
   {
-    // server = CameraServer.getInstance();
-    // cam = server.startAutomaticCapture(0);
+    server = CameraServer.getInstance();
+    cam = server.startAutomaticCapture(0);
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
