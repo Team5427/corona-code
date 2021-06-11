@@ -17,11 +17,11 @@ public class MoveTilt extends CommandBase
     @Override
     public void initialize()
     {
-        if(speed > 0 && !RobotContainer.getTilt().getLimit())
+        if(speed < 0 && !RobotContainer.getTilt().getLimit())
         {
             RobotContainer.getTilt().moveTilt(speed);
         }
-        else if(speed < 0)
+        else if(speed > 0)
         {
             RobotContainer.getTilt().moveTilt(speed);
         }
@@ -35,14 +35,14 @@ public class MoveTilt extends CommandBase
     @Override
     public void execute() 
     {
-        if(speed > 0)
+        if(speed < 0)
         {
             if(RobotContainer.getTilt().getLimit())
             {
                RobotContainer.getTilt().moveTilt(0);
             }
         }
-        if(speed < 0)
+        if(speed > 0)
         {
             
         }

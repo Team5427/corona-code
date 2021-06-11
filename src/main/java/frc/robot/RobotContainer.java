@@ -124,6 +124,8 @@ public class RobotContainer
   {
     server = CameraServer.getInstance();
     cam = server.startAutomaticCapture(0);
+    cam.setFPS(15);
+    
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
@@ -221,7 +223,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaCenterThreeCells();
+    return new AethiaRightThreeCells();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
