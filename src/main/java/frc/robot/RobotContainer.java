@@ -35,6 +35,7 @@ import frc.robot.commands.auto.AethiaLeftThreeCells;
 import frc.robot.commands.auto.AethiaMoveBack;
 import frc.robot.commands.auto.AethiaRightSixCells;
 import frc.robot.commands.auto.AethiaRightThreeCells;
+import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ShootAll;
 import frc.robot.subsystems.DriveTrain;
@@ -224,7 +225,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaMoveBack();
+    return new AutonButScuffed();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
