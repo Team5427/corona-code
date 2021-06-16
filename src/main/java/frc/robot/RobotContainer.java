@@ -32,6 +32,7 @@ import frc.robot.commands.MoveTilt;
 import frc.robot.commands.MoveTiltAuto;
 import frc.robot.commands.auto.AethiaCenterThreeCells;
 import frc.robot.commands.auto.AethiaLeftThreeCells;
+import frc.robot.commands.auto.AethiaMoveBack;
 import frc.robot.commands.auto.AethiaRightSixCells;
 import frc.robot.commands.auto.AethiaRightThreeCells;
 import frc.robot.commands.auto.PointTurn;
@@ -72,7 +73,7 @@ public class RobotContainer
   private static Button tiltAuto;
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
-  public static Button shootAll;
+  public static Button reverseIntake;
 
   //motors 
   private final SpeedController frontLeft, rearLeft;
@@ -199,7 +200,7 @@ public class RobotContainer
     shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
     tiltDownButton = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
     tiltAuto = new JoystickButton(joy, Constants.TILT_AUTO_BUTTON);
-    shootAll = new JoystickButton(joy, Constants.SHOOT_ALL_BUTTON);
+    reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
   
@@ -213,7 +214,7 @@ public class RobotContainer
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    shootAll.whenPressed(new ShootAll(Constants.TIME_BETWEEN_CELLS, Constants.TIME_AFTER_CELLS,1));
+    reverseIntake.whileHeld(new MoveIntake(-Constants.INTAKE_TELEOP_SPEED));
   }
 
   /**
@@ -223,7 +224,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand() 
   {
-    return new AethiaRightThreeCells();
+    return new AethiaMoveBack();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

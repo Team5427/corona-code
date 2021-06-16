@@ -48,7 +48,7 @@ public final class Constants
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
     public static final int TILT_AUTO_BUTTON = 10;
-    public static final int SHOOT_ALL_BUTTON = 12;
+    public static final int REVERSE_INTAKE_BUTTON = 12;
 
     //Speeds
     public static final double INTAKE_TELEOP_SPEED = 0.7;
