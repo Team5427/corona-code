@@ -13,7 +13,7 @@ public class ShootAutoButScuffed extends CommandBase{
     public ShootAutoButScuffed(){
         startTime = Timer.getFPGATimestamp();
         shooterTime = 2;
-        runTime = 10;
+        runTime = 12;
         
     }
 
