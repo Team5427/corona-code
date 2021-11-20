@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import  edu.wpi.first.networktables.NetworkTableInstance;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import  edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -32,7 +33,8 @@ public class VisionTurn extends CommandBase
   double newCenter;
   double bias = 0;
   double constant = 4;
-  boolean target;
+  PhotonTrackedTarget target;
+  boolean targetbool;
   double yaw;
   private double startTime;
   private double currTime;
@@ -62,8 +64,9 @@ public class VisionTurn extends CommandBase
   public void execute() 
   {
     var result = cam.getLatestResult();
-    target = result.hasTargets();
-    yaw = result.getBestTarget().getYaw();
+    targetbool = result.hasTargets();
+    target = result.getBestTarget();
+    yaw = target.getYaw();
     currTime = Timer.getFPGATimestamp();
 
     
@@ -99,7 +102,7 @@ public class VisionTurn extends CommandBase
   @Override
   public boolean isFinished()
   {
-    if(!target || (yaw <= 5 && yaw >= -5))
+    if(!targetbool || (yaw <= 5 && yaw >= -5))
       return false;
 
     return true;

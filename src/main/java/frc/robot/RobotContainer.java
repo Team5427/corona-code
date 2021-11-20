@@ -38,6 +38,7 @@ import frc.robot.commands.auto.AethiaRightThreeCells;
 import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ShootAll;
+import frc.robot.commands.VisionPrint;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -75,6 +76,7 @@ public class RobotContainer
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button reverseIntake;
+  private static Button visionbtn;
 
   //motors 
   private final SpeedController frontLeft, rearLeft;
@@ -204,6 +206,7 @@ public class RobotContainer
     reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
+    visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
   
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
@@ -216,6 +219,7 @@ public class RobotContainer
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     reverseIntake.whileHeld(new MoveIntake(-Constants.INTAKE_TELEOP_SPEED));
+    visionbtn.whileHeld(new VisionPrint());
   }
 
   /**
