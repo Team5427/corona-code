@@ -8,13 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import  edu.wpi.first.networktables.NetworkTableInstance;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.networktables.NetworkTableInstance;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import  edu.wpi.first.networktables.NetworkTable;
+//import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -25,7 +25,7 @@ public class VisionTurn extends CommandBase
   private DriveTrain driveTrain;
   private PhotonCamera cam;
   
-  private int attempt =0;
+  //private int attempt =0;
   double dist;
   double bsd;
   boolean angledCentered = false;

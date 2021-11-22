@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
+//import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class ShootAll extends CommandBase
 {
     private double timeBetweenCells, endTime;
     private double startTime;
-    private boolean timerStarted, timerComplete, exitTimerStarted, exitTimerComplete, shooting;
-    private int pulleyStopCount;
+    private boolean timerStarted, timerComplete, exitTimerStarted, exitTimerComplete;
+    //private int pulleyStopCount;
     private double shooterSpeed;
 
     public ShootAll(double timeBetweenCells, double endTime, double shooterSpeed)
@@ -34,7 +34,7 @@ public class ShootAll extends CommandBase
         timerComplete = false;
         exitTimerComplete = false;
         exitTimerStarted = false;
-        pulleyStopCount = 0;
+        //pulleyStopCount = 0;
     }
 
     @Override
