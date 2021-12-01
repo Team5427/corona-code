@@ -38,6 +38,8 @@ import frc.robot.commands.auto.AethiaRightThreeCells;
 import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ShootAll;
+import frc.robot.commands.VisionPrint;
+import frc.robot.commands.VisionTurn;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -57,7 +59,7 @@ import frc.robot.subsystems.Tilt;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer 
+public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
 
@@ -75,8 +77,9 @@ public class RobotContainer
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button reverseIntake;
+  public static Button visionbtn;
 
-  //motors 
+  //motors
   private final SpeedController frontLeft, rearLeft;
   private final SpeedController frontRight,rearRight;
   private static SpeedControllerGroup leftDrive;
@@ -117,17 +120,17 @@ public class RobotContainer
   //camera
   public static CameraServer server;
   public static UsbCamera cam;
-  
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() 
+  public RobotContainer()
   {
     server = CameraServer.getInstance();
     cam = server.startAutomaticCapture(0);
     cam.setFPS(15);
-    
+
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
@@ -190,7 +193,7 @@ public class RobotContainer
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() 
+  private void configureButtonBindings()
   {
     joy = new Joystick(0);
 
@@ -204,18 +207,21 @@ public class RobotContainer
     reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
-  
+    visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
+
 
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
-    tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED)); 
+    tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED));
     shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
     tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     reverseIntake.whileHeld(new MoveIntake(-Constants.INTAKE_TELEOP_SPEED));
+    visionbtn.whileHeld(new VisionTurn(0));
+
   }
 
   /**
@@ -223,7 +229,7 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public static Command getAutonomousCommand() 
+  public static Command getAutonomousCommand()
   {
     return new AutonButScuffed();
   }
