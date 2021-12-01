@@ -1,13 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 
 public class Intake extends SubsystemBase
@@ -25,6 +20,10 @@ public class Intake extends SubsystemBase
     public void stop()
     {
        intake.stopMotor();
+    }
+    public boolean isMoving()
+    {
+        return intake.get() > 0.1 || intake.get() < -0.1;
     }
 
     @Override

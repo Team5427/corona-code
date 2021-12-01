@@ -6,25 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.MoveStraightPID;
-import frc.robot.commands.PointTurn;
-import frc.robot.commands.StraightAndTurn;
-import frc.robot.commands.MoveStraight;
-import frc.robot.subsystems.Pulley;
-import frc.robot.subsystems.Transport;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import frc.robot.commands.auto.AethiaLeftThreeCells;
+import frc.robot.subsystems.DriveTrain;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -34,24 +22,21 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  */
 public class Robot extends TimedRobot 
 {
-  
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private static double proximityVoltage;
-  PowerDistributionPanel pdp = new PowerDistributionPanel(16);
-
   
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
-  private String gameData;
-  //competition code
-
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     m_robotContainer = new RobotContainer();
+    RobotContainer.getAHRS().reset();
+    DriveTrain.leftSpeed = 0;
+    DriveTrain.rightSpeed = 0;
   }
 
   /**
@@ -62,37 +47,31 @@ public class Robot extends TimedRobot
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // SmartDashboard.putNumber("Average velocity", RobotContainer.getDriveTrain().getAvgRate());
-    // SmartDashboard.putNumber("Average LEFT VELOCITY", RobotContainer.getEncLeft().getRate());
-    // SmartDashboard.putNumber("Average RIGHT VELOCITY", RobotContainer.getEncRight().getRate());
-    // SmartDashboard.putNumber("AHRS X Speed", RobotContainer.getAHRS().getVelocityX());
-    // SmartDashboard.putNumber("AHRS Y Speed", RobotContainer.getAHRS().getVelocityY());
-    // SmartDashboard.putNumber("NavX", RobotContainer.getAHRS().getAngle());
-    // SmartDashboard.putNumber("Left Encoder Distance", RobotContainer.getEncLeft().getDistance());
-    // SmartDashboard.putNumber("Right Encoder Distance", RobotContainer.getEncRight().getDistance());
-    // SmartDashboard.putNumber("Average Distance", RobotContainer.getDriveTrain().getAvgDistance());
-    // SmartDashboard.putNumber("Velocity", RobotContainer.getDriveTrain().getAvgRate());
-    SmartDashboard.putNumber("Proximity one", RobotContainer.getTransport().getDistance());
-    SmartDashboard.putNumber("Proximity two", RobotContainer.getTransport().getDistanceTwo());
-    SmartDashboard.putNumber("Proximity three", RobotContainer.getPulley().getDistance());
-    SmartDashboard.putNumber("Balls In", RobotContainer.ballsIn);
-    SmartDashboard.putNumber("Balls Out", RobotContainer.ballsOut);
-    //System.out.println(pdp.getCurrent(2) + ": current :" + pdp.getCurrent(13));
 
-    SmartDashboard.putNumber("Ultrasonic", RobotContainer.getUltrasonic().getRangeInches());
+    SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
+    SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
+    SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
+
+    SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
+    SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
+    SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
+    SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
+    SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
   }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
    */
   @Override
-  public void disabledInit() {
+  public void disabledInit() 
+  {
   }
 
   @Override
@@ -106,11 +85,11 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    // RobotContainer.getAHRS().reset();
-    // RobotContainer.getEncLeft().reset();
-    // RobotContainer.getEncRight().reset();
+    RobotContainer.getAHRS().reset();
+    DriveTrain.rightSpeed = 0;
+    DriveTrain.rightSpeed = 0;
 
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     if(m_autonomousCommand != null)
     {
@@ -132,10 +111,10 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    // RobotContainer.getShooter().getShooterMotorTop().set(0.4);
   }
 
   /**

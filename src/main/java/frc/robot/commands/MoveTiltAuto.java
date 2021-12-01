@@ -1,12 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
 
 public class MoveTiltAuto extends CommandBase
 {
@@ -26,8 +22,7 @@ public class MoveTiltAuto extends CommandBase
     {
         if(RobotContainer.getTilt().getLimit())
         {
-            RobotContainer.getTilt().moveTilt(-speed);
-            System.out.println("**************************");
+            RobotContainer.getTilt().moveTilt(speed);
             isDown = true;
             startTime = currTime = Timer.getFPGATimestamp();
         }
@@ -46,7 +41,6 @@ public class MoveTiltAuto extends CommandBase
     @Override
     public void execute() 
     {
-        System.out.println(RobotContainer.getTilt().getLimit());
         if(!isDown)
         {
             if(RobotContainer.getTilt().getLimit())
@@ -56,7 +50,6 @@ public class MoveTiltAuto extends CommandBase
         }
         else
         {
-            System.out.println("))))))))))))))))))))))))))))))))))");
             currTime = Timer.getFPGATimestamp();
         }
     }
@@ -70,7 +63,6 @@ public class MoveTiltAuto extends CommandBase
         }
         else
         {
-            System.out.println(currTime - startTime);
             return (currTime - startTime) >= 3.25;
         }
     }

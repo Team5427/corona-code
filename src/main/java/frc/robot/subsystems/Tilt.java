@@ -1,13 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 
 public class Tilt extends SubsystemBase
@@ -37,6 +32,6 @@ public class Tilt extends SubsystemBase
     @Override
     public void periodic() 
     {
-        System.out.println(getLimit());
+        
     }
 }

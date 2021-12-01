@@ -1,11 +1,8 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
 
 public class MoveTilt extends CommandBase
 {
@@ -20,15 +17,14 @@ public class MoveTilt extends CommandBase
     @Override
     public void initialize()
     {
-        if(speed > 0 && !RobotContainer.getTilt().getLimit())
+        if(speed < 0 && !RobotContainer.getTilt().getLimit())
         {
             RobotContainer.getTilt().moveTilt(speed);
         }
-        else if(speed < 0)
+        else if(speed > 0)
         {
             RobotContainer.getTilt().moveTilt(speed);
         }
-        System.out.println("initalized");
     }
 
     @Override
@@ -39,15 +35,14 @@ public class MoveTilt extends CommandBase
     @Override
     public void execute() 
     {
-        System.out.println(RobotContainer.getTilt().getLimit());
-        if(speed > 0)
+        if(speed < 0)
         {
             if(RobotContainer.getTilt().getLimit())
             {
                RobotContainer.getTilt().moveTilt(0);
             }
         }
-        if(speed < 0)
+        if(speed > 0)
         {
             
         }
