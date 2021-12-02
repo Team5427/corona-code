@@ -28,15 +28,9 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.MoveTilt;
+import frc.robot.commands.ReturnTilt;
 import frc.robot.commands.MoveTiltAuto;
-import frc.robot.commands.auto.AethiaCenterThreeCells;
-import frc.robot.commands.auto.AethiaLeftThreeCells;
-import frc.robot.commands.auto.AethiaMoveBack;
-import frc.robot.commands.auto.AethiaRightSixCells;
-import frc.robot.commands.auto.AethiaRightThreeCells;
 import frc.robot.commands.auto.AutonButScuffed;
-import frc.robot.commands.auto.PointTurn;
 import frc.robot.commands.ShootAll;
 import frc.robot.commands.VisionPrint;
 import frc.robot.commands.VisionTurn;
@@ -66,17 +60,15 @@ public class RobotContainer
   //numbers
 
   //joystick
-  private static Joystick joy;
-  private static Button intakeButton;
+  private static XboxController joy;
   private static Button transportButton;
   private static Button pulleyButton;
-  private static Button shooterTeleop;
   private static Button tiltButtonUp;
   private static Button tiltDownButton;
   private static Button tiltAuto;
+  private static Button tiltReturn;
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
-  public static Button reverseIntake;
   public static Button visionbtn;
 
   //motors
@@ -127,9 +119,6 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    server = CameraServer.getInstance();
-    cam = server.startAutomaticCapture(0);
-    cam.setFPS(15);
 
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
@@ -145,6 +134,7 @@ public class RobotContainer
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
+    intake.setDefaultCommand(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
 
     transportMotor = new WPI_VictorSPX(Constants.TRANSPORT_MOTOR);
     transportProximity = new AnalogInput(Constants.TRANSPORT_PROXIMITY_ONE_SENSOR_PORT);
@@ -166,6 +156,7 @@ public class RobotContainer
     shooterMotorTop = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_TOP);
     shooterMotorBottom = new WPI_VictorSPX(Constants.SHOOTER_MOTOR_BOTTOM);
     shooter = new Shooter(shooterMotorTop, shooterMotorBottom, shooterTopEnc, shooterBottomEnc);
+    shooter.setDefaultCommand(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
 
     elevatorLeft = new WPI_VictorSPX(Constants.ELEVATOR_LEFT_MOTOR);
     elevatorRight = new WPI_VictorSPX(Constants.ELEVATOR_RIGHT_MOTOR);
@@ -195,31 +186,23 @@ public class RobotContainer
    */
   private void configureButtonBindings()
   {
-    joy = new Joystick(0);
+    joy = new XboxController(0);
 
-    intakeButton = new JoystickButton(joy, Constants.INTAKE_BUTTON);
     transportButton = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
     pulleyButton = new JoystickButton(joy, Constants.PULLEY_BUTTON);
-    tiltButtonUp = new JoystickButton(joy, Constants.TILT_BUTTON_UP);
-    shooterTeleop = new JoystickButton(joy, Constants.SHOOTER_TELEOP);
-    tiltDownButton = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
     tiltAuto = new JoystickButton(joy, Constants.TILT_AUTO_BUTTON);
-    reverseIntake = new JoystickButton(joy, Constants.REVERSE_INTAKE_BUTTON);
+    tiltReturn = new JoystickButton(joy, Constants.TILT_RETURN_BUTTON);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
 
 
-    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_TELEOP_SPEED));
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
-    tiltButtonUp.whileHeld(new MoveTilt(Constants.TILT_SPEED));
-    shooterTeleop.whileHeld(new MoveShooterTeleop(Constants.SHOOTER_TELEOP_SPEED));
-    tiltDownButton.whileHeld(new MoveTilt(-Constants.TILT_SPEED));
     tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
+    tiltReturn.whenPressed(new ReturnTilt(Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    reverseIntake.whileHeld(new MoveIntake(-Constants.INTAKE_TELEOP_SPEED));
     visionbtn.whileHeld(new VisionTurn(0));
 
   }
@@ -239,7 +222,7 @@ public class RobotContainer
   public static SpeedControllerGroup getRightSCG(){return rightDrive;}
   public static DifferentialDrive getDiffDrive(){return drive;}
   public static AHRS getAHRS(){return ahrs;}
-  public static Joystick getJoy(){return joy;}
+  public static XboxController getJoy(){return joy;}
   public static Intake getIntake(){return intake;}
   public static Transport getTransport(){return transport;}
   public static Pulley getPulley(){return pulley;}
@@ -247,5 +230,4 @@ public class RobotContainer
   public static Shooter getShooter(){return shooter;}
   public static Ultrasonic getUltrasonic(){return ultra;}
   public static Elevator getElevator(){return elevator;}
-  public Command getTurn(){ return new PointTurn(90);}
 }

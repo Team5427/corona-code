@@ -11,7 +11,7 @@ public class Intake extends SubsystemBase
 
     public Intake(SpeedController intake) 
     {
-         this.intake = intake;
+        this.intake = intake;
     }
     public void moveIntake(double speed)
     {

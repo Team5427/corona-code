@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class MoveTiltAuto extends CommandBase
+public class ReturnTilt extends CommandBase
 {
     private double speed;
     private double startTime;
     private double currTime;
-    private boolean isDown = false;
+    private boolean isUp = false;
 
-    public MoveTiltAuto(double speed)
+    public ReturnTilt(double speed)
     {
         addRequirements(RobotContainer.getTilt());
         this.speed = speed;
@@ -20,16 +20,16 @@ public class MoveTiltAuto extends CommandBase
     @Override
     public void initialize()
     {
-        if(RobotContainer.getTilt().getLimit())
+        if(!RobotContainer.getTilt().getLimit())
         {
             RobotContainer.getTilt().moveTilt(0);
-            isDown = true;
+            isUp = true;
             startTime = currTime = Timer.getFPGATimestamp();
         }
         else
         {
-            RobotContainer.getTilt().moveTilt(speed);
-            isDown = false;
+            RobotContainer.getTilt().moveTilt(-speed);
+            isUp = false;
         }
     }
 
@@ -41,16 +41,16 @@ public class MoveTiltAuto extends CommandBase
     @Override
     public void execute() 
     {
-        if(RobotContainer.getTilt().getLimit())
+        if(!RobotContainer.getTilt().getLimit())
         {
             RobotContainer.getTilt().moveTilt(0);
-            isDown = true;
+            isUp = true;
             //startTime = currTime = Timer.getFPGATimestamp();
         }
         else
         {
-            RobotContainer.getTilt().moveTilt(speed);
-            isDown = false;
+            RobotContainer.getTilt().moveTilt(-speed);
+            isUp = false;
         }
     }
     
@@ -58,13 +58,13 @@ public class MoveTiltAuto extends CommandBase
     @Override
     public boolean isFinished()
     {
-        if(!isDown)
+        if(!isUp)
         {
-            return RobotContainer.getTilt().getLimit();
+            return !RobotContainer.getTilt().getLimit();
         }
         else
         {
-            return (currTime - startTime) >= 3.25;
+            return (currTime - startTime) >= 4.25;
         }
     }
 }

@@ -3,6 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+
 public class MoveIntake extends CommandBase
 {
     private double speed;
@@ -16,7 +19,7 @@ public class MoveIntake extends CommandBase
     @Override
     public void initialize()
     {
-        RobotContainer.getIntake().moveIntake(speed);
+        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getTriggerAxis(Hand.kLeft) - 50) * 2);
     }
 
     @Override
@@ -26,12 +29,12 @@ public class MoveIntake extends CommandBase
 
     @Override
     public void execute() {
-        RobotContainer.getIntake().moveIntake(speed);
+        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getTriggerAxis(Hand.kLeft) - 50) * 2);
     }
 
     @Override
     public boolean isFinished()
     {
-        return !RobotContainer.getJoy().getRawButton(Constants.INTAKE_BUTTON);
+        return false;
     }
 }
