@@ -22,7 +22,7 @@ public class ReturnTilt extends CommandBase
     {
         if(!RobotContainer.getTilt().getLimit())
         {
-            RobotContainer.getTilt().moveTilt(0);
+            RobotContainer.getTilt().moveTilt(-speed);
             isUp = true;
             startTime = currTime = Timer.getFPGATimestamp();
         }
@@ -43,7 +43,7 @@ public class ReturnTilt extends CommandBase
     {
         if(!RobotContainer.getTilt().getLimit())
         {
-            RobotContainer.getTilt().moveTilt(0);
+            RobotContainer.getTilt().moveTilt(-speed);
             isUp = true;
             //startTime = currTime = Timer.getFPGATimestamp();
         }

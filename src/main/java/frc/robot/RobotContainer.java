@@ -29,7 +29,7 @@ import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ReturnTilt;
-import frc.robot.commands.MoveTiltAuto;
+import frc.robot.commands.MoveTilt;
 import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.ShootAll;
 import frc.robot.commands.VisionPrint;
@@ -63,10 +63,9 @@ public class RobotContainer
   private static XboxController joy;
   private static Button transportButton;
   private static Button pulleyButton;
-  private static Button tiltButtonUp;
-  private static Button tiltDownButton;
+  private static Button tiltUp;
+  private static Button tiltDown;
   private static Button tiltAuto;
-  private static Button tiltReturn;
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button visionbtn;
@@ -190,8 +189,8 @@ public class RobotContainer
 
     transportButton = new JoystickButton(joy, Constants.TRANSPORT_BUTTON);
     pulleyButton = new JoystickButton(joy, Constants.PULLEY_BUTTON);
-    tiltAuto = new JoystickButton(joy, Constants.TILT_AUTO_BUTTON);
-    tiltReturn = new JoystickButton(joy, Constants.TILT_RETURN_BUTTON);
+    tiltUp = new JoystickButton(joy, Constants.TILT_BUTTON_UP);
+    tiltDown = new JoystickButton(joy, Constants.TILT_BUTTON_DOWN);
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
@@ -199,8 +198,8 @@ public class RobotContainer
 
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
     pulleyButton.whenPressed(new MovePulley(Constants.PULLEY_TELEOP_SPEED));
-    tiltAuto.whenPressed(new MoveTiltAuto(Constants.TILT_SPEED));
-    tiltReturn.whenPressed(new ReturnTilt(Constants.TILT_SPEED));
+    tiltUp.whenPressed(new MoveTilt(Constants.TILT_SPEED));
+    tiltDown.whenPressed(new MoveTilt(-Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     visionbtn.whileHeld(new VisionTurn(0));

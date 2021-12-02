@@ -42,13 +42,11 @@ public final class Constants
     public static final int TRANSPORT_BUTTON = 7;
     public static final int PULLEY_BUTTON = 8;
     //public static final int SHOOTER_BUTTON = 11;
-    // public static final int TILT_BUTTON_UP = 6;
-    // public static final int TILT_BUTTON_DOWN = 4;
+    public static final int TILT_BUTTON_UP = 9;
+    public static final int TILT_BUTTON_DOWN = 10;
     //public static final int SHOOTER_TELEOP = 1;
     public static final int ELEVATOR_UP_BUTTON = 5;
     public static final int ELEVATOR_DOWN_BUTTON = 3;
-    public static final int TILT_AUTO_BUTTON = 9;
-    public static final int TILT_RETURN_BUTTON = 9;
     //public static final int REVERSE_INTAKE_BUTTON = 12;
     public static final int VISION_PRINT_BTN = 1;
 
