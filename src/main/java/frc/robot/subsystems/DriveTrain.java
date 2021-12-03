@@ -16,7 +16,7 @@ public class DriveTrain extends SubsystemBase
     public static double arcadeSpeed = 0;
     public static double arcadeSpeedHigh = Constants.SLALOM_SPEED;
 
-    //ramping up 
+    //ramping up
     public static double rightSpeed, leftSpeed = 0;
 
     //ramping down
@@ -53,7 +53,7 @@ public class DriveTrain extends SubsystemBase
 
         if(leftSpeed >= Math.abs(speed))
         {
-            
+
         }
         else
         {
@@ -68,7 +68,7 @@ public class DriveTrain extends SubsystemBase
 
         if(rightSpeed >= Math.abs(speed))
         {
-            
+
         }
         else
         {
@@ -83,7 +83,7 @@ public class DriveTrain extends SubsystemBase
 
         if(leftSpeedHigh == 0)
         {
-            
+
         }
         else
         {
@@ -98,7 +98,7 @@ public class DriveTrain extends SubsystemBase
 
         if(rightSpeedHigh == 0)
         {
-            
+
         }
         else
         {
@@ -113,7 +113,7 @@ public class DriveTrain extends SubsystemBase
 
         if(arcadeSpeed >= Math.abs(speed))
         {
-            
+
         }
         else
         {
@@ -128,7 +128,7 @@ public class DriveTrain extends SubsystemBase
 
         if(arcadeSpeedHigh <= 0)
         {
-            
+
         }
         else
         {
@@ -146,7 +146,7 @@ public class DriveTrain extends SubsystemBase
 
     public void takeJoystickInputs(XboxController joy)
     {
-        driveBase.arcadeDrive(joy.getX(Hand.kLeft) * 0.65, -joy.getY(Hand.kRight) * 0.65);
+        driveBase.arcadeDrive(joy.getY(Hand.kLeft), -joy.getX(Hand.kRight));
     }
 
     public DifferentialDrive getDriveBase()
@@ -157,5 +157,5 @@ public class DriveTrain extends SubsystemBase
     @Override
     public void periodic()
     {}
-    
+
 }

@@ -17,7 +17,7 @@ package frc.robot;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
-public final class Constants 
+public final class Constants
 {
     //****** NUMBERS *******/
     public static final double Z_ROT_DAMPENING = 0.75;
@@ -39,14 +39,14 @@ public final class Constants
 
     //Joystick buttons
     //public static final int INTAKE_BUTTON = 2;
-    public static final int TRANSPORT_BUTTON = 7;
-    public static final int PULLEY_BUTTON = 8;
+    public static final int TRANSPORT_BUTTON = 5;
+    public static final int PULLEY_BUTTON = 6;
     //public static final int SHOOTER_BUTTON = 11;
     public static final int TILT_BUTTON_UP = 9;
     public static final int TILT_BUTTON_DOWN = 10;
     //public static final int SHOOTER_TELEOP = 1;
-    public static final int ELEVATOR_UP_BUTTON = 5;
-    public static final int ELEVATOR_DOWN_BUTTON = 3;
+    public static final int ELEVATOR_UP_BUTTON = 7;
+    public static final int ELEVATOR_DOWN_BUTTON = 8;
     //public static final int REVERSE_INTAKE_BUTTON = 12;
     public static final int VISION_PRINT_BTN = 1;
 
@@ -60,11 +60,11 @@ public final class Constants
     public static final double ELEVATOR_SPEED = 0.6;
 
     /*****************Motor ports*****************/
-    public static final int LEFT_TOP_MOTOR = 14; 
+    public static final int LEFT_TOP_MOTOR = 14;
 	public static final int LEFT_BOTTOM_MOTOR = 15;
 	public static final int RIGHT_TOP_MOTOR = 0;
     public static final int RIGHT_BOTTOM_MOTOR = 1;
-    public static final int INTAKE_MOTOR = 10; 
+    public static final int INTAKE_MOTOR = 10;
     public static final int TRANSPORT_MOTOR = 12;
     public static final int PULLEY_MOTOR = 11;
     public static final int TILT_MOTOR = 3;

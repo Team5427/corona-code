@@ -34,6 +34,7 @@ import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.ShootAll;
 import frc.robot.commands.VisionPrint;
 import frc.robot.commands.VisionTurn;
+import frc.robot.commands.UsefulAuto.UsefulAuton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -202,7 +203,7 @@ public class RobotContainer
     tiltDown.whenPressed(new MoveTilt(-Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    visionbtn.whileHeld(new VisionTurn(0));
+    //visionbtn.whileHeld(new VisionTurn(0));
 
   }
 
@@ -213,7 +214,7 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand()
   {
-    return new AutonButScuffed();
+    return new UsefulAuton();
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}

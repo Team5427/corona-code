@@ -52,10 +52,10 @@ public class Robot extends TimedRobot
     RobotContainer.getAHRS().reset();
     DriveTrain.leftSpeed = 0;
     DriveTrain.rightSpeed = 0;
-    NetworkTableInstance PIInstance = NetworkTableInstance.create();
-    PIInstance.setServer("photonvision");
-    PIInstance.startClient();
-    table = PIInstance.getTable("photonvision").getSubTable("photoncam");
+    // NetworkTableInstance PIInstance = NetworkTableInstance.create();
+    // PIInstance.setServer("photonvision");
+    // PIInstance.startClient();
+    // table = PIInstance.getTable("photonvision").getSubTable("photoncam");
   }
 
   /**
@@ -84,13 +84,13 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
     SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
 
-    hasTarget = table.getEntry("hasTarget").getBoolean(true);
-    pitch = table.getEntry("targetPitch").getDouble(default_all);
-    yaw = table.getEntry("targetYaw").getDouble(default_all);
-    skew = table.getEntry("targetSkew").getDouble(default_all);
-    area = table.getEntry("targetArea").getDouble(default_all);
-    PixelX = table.getEntry("targetPixelsX").getDouble(default_all);
-    PixelY = table.getEntry("targetPixelsY").getDouble(default_all);
+    // hasTarget = table.getEntry("hasTarget").getBoolean(true);
+    // pitch = table.getEntry("targetPitch").getDouble(default_all);
+    // yaw = table.getEntry("targetYaw").getDouble(default_all);
+    // skew = table.getEntry("targetSkew").getDouble(default_all);
+    // area = table.getEntry("targetArea").getDouble(default_all);
+    // PixelX = table.getEntry("targetPixelsX").getDouble(default_all);
+    // PixelY = table.getEntry("targetPixelsY").getDouble(default_all);
   }
 
   /**

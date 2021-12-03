@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 public class MoveShooterTeleop extends CommandBase
 {
     private double speed;
-    
+
     public MoveShooterTeleop(double speed)
     {
         addRequirements(RobotContainer.getShooter());
@@ -17,12 +17,12 @@ public class MoveShooterTeleop extends CommandBase
 
     @Override
     public void initialize() {
-        RobotContainer.getShooter().moveShooter((RobotContainer.getJoy().getTriggerAxis(Hand.kRight) - 50) * 2);
+        RobotContainer.getShooter().moveShooter((RobotContainer.getJoy().getTriggerAxis(Hand.kRight)));
     }
 
     @Override
     public void execute() {
-        RobotContainer.getShooter().moveShooter((RobotContainer.getJoy().getTriggerAxis(Hand.kRight) - 50) * 2);
+        RobotContainer.getShooter().moveShooter((RobotContainer.getJoy().getTriggerAxis(Hand.kRight)));
     }
 
     @Override
