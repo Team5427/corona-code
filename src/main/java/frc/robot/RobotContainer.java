@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
@@ -36,6 +37,7 @@ import frc.robot.commands.VisionPrint;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.UsefulAuto.UsefulAuton;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.OdometryDriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
@@ -92,6 +94,7 @@ public class RobotContainer
   private static Encoder shooterTopEnc;
   private static Encoder shooterBottomEnc;
   private static Encoder elevatorLeftEnc, elevatorRightEnc;
+  private static Encoder dt_left_top_enc, dt_right_top_enc;
   private static DigitalInput tiltSwitch;
   private static DigitalInput limitSwitchLeft;
   private static DigitalInput limitSwitchRight;
@@ -113,6 +116,9 @@ public class RobotContainer
   public static CameraServer server;
   public static UsbCamera cam;
 
+  //trajectory
+  public static DifferentialDriveOdometry robot_odometry;
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -120,7 +126,7 @@ public class RobotContainer
   public RobotContainer()
   {
 
-
+    
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
@@ -131,6 +137,11 @@ public class RobotContainer
     drive.setSafetyEnabled(false);
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
+
+    dt_left_top_enc = new Encoder(Constants.DT_ENC_LEFT_TOP, Constants.DT_ENC_LEFT_TOP2);
+    dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
+    dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+    dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
@@ -173,6 +184,7 @@ public class RobotContainer
     Ultrasonic.setAutomaticMode(true);
 
     ahrs = new AHRS(SPI.Port.kMXP);
+    robot_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
     // Configure the button bindings
     configureButtonBindings();
@@ -218,6 +230,7 @@ public class RobotContainer
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
+  public static DifferentialDriveOdometry getOdometry(){return robot_odometry;}
   public static SpeedControllerGroup getLeftSCG(){return leftDrive;}
   public static SpeedControllerGroup getRightSCG(){return rightDrive;}
   public static DifferentialDrive getDiffDrive(){return drive;}

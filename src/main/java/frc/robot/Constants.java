@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -36,6 +38,18 @@ public final class Constants
     public static final double ELEVATOR_UPPER_LIMIT = 15;
     public static final double TIME_BETWEEN_CELLS = 1;
     public static final double TIME_AFTER_CELLS = 5;
+
+    //***** TRAJECTORY VOLTAGE VALUES (Need to fill from characterization routine) ******/
+    public static double ksVolts;
+    public static double kvVoltSecondsPerMeter;
+    public static double kaVoltSecondsSquaredPerMeter;
+    public static double kPDriveVel;
+    public static double kTrackwidthMeters;
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static double kMaxSpeedMetersPerSecond;
+    public static double kMaxAccelerationMetersPerSecondSquared;
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
 
     //Joystick buttons
     //public static final int INTAKE_BUTTON = 2;
@@ -93,4 +107,8 @@ public final class Constants
     public static final int SHOOTER_TOP_ENC_PORT_2 = 5;
     public static final int SHOOTER_BOTTOM_ENC_PORT_1 = 2;
     public static final int SHOOTER_BOTTOM_ENC_PORT_2 = 3;
+    public static final int DT_ENC_LEFT_TOP = 13;
+    public static final int DT_ENC_RIGHT_TOP = 14;
+    public static final int DT_ENC_LEFT_TOP2 = 17;
+    public static final int DT_ENC_RIGHT_TOP2 = 18;
 }
