@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -21,8 +23,18 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
@@ -35,7 +47,7 @@ import frc.robot.commands.auto.AutonButScuffed;
 import frc.robot.commands.ShootAll;
 import frc.robot.commands.VisionPrint;
 import frc.robot.commands.VisionTurn;
-import frc.robot.commands.UsefulAuto.UsefulAuton;
+//import frc.robot.commands.UsefulAuto.UsefulAuton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.OdometryDriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -43,6 +55,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
@@ -103,6 +116,7 @@ public class RobotContainer
 
   //subsystems
   private static DifferentialDrive drive;
+  public static OdometryDriveTrain odometryDriveTrain;
   private static DriveTrain driveTrain;
   private static Transport transport;
   private static Intake intake;
@@ -126,7 +140,11 @@ public class RobotContainer
   public RobotContainer()
   {
 
-    
+    dt_left_top_enc = new Encoder(Constants.DT_ENC_LEFT_TOP, Constants.DT_ENC_LEFT_TOP2);
+    dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
+    dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+    dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
     leftDrive = new SpeedControllerGroup(frontLeft, rearLeft);
@@ -136,12 +154,9 @@ public class RobotContainer
     drive = new DifferentialDrive(leftDrive, rightDrive);
     drive.setSafetyEnabled(false);
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
+    odometryDriveTrain = new OdometryDriveTrain(leftDrive, rightDrive, drive, dt_left_top_enc, dt_right_top_enc, ahrs, robot_odometry);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
-    dt_left_top_enc = new Encoder(Constants.DT_ENC_LEFT_TOP, Constants.DT_ENC_LEFT_TOP2);
-    dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
-    dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-    dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
     intake = new Intake(intakeMotor);
@@ -226,7 +241,55 @@ public class RobotContainer
    */
   public static Command getAutonomousCommand()
   {
-    return new UsefulAuton();
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+      new SimpleMotorFeedforward(
+        Constants.ksVolts, 
+        Constants.kvVoltSecondsPerMeter, 
+        Constants.kaVoltSecondsSquaredPerMeter), 
+      Constants.kDriveKinematics, 10);
+
+    // Create config for trajectory
+    TrajectoryConfig config = new TrajectoryConfig(
+      Constants.kMaxSpeedMetersPerSecond, 
+      Constants.kMaxAccelerationMetersPerSecondSquared).setKinematics(Constants.kDriveKinematics).addConstraint(autoVoltageConstraint);
+
+    // An example trajectory to follow.  All units in meters.
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(
+            new Translation2d(1, 1),
+            new Translation2d(2, -1)
+        ),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(0)),
+        // Pass config
+        config
+    );
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        exampleTrajectory,
+        odometryDriveTrain::getPose,
+        new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+        new SimpleMotorFeedforward(Constants.ksVolts,
+                                  Constants.kvVoltSecondsPerMeter,
+                                  Constants.kaVoltSecondsSquaredPerMeter),
+        Constants.kDriveKinematics,
+        odometryDriveTrain::getWheelSpeeds,
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        new PIDController(Constants.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        odometryDriveTrain::tankDriveVolts,
+        odometryDriveTrain
+    );
+
+    // Reset odometry to the starting pose of the trajectory.
+    odometryDriveTrain.resetOdometry(exampleTrajectory.getInitialPose());
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> odometryDriveTrain.tankDriveVolts(0, 0));
+
   }
 
   public static DriveTrain getDriveTrain(){return driveTrain;}
