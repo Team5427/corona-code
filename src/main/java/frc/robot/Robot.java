@@ -9,11 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.PathWeaver;
+
 
 
 
@@ -30,6 +32,9 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   NetworkTable table;
+
+  String trajectoryJSON = "paths/YourPath.wpilib.json";
+  Trajectory trajectory = new Trajectory();
 
   public static double pitch;
   public static double yaw;
@@ -48,6 +53,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit()
   {
+    PathWeaver.ConvertJson();
     m_robotContainer = new RobotContainer();
     RobotContainer.getAHRS().reset();
     NetworkTableInstance PIInstance = NetworkTableInstance.create();
