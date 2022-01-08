@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class PathWeaver extends CommandBase{
 
-    static String trajectoryJSON = "paths/YourPath.wpilib.json";
+    static String trajectoryJSON = "output/Path.wpilib.json";
     public static Trajectory trajectory = new Trajectory();
 
     public static void ConvertJson() {
