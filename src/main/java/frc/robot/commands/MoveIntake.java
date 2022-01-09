@@ -19,7 +19,7 @@ public class MoveIntake extends CommandBase
     @Override
     public void initialize()
     {
-        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getTriggerAxis(Hand.kLeft)));
+        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getLeftTriggerAxis()));
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MoveIntake extends CommandBase
 
     @Override
     public void execute() {
-        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getTriggerAxis(Hand.kLeft)));
+        RobotContainer.getIntake().moveIntake((RobotContainer.getJoy().getLeftTriggerAxis()));
     }
 
     @Override
