@@ -1,18 +1,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase
 {
-    private SpeedController shooterMotorTop;
-    private SpeedController shooterMotorBottom;
+    private MotorController shooterMotorTop;
+    private MotorController shooterMotorBottom;
     private Encoder shooterTopEnc;
     private Encoder shooterBottomEnc;
     
-    public Shooter(SpeedController shooterMotorTop, SpeedController shooterMotorBottom, Encoder top, Encoder bottom)
+    public Shooter(MotorController shooterMotorTop, MotorController shooterMotorBottom, Encoder top, Encoder bottom)
     {
         this.shooterMotorTop = shooterMotorTop;
         this.shooterMotorBottom = shooterMotorBottom;
@@ -20,12 +20,12 @@ public class Shooter extends SubsystemBase
         shooterBottomEnc = bottom;
     }
 
-    public SpeedController getShooterMotorTop()
+    public MotorController getShooterMotorTop()
     {
         return shooterMotorTop;
     }
 
-    public SpeedController getShooterMotorBottom()
+    public MotorController getShooterMotorBottom()
     {
         return shooterMotorBottom;
     }

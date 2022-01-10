@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Tilt extends SubsystemBase
 { 
-    private SpeedController tiltMotor;  
+    private MotorController tiltMotor;  
     private DigitalInput tiltLimit;
 
-    public Tilt(SpeedController tiltMotor, DigitalInput tiltLimit) 
+    public Tilt(MotorController tiltMotor, DigitalInput tiltLimit) 
     {
          this.tiltMotor = tiltMotor;
          this.tiltLimit = tiltLimit;

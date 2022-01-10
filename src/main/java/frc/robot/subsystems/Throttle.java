@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
 public class Throttle extends SubsystemBase {
  
 	
-	private SpeedController motorController;
+	private MotorController motorController;
 
 
-    public Throttle(SpeedController motorController) 
+    public Throttle(MotorController motorController) 
     {
         this.motorController = motorController;
     }
@@ -32,7 +32,7 @@ public class Throttle extends SubsystemBase {
         }
     }
 
-    public SpeedController getMotor()
+    public MotorController getMotor()
     {
         return motorController;
     }

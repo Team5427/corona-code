@@ -1,19 +1,19 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pulley extends SubsystemBase
 {
     public static double pulleyVoltage;
-    private SpeedController pulleyMotor;
+    private MotorController pulleyMotor;
     private AnalogInput pulleyProximity;
     public static boolean sensorThree = false;
     public static double startTime = 0;
     public static double currTime = 0;
 
-    public Pulley(SpeedController pulleyMotor, AnalogInput pulleyProximity)
+    public Pulley(MotorController pulleyMotor, AnalogInput pulleyProximity)
     {
         this.pulleyMotor = pulleyMotor;
         this.pulleyProximity = pulleyProximity;

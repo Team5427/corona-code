@@ -1,29 +1,29 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase
 {
-    private SpeedControllerGroup left, right;
+    private MotorControllerGroup left, right;
 
     private DifferentialDrive driveBase;
 
-    public DriveTrain(SpeedControllerGroup left, SpeedControllerGroup right, DifferentialDrive driveBase)
+    public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive driveBase)
     {
         this.left = left;
         this.right = right;
         this.driveBase = driveBase;
     }
 
-    public SpeedControllerGroup getLeft()
+    public MotorControllerGroup getLeft()
     {
         return left;
     }
 
-    public SpeedControllerGroup getRight()
+    public MotorControllerGroup getRight()
     {
         return right;
     }

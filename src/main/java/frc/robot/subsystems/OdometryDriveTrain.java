@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class OdometryDriveTrain extends SubsystemBase {
     // The motors on the left side of the drive.
-    private SpeedControllerGroup left, right;
+    private MotorControllerGroup left, right;
 
     private DifferentialDrive driveBase;
 
@@ -31,7 +31,7 @@ public class OdometryDriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
    */
-  public OdometryDriveTrain(SpeedControllerGroup left, SpeedControllerGroup right, DifferentialDrive driveBase, Encoder m_leftEncoder, Encoder m_rightEncoder, AHRS m_gyro, DifferentialDriveOdometry m_odometry) {
+  public OdometryDriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive driveBase, Encoder m_leftEncoder, Encoder m_rightEncoder, AHRS m_gyro, DifferentialDriveOdometry m_odometry) {
     // Sets the distance per pulse for the encoders
 
     this.left = left;

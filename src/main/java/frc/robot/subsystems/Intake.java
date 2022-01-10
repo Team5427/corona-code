@@ -1,15 +1,15 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Intake extends SubsystemBase
 { 
-    private SpeedController intake;  
+    private MotorController intake;  
 
-    public Intake(SpeedController intake) 
+    public Intake(MotorController intake) 
     {
         this.intake = intake;
     }

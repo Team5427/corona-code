@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,13 +14,13 @@ public class Transport extends SubsystemBase
     public static double transportVoltage;
     private AnalogInput transportProximity;
 
-    private SpeedController transportMotor;  
+    private MotorController transportMotor;  
     public static boolean firstSensor = false;
 
     public static int ballCount = 0;
    
     
-    public Transport (SpeedController transportMotor, AnalogInput intakeProximity, AnalogInput transportProximity) 
+    public Transport (MotorController transportMotor, AnalogInput intakeProximity, AnalogInput transportProximity) 
     {
         this.intakeProximity =  intakeProximity;
         this.transportProximity = transportProximity;
