@@ -42,8 +42,8 @@ public class Shooter extends SubsystemBase
 
     public void moveShooter(double speed)
     {
-        shooterMotorBottom.set(-speed);
-        shooterMotorTop.set(speed);
+        shooterMotorBottom.set(-RobotContainer.pid.calculate(RobotContainer.shooterBottomEnc.getDistance(), 1));
+        shooterMotorTop.set(RobotContainer.pid.calculate(RobotContainer.shooterTopEnc.getDistance(), 1));
     }
 
     public void stop()

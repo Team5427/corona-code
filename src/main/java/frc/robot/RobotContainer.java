@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
@@ -84,8 +85,8 @@ public class RobotContainer
   private static AnalogInput pulleyProximity;
   private static AnalogInput transportProximity;
   private static AnalogInput transportProximityTwo;
-  private static Encoder shooterTopEnc;
-  private static Encoder shooterBottomEnc;
+  public static Encoder shooterTopEnc;
+  public static Encoder shooterBottomEnc;
   private static Encoder elevatorLeftEnc, elevatorRightEnc;
   private static Encoder dt_left_top_enc, dt_right_top_enc;
   private static DigitalInput tiltSwitch;
@@ -112,6 +113,7 @@ public class RobotContainer
   //trajectory
   public static DifferentialDriveOdometry robot_odometry;
 
+  public static PIDController pid;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -123,6 +125,8 @@ public class RobotContainer
     dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
     dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
     dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+
+    pid = new PIDController(0, 0, 0);
 
     frontLeft = new WPI_VictorSPX(Constants.LEFT_TOP_MOTOR);
     rearLeft = new WPI_VictorSPX(Constants.LEFT_BOTTOM_MOTOR);
