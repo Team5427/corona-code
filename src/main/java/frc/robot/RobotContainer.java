@@ -7,11 +7,8 @@
 
 package frc.robot;
 
-import java.util.List;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
-
 
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -19,35 +16,20 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.XboxController;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
-import frc.robot.commands.ReturnTilt;
 import frc.robot.commands.MoveTilt;
-import frc.robot.commands.auto.AutonButScuffed;
-import frc.robot.commands.ShootAll;
-import frc.robot.commands.VisionPrint;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.UsefulAuto.TrajectoryAuton;
 import frc.robot.subsystems.DriveTrain;
@@ -57,12 +39,10 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Throttle;
 import frc.robot.subsystems.Tilt;
 
 /**
@@ -83,7 +63,6 @@ public class RobotContainer
   private static Button pulleyButton;
   private static Button tiltUp;
   private static Button tiltDown;
-  private static Button tiltAuto;
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button visionbtn;
@@ -100,7 +79,6 @@ public class RobotContainer
   private static MotorController pulleyMotor;
   private static MotorController tiltMotor;
   private static MotorController elevatorLeft, elevatorRight;
-  private static MotorController throttleMotor;
 
   //sensors
   private static AnalogInput pulleyProximity;
@@ -126,7 +104,6 @@ public class RobotContainer
   private static Shooter shooter;
   private static Tilt tilt;
   private static Elevator elevator;
-  private static Throttle throttle;
 
   //camera
   public static CameraServer server;
@@ -194,8 +171,6 @@ public class RobotContainer
     limitSwitchRight = new DigitalInput(Constants.ELEVATOR_LIMIT_RIGHT);
     elevator = new Elevator(elevatorLeft, elevatorRight, limitSwitchLeft, limitSwitchRight, elevatorLeftEnc, elevatorRightEnc);
 
-    throttleMotor = new WPI_VictorSPX(Constants.CLIMB_MANIPULATOR);
-    throttle = new Throttle(throttleMotor);
 
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
     Ultrasonic.setAutomaticMode(true);
