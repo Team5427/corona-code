@@ -16,7 +16,8 @@ public class MoveShooterTeleop extends CommandBase
 
     @Override
     public void initialize() {
-        RobotContainer.getShooter().moveShooter((RobotContainer.getJoy().getRightTriggerAxis()));
+        if (RobotContainer.getJoy().getRightTriggerAxis() > 0 && RobotContainer.getJoy().getRightTriggerAxis() < 1)
+        RobotContainer.getShooter().moveShooter(1);
     }
 
     @Override
