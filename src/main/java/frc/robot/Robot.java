@@ -55,7 +55,7 @@ public class Robot extends TimedRobot
   {
     PathWeaver.ConvertJson();
     m_robotContainer = new RobotContainer();
-    RobotContainer.getAHRS().reset();
+    //RobotContainer.getAHRS().reset();
     NetworkTableInstance PIInstance = NetworkTableInstance.create();
     PIInstance.setServer("photonvision");
     PIInstance.startClient();
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
     SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
-    SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
+    //SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
     SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
     SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
     SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
@@ -116,7 +116,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    RobotContainer.getAHRS().reset();
+    //RobotContainer.getAHRS().reset();
 
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 

@@ -50,13 +50,13 @@ public class VisionTurn extends CommandBase
       if(Robot.yaw >= 20){
         driveTrain.getRight().set(-0.5);
         driveTrain.getLeft().set(-0.5);      }
-      else if(Robot.yaw > 3){
+      else if(Robot.yaw > 1){
         driveTrain.getRight().set(-0.2);
         driveTrain.getLeft().set(-0.2);      }
       else if(Robot.yaw <= -20){
         driveTrain.getRight().set(0.5);
         driveTrain.getLeft().set(0.5);      }
-      else if(Robot.yaw < -3){
+      else if(Robot.yaw < -1){
         driveTrain.getRight().set(0.2);
         driveTrain.getLeft().set(0.2);
 

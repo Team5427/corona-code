@@ -8,7 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -93,7 +93,7 @@ public class RobotContainer
   private static DigitalInput limitSwitchLeft;
   private static DigitalInput limitSwitchRight;
   private static Ultrasonic ultra;
-  private static AHRS ahrs;
+  //private static AHRS ahrs;
 
   //subsystems
   private static DifferentialDrive drive;
@@ -137,7 +137,7 @@ public class RobotContainer
     drive = new DifferentialDrive(leftDrive, rightDrive);
     drive.setSafetyEnabled(false);
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
-    odometryDriveTrain = new OdometryDriveTrain(leftDrive, rightDrive, drive, dt_left_top_enc, dt_right_top_enc, ahrs, robot_odometry);
+    //odometryDriveTrain = new OdometryDriveTrain(leftDrive, rightDrive, drive, dt_left_top_enc, dt_right_top_enc, ahrs, robot_odometry);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
 
@@ -179,8 +179,8 @@ public class RobotContainer
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
     Ultrasonic.setAutomaticMode(true);
 
-    ahrs = new AHRS(SPI.Port.kMXP);
-    robot_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
+    //ahrs = new AHRS(SPI.Port.kMXP);
+    //robot_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
     // Configure the button bindings
     configureButtonBindings();
@@ -232,7 +232,7 @@ public class RobotContainer
   public static MotorControllerGroup getLeftSCG(){return leftDrive;}
   public static MotorControllerGroup getRightSCG(){return rightDrive;}
   public static DifferentialDrive getDiffDrive(){return drive;}
-  public static AHRS getAHRS(){return ahrs;}
+  //public static AHRS getAHRS(){return ahrs;}
   public static XboxController getJoy(){return joy;}
   public static Intake getIntake(){return intake;}
   public static Transport getTransport(){return transport;}

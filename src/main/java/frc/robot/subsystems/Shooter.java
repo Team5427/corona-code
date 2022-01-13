@@ -42,8 +42,8 @@ public class Shooter extends SubsystemBase
 
     public void moveShooter(double speed)
     {
-        shooterMotorBottom.set(-1);
-        shooterMotorTop.set(1);
+        shooterMotorBottom.set(-speed);
+        shooterMotorTop.set(speed);
     }
 
     public void stop()
