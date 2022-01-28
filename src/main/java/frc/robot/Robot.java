@@ -55,7 +55,7 @@ public class Robot extends TimedRobot
   {
     PathWeaver.ConvertJson();
     m_robotContainer = new RobotContainer();
-    //RobotContainer.getAHRS().reset();
+    RobotContainer.getAHRS().reset();
     NetworkTableInstance PIInstance = NetworkTableInstance.create();
     PIInstance.setServer("photonvision");
     PIInstance.startClient();
@@ -78,15 +78,15 @@ public class Robot extends TimedRobot
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
-    SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
-    SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
+    // SmartDashboard.putBoolean("Intake Covered", RobotContainer.getTransport().getIntakeCovered());
+    // SmartDashboard.putBoolean("Transport covered", RobotContainer.getTransport().getTransportCovered());
+    // SmartDashboard.putBoolean("Pulley Covered", RobotContainer.getPulley().getPulleyCovered());
 
     //SmartDashboard.putNumber("Yaw", RobotContainer.getAHRS().getYaw());
-    SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
-    SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
+    // SmartDashboard.putNumber("Left", RobotContainer.getElevator().getLeftEnc().getDistance());
+    // SmartDashboard.putNumber("Right", RobotContainer.getElevator().getRightEnc().getDistance());
     SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
-    SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
+    //SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
 
     hasTarget = table.getEntry("hasTarget").getBoolean(true);
     pitch = table.getEntry("targetPitch").getDouble(default_all);
@@ -95,6 +95,7 @@ public class Robot extends TimedRobot
     area = table.getEntry("targetArea").getDouble(default_all);
     PixelX = table.getEntry("targetPixelsX").getDouble(default_all);
     PixelY = table.getEntry("targetPixelsY").getDouble(default_all);
+    //System.out.println(RobotContainer.getAHRS().getYaw());
   }
 
   /**
@@ -116,7 +117,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit()
   {
-    //RobotContainer.getAHRS().reset();
+    RobotContainer.getAHRS().reset();
 
     m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
@@ -140,10 +141,11 @@ public class Robot extends TimedRobot
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-
+    RobotContainer.getAHRS().reset();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
   }
 
   /**
@@ -152,7 +154,8 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic()
   {
-
+    //System.out.println(RobotContainer.getShooter().getTopEnc().getRaw());
+    //System.out.println("test");
   }
 
   @Override

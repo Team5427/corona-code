@@ -4,7 +4,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
-public class VisionTurnRight extends CommandBase
+public class VisionForward extends CommandBase
 {
 
   private DriveTrain driveTrain = RobotContainer.getDriveTrain();
@@ -15,7 +15,7 @@ public class VisionTurnRight extends CommandBase
    */
 
   //bias based on distance model in case it is needed
-  public VisionTurnRight(double bias)
+  public VisionForward(double bias)
   {
     addRequirements(RobotContainer.getDriveTrain());
     this.bias = bias;
@@ -36,22 +36,15 @@ public class VisionTurnRight extends CommandBase
 
 
     if(!Robot.hasTarget){
-      driveTrain.getRight().set(-0.3);
-      driveTrain.getLeft().set(-0.3);
     }
     else{
-      if(Robot.yaw >= 9){
-        driveTrain.getRight().set(-0.3);
-        driveTrain.getLeft().set(-0.3);      }
-      else if(Robot.yaw > 3){
-        driveTrain.getRight().set(-0.2);
-        driveTrain.getLeft().set(-0.2);      }
-      else if(Robot.yaw <= -7){
-        driveTrain.getRight().set(0.3);
-        driveTrain.getLeft().set(0.3);      }
-      else if(Robot.yaw < -3){
-        driveTrain.getRight().set(0.2);
-        driveTrain.getLeft().set(0.2);      }
+        if(Robot.pitch < 4){
+            driveTrain.getRight().set(0.2);
+            driveTrain.getLeft().set(-0.2);
+        } else if(Robot.pitch > 10){
+            driveTrain.getRight().set(-0.2);
+            driveTrain.getLeft().set(0.2);
+        }
     }
   }
 
@@ -63,15 +56,18 @@ public class VisionTurnRight extends CommandBase
   {
     driveTrain.stop();
   }
-  //bagu chinnu
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished()
   {
-    if(!Robot.hasTarget || ((Robot.yaw >= 3 || Robot.yaw <= -3)))
+    if(!Robot.hasTarget || (Robot.pitch < 4 || Robot.pitch > 10))
       return false;
 
     return true;
   }
 
 }
+
+
+

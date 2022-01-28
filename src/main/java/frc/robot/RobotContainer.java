@@ -8,7 +8,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-//import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -30,8 +30,10 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooterTeleop;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.VisionForward;
 import frc.robot.commands.MoveTilt;
 import frc.robot.commands.VisionTurn;
+import frc.robot.commands.VisionTurnRight;
 import frc.robot.commands.UsefulAuto.TrajectoryAuton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.OdometryDriveTrain;
@@ -67,6 +69,7 @@ public class RobotContainer
   private static Button moveElevatorUp;
   private static Button moveElevatorDown;
   public static Button visionbtn;
+  public static Button visionbtnf;
 
   //motors
   private final MotorController frontLeft, rearLeft;
@@ -93,7 +96,7 @@ public class RobotContainer
   private static DigitalInput limitSwitchLeft;
   private static DigitalInput limitSwitchRight;
   private static Ultrasonic ultra;
-  //private static AHRS ahrs;
+  private static AHRS ahrs;
 
   //subsystems
   private static DifferentialDrive drive;
@@ -121,10 +124,10 @@ public class RobotContainer
   public RobotContainer()
   {
 
-    dt_left_top_enc = new Encoder(Constants.DT_ENC_LEFT_TOP, Constants.DT_ENC_LEFT_TOP2);
-    dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
-    dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-    dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+    // dt_left_top_enc = new Encoder(Constants.DT_ENC_LEFT_TOP, Constants.DT_ENC_LEFT_TOP2);
+    // dt_right_top_enc = new Encoder(Constants.DT_ENC_RIGHT_TOP, Constants.DT_ENC_RIGHT_TOP2);
+    // dt_left_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+    // dt_right_top_enc.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
 
     pid = new PIDController(0, 0, 0);
 
@@ -179,7 +182,7 @@ public class RobotContainer
     ultra = new Ultrasonic(Constants.ULTRASONIC_PING, Constants.ULTRASONIC_ECHO);
     Ultrasonic.setAutomaticMode(true);
 
-    //ahrs = new AHRS(SPI.Port.kMXP);
+    ahrs = new AHRS(SPI.Port.kMXP);
     //robot_odometry = new DifferentialDriveOdometry(ahrs.getRotation2d());
 
     // Configure the button bindings
@@ -203,6 +206,8 @@ public class RobotContainer
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
+    visionbtnf = new JoystickButton(joy, 2);
+
 
 
     transportButton.whenPressed(new MoveTransport(Constants.TRANSPORT_TELEOP_SPEED));
@@ -212,6 +217,7 @@ public class RobotContainer
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
     visionbtn.whileHeld(new VisionTurn(0));
+    //visionbtnf.whileHeld(new VisionForward(0));
 
   }
 
@@ -232,7 +238,7 @@ public class RobotContainer
   public static MotorControllerGroup getLeftSCG(){return leftDrive;}
   public static MotorControllerGroup getRightSCG(){return rightDrive;}
   public static DifferentialDrive getDiffDrive(){return drive;}
-  //public static AHRS getAHRS(){return ahrs;}
+  public static AHRS getAHRS(){return ahrs;}
   public static XboxController getJoy(){return joy;}
   public static Intake getIntake(){return intake;}
   public static Transport getTransport(){return transport;}

@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase
 
     public void takeJoystickInputs(XboxController joy)
     {
-        driveBase.arcadeDrive(-joy.getRightX(), -joy.getLeftY());
+        driveBase.arcadeDrive(-joy.getRightX(), joy.getLeftY());
     }
 
     public DifferentialDrive getDriveBase()
