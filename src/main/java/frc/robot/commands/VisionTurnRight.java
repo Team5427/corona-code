@@ -36,22 +36,28 @@ public class VisionTurnRight extends CommandBase
 
 
     if(!Robot.hasTarget){
-      driveTrain.getRight().set(-0.3);
-      driveTrain.getLeft().set(-0.3);
+      driveTrain.getRight().set(-0.2);
+      driveTrain.getLeft().set(-0.2);
     }
     else{
       if(Robot.yaw >= 9){
-        driveTrain.getRight().set(-0.3);
-        driveTrain.getLeft().set(-0.3);      }
-      else if(Robot.yaw > 3){
         driveTrain.getRight().set(-0.2);
-        driveTrain.getLeft().set(-0.2);      }
+        driveTrain.getLeft().set(-0.2);      
+      }
+      else if(Robot.yaw > 3){
+        driveTrain.getRight().set(-0.15);
+        driveTrain.getLeft().set(-0.15);
+        //driveTrain.tankDrive(0.15, -0.15);      
+      }
       else if(Robot.yaw <= -7){
-        driveTrain.getRight().set(0.3);
-        driveTrain.getLeft().set(0.3);      }
-      else if(Robot.yaw < -3){
         driveTrain.getRight().set(0.2);
-        driveTrain.getLeft().set(0.2);      }
+        driveTrain.getLeft().set(0.2);      
+      }
+      else if(Robot.yaw < -3){
+        driveTrain.getRight().set(0.15);
+        driveTrain.getLeft().set(0.15);
+        //driveTrain.tankDrive(0.15, -0.15);
+      }
     }
   }
 

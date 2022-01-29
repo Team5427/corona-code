@@ -9,7 +9,7 @@ public class DriveTrain extends SubsystemBase
 {
     private MotorControllerGroup left, right;
 
-    private DifferentialDrive driveBase;
+    public static DifferentialDrive driveBase;
 
     public DriveTrain(MotorControllerGroup left, MotorControllerGroup right, DifferentialDrive driveBase)
     {
@@ -42,6 +42,10 @@ public class DriveTrain extends SubsystemBase
     public void takeJoystickInputs(XboxController joy)
     {
         driveBase.arcadeDrive(-joy.getRightX(), joy.getLeftY());
+    }
+
+    public void arcade_Drive(double speed, double angle) {
+        driveBase.arcadeDrive(speed, angle);
     }
 
     public DifferentialDrive getDriveBase()

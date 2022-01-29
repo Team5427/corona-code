@@ -25,7 +25,7 @@ public final class Constants
     public static final double Z_ROT_DAMPENING = 0.75;
     public static final double TURN_TOLERANCE =  2;
     public static final double DRIVE_TOLERANCE = 0.5;
-    public static final double DRIVETRAIN_WHEEL_DIAMETER = 4; //in inches
+    public static final double DRIVETRAIN_WHEEL_DIAMETER = 6; //in inches
     public static final double DISTANCE_PER_PULSE = (Math.PI * DRIVETRAIN_WHEEL_DIAMETER/256)/12.63;
     public static final double SHOOTER_DIST_PER_PULSE = 1;
     public static final double INTAKE_PROXIMITY_DIFFERENCE = 2.0;

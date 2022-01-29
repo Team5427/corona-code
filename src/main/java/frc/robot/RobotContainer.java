@@ -35,6 +35,7 @@ import frc.robot.commands.MoveTilt;
 import frc.robot.commands.VisionTurn;
 import frc.robot.commands.VisionTurnRight;
 import frc.robot.commands.UsefulAuto.TrajectoryAuton;
+import frc.robot.commands.UsefulAuto.moveStraight;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.OdometryDriveTrain;
 import frc.robot.subsystems.Elevator;
@@ -42,6 +43,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.SPI;
@@ -91,7 +94,7 @@ public class RobotContainer
   public static Encoder shooterTopEnc;
   public static Encoder shooterBottomEnc;
   private static Encoder elevatorLeftEnc, elevatorRightEnc;
-  private static Encoder dt_left_top_enc, dt_right_top_enc;
+  public static Encoder dt_left_top_enc, dt_right_top_enc;
   private static DigitalInput tiltSwitch;
   private static DigitalInput limitSwitchLeft;
   private static DigitalInput limitSwitchRight;
@@ -142,6 +145,11 @@ public class RobotContainer
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
     //odometryDriveTrain = new OdometryDriveTrain(leftDrive, rightDrive, drive, dt_left_top_enc, dt_right_top_enc, ahrs, robot_odometry);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
+    dt_left_top_enc = new Encoder(4, 5);
+    dt_right_top_enc = new Encoder(6, 7);
+    dt_left_top_enc.setDistancePerPulse(1);
+    dt_right_top_enc.setDistancePerPulse(1);
+
 
 
     intakeMotor = new WPI_VictorSPX(Constants.INTAKE_MOTOR);
@@ -216,7 +224,7 @@ public class RobotContainer
     tiltDown.whenPressed(new MoveTilt(-Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    visionbtn.whileHeld(new VisionTurn(0));
+    //visionbtn.whenPressed(new moveStraight(0));
     //visionbtnf.whileHeld(new VisionForward(0));
 
   }
@@ -229,7 +237,7 @@ public class RobotContainer
   public static Command getAutonomousCommand()
   {
 
-    return TrajectoryAuton.FollowTrajectory();
+    return new moveStraight(0);
 
   }
 
