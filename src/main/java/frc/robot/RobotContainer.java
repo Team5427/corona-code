@@ -145,10 +145,6 @@ public class RobotContainer
     driveTrain = new DriveTrain(leftDrive, rightDrive, drive);
     //odometryDriveTrain = new OdometryDriveTrain(leftDrive, rightDrive, drive, dt_left_top_enc, dt_right_top_enc, ahrs, robot_odometry);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
-    dt_left_top_enc = new Encoder(4, 5);
-    dt_right_top_enc = new Encoder(6, 7);
-    dt_left_top_enc.setDistancePerPulse(1);
-    dt_right_top_enc.setDistancePerPulse(1);
 
 
 
@@ -224,7 +220,7 @@ public class RobotContainer
     tiltDown.whenPressed(new MoveTilt(-Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    //visionbtn.whenPressed(new moveStraight(0));
+    visionbtn.whileHeld(new VisionTurn(0));
     //visionbtnf.whileHeld(new VisionForward(0));
 
   }

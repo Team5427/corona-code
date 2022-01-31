@@ -19,7 +19,7 @@ public class DriveWithJoystick extends CommandBase
     public void execute()
     {
         RobotContainer.getDriveTrain().takeJoystickInputs(RobotContainer.getJoy());
-        System.out.println(RobotContainer.dt_left_top_enc.getRate());
+        //System.out.println(RobotContainer.dt_left_top_enc.getRate());
         
     }
 
