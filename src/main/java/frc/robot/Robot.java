@@ -32,17 +32,18 @@ public class Robot extends TimedRobot
   private RobotContainer m_robotContainer;
 
   NetworkTable table;
+  NetworkTable table2;
 
   String trajectoryJSON = "paths/YourPath.wpilib.json";
   Trajectory trajectory = new Trajectory();
 
-  public static double pitch;
-  public static double yaw;
-  public static double skew;
-  public static double area;
-  public static double PixelX;
-  public static double PixelY;
-  public static boolean hasTarget;
+  public static double pitch, pitch2;
+  public static double yaw, yaw2;
+  public static double skew, skew2;
+  public static double area, area2;
+  public static double PixelX, PixelX2;
+  public static double PixelY, PixelY2;
+  public static boolean hasTarget, hasTarget2;
 
   double default_all = 0.0;
 
@@ -56,10 +57,14 @@ public class Robot extends TimedRobot
     PathWeaver.ConvertJson();
     m_robotContainer = new RobotContainer();
     RobotContainer.getAHRS().reset();
-    // NetworkTableInstance PIInstance = NetworkTableInstance.create();
-    // PIInstance.setServer("photonvision");
-    // PIInstance.startClient();
-    // table = PIInstance.getTable("photonvision").getSubTable("photoncam");
+    NetworkTableInstance PIInstance = NetworkTableInstance.create();
+    NetworkTableInstance PI2Instance = NetworkTableInstance.create();
+    PIInstance.setServer("photonvision");
+    PIInstance.startClient();
+    table = PIInstance.getTable("photonvision").getSubTable("photoncam");
+    PI2Instance.setServer("photonvision");
+    PI2Instance.startClient();
+    table = PI2Instance.getTable("photonvision").getSubTable("photoncam");
   }
 
   /**
@@ -88,13 +93,21 @@ public class Robot extends TimedRobot
     // SmartDashboard.putNumber("Shooter Top Enc Rate", RobotContainer.getShooter().getTopEnc().getRate()*(60.0/1024.0));
     // //SmartDashboard.putNumber("Shooter Bottom Enc Rate", RobotContainer.getShooter().getBottomEnc().getRate()*(60.0/1024.0));
 
-    // hasTarget = table.getEntry("hasTarget").getBoolean(true);
-    // pitch = table.getEntry("targetPitch").getDouble(default_all);
-    // yaw = table.getEntry("targetYaw").getDouble(default_all);
-    // skew = table.getEntry("targetSkew").getDouble(default_all);
-    // area = table.getEntry("targetArea").getDouble(default_all);
-    // PixelX = table.getEntry("targetPixelsX").getDouble(default_all);
-    // PixelY = table.getEntry("targetPixelsY").getDouble(default_all);
+    hasTarget = table.getEntry("hasTarget").getBoolean(true);
+    pitch = table.getEntry("targetPitch").getDouble(default_all);
+    yaw = table.getEntry("targetYaw").getDouble(default_all);
+    skew = table.getEntry("targetSkew").getDouble(default_all);
+    area = table.getEntry("targetArea").getDouble(default_all);
+    PixelX = table.getEntry("targetPixelsX").getDouble(default_all);
+    PixelY = table.getEntry("targetPixelsY").getDouble(default_all);
+
+    hasTarget2 = table.getEntry("hasTarget").getBoolean(true);
+    pitch2 = table.getEntry("targetPitch").getDouble(default_all);
+    yaw2 = table.getEntry("targetYaw").getDouble(default_all);
+    skew2 = table.getEntry("targetSkew").getDouble(default_all);
+    area2 = table.getEntry("targetArea").getDouble(default_all);
+    PixelX2 = table.getEntry("targetPixelsX").getDouble(default_all);
+    PixelY2 = table.getEntry("targetPixelsY").getDouble(default_all);
     //System.out.println(RobotContainer.getAHRS().getYaw());
   }
 

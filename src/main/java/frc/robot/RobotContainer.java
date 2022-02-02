@@ -210,7 +210,7 @@ public class RobotContainer
     moveElevatorUp = new JoystickButton(joy, Constants.ELEVATOR_UP_BUTTON);
     moveElevatorDown = new JoystickButton(joy, Constants.ELEVATOR_DOWN_BUTTON);
     visionbtn = new JoystickButton(joy, Constants.VISION_PRINT_BTN);
-    visionbtnf = new JoystickButton(joy, 2);
+    //visionbtnf = new JoystickButton(joy, 2);
 
 
 
@@ -220,7 +220,7 @@ public class RobotContainer
     tiltDown.whenPressed(new MoveTilt(-Constants.TILT_SPEED));
     moveElevatorUp.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
     moveElevatorDown.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
-    visionbtn.whileHeld(new VisionTurn(0));
+    visionbtn.whenPressed(new moveStraight(0));
     //visionbtnf.whileHeld(new VisionForward(0));
 
   }
